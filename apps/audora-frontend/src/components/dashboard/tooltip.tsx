@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 
 interface TooltipProps {
@@ -21,7 +21,7 @@ const Tooltip = ({
   const triggerRef = useRef<HTMLDivElement>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const updatePosition = () => {
+  const updatePosition = useCallback(() => {
     if (!triggerRef.current) return;
 
     const rect = triggerRef.current.getBoundingClientRect();
@@ -53,7 +53,7 @@ const Tooltip = ({
     }
 
     setCoords({ top, left });
-  };
+  }, [position]);
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) {
@@ -86,7 +86,7 @@ const Tooltip = ({
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [isVisible]);
+  }, [isVisible, updatePosition]);
 
   return (
     <div
