@@ -41,22 +41,28 @@ const MeetingControllerButton = ({
               isRecord && active,
             'h-12 w-26 rounded-xl bg-red-600 text-white hover:bg-red-700':
               isRecord && !active,
-            'h-12 w-26 rounded-xl bg-orange-500 text-white cursor-not-allowed':
+            'h-12 w-26 cursor-not-allowed rounded-xl bg-orange-500 text-white':
               isRecord && disabled,
             'h-14 w-14 rounded-full px-4 py-2 text-white': !isRecord,
-            'bg-white/10 hover:bg-white/20': (!isRecord && (active || isOn)),
+            'bg-white/10 hover:bg-white/20': !isRecord && (active || isOn),
             'bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white':
               !isRecord && !active && !isOn,
-            'opacity-50 cursor-not-allowed': disabled,
+            'cursor-not-allowed opacity-50': disabled,
           },
           className,
         )}
       >
         {icon}
-        {isRecord && <span className='ml-2 text-sm'>{active ? 'Stop' : 'Record'}</span>}
+        {isRecord && (
+          <span className='ml-2 text-sm'>{active ? 'Stop' : 'Record'}</span>
+        )}
       </button>
       {!isRecord && <span className='text-xs text-white/70'>{label}</span>}
-      {isRecord && <span className='text-xs text-white/60'>{active ? 'Stop' : 'Start'}</span>}
+      {isRecord && (
+        <span className='text-xs text-white/60'>
+          {active ? 'Stop' : 'Start'}
+        </span>
+      )}
     </div>
   );
 };

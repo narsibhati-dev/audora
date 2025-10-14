@@ -37,7 +37,6 @@ const EditSection = () => {
             width={1200}
             height={700}
             className='h-auto w-full object-cover'
-            quality={90}
             priority
           />
         </div>

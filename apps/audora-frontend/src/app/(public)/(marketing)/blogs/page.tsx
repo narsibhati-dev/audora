@@ -166,7 +166,6 @@ export default async function BlogsPage({
                   fill
                   style={{ objectFit: 'cover' }}
                   sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-                  quality={100}
                   className='object-cover transition-transform duration-500 group-hover:scale-105'
                 />
                 <div className='absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent' />

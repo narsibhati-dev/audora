@@ -5,7 +5,7 @@ const AboutHeroSection = () => {
   return (
     <>
       {/* Hero Section */}
-      <div className='relative overflow-hidden py-36 gradient-bg'>
+      <div className='gradient-bg relative overflow-hidden py-36'>
         <GridBackground />
         <div className='relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
           <div className='text-center'>

@@ -7,9 +7,10 @@
     "build": "next build",
     "start:frontend": "next start",
     "lint": "next lint",
-    "lint:fix": "next lint --fix && prettier --write ."
+    "format": "prettier --write ."
   },
   "dependencies": {
+    "@audora/tailwind-css": "*",
     "@next/third-parties": "^15.5.0",
     "@tanstack/react-query": "^5.76.1",
     "@types/bcrypt": "^5.0.2",

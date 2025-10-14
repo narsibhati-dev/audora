@@ -11,7 +11,8 @@ interface MeetingStartProps {
 }
 
 const MeetingStart = ({ isGuest }: MeetingStartProps) => {
-  const { isCountdownActive, countdownValue, onCountdownComplete } = useRecordingStore();
+  const { isCountdownActive, countdownValue, onCountdownComplete } =
+    useRecordingStore();
 
   return (
     <div className='flex h-screen w-full flex-col bg-black text-white'>

@@ -86,7 +86,6 @@ const RecordSection = () => {
               height={800}
               className='h-auto w-full object-cover'
               priority
-              quality={90}
               sizes='600px'
             />
             {/* REC badge */}
@@ -117,7 +116,6 @@ const RecordSection = () => {
                             fill
                             sizes='48px'
                             className='rounded-full border-2 border-zinc-700 object-cover'
-                            quality={85}
                           />
                         </div>
                       ) : (

@@ -1,9 +1,6 @@
 'use client';
 
-import {
-  Volume2,
-  PhoneOff,
-} from 'lucide-react';
+import { Volume2, PhoneOff } from 'lucide-react';
 import { useState } from 'react';
 import MeetingControllerButton from './meeting-controller-button';
 import { useSignalStore } from '@/store/webrtc/signal-store';
@@ -115,7 +112,7 @@ const MeetingControlBar = ({ isGuest = false }) => {
         />
         <MeetingControllerButton
           label='Speaker'
-          onToggle={() => { }}
+          onToggle={() => {}}
           icon={<Volume2 className='h-5 w-5' />}
           isOn
         />
