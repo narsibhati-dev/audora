@@ -11,7 +11,9 @@ const HeaderLoader = ({ isLoading = false }: HeaderLoaderProps) => {
 
   useEffect(() => {
     if (isLoading) {
-      setProgress(0);
+      setTimeout(() => {
+        setProgress(0);
+      }, 0);
       const timer = setTimeout(() => setProgress(100), 100);
 
       const interval = setInterval(() => {
@@ -26,7 +28,9 @@ const HeaderLoader = ({ isLoading = false }: HeaderLoaderProps) => {
         clearInterval(interval);
       };
     } else {
-      setProgress(100);
+      setTimeout(() => {
+        setProgress(100);
+      }, 0);
       const timer = setTimeout(() => setProgress(0), 300);
       return () => clearTimeout(timer);
     }

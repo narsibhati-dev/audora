@@ -25,7 +25,9 @@ const DashboardMobileSidebar = () => {
   const { studioSetting } = useStudioSettingsStore();
 
   useEffect(() => {
-    setIsOpen(false);
+    setTimeout(() => {
+      setIsOpen(false);
+    }, 0);
   }, [pathname]);
 
   useEffect(() => {
@@ -58,9 +60,8 @@ const DashboardMobileSidebar = () => {
       )}
 
       <div
-        className={`bg-dashboard-bg fixed top-0 left-0 z-51 h-screen w-72 transform p-4 text-white transition-all duration-300 ease-in-out ${
-          isOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
+        className={`bg-dashboard-bg fixed top-0 left-0 z-51 h-screen w-72 transform p-4 text-white transition-all duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
         role='dialog'
         aria-modal='true'
         aria-label='Navigation menu'
@@ -82,11 +83,10 @@ const DashboardMobileSidebar = () => {
               {!studioSetting.studioSlug ? (
                 <Link
                   href='/dashboard/account/studio-settings'
-                  className={`flex items-center gap-3 rounded-xl px-4 py-3 text-base font-medium transition hover:bg-[#292929] ${
-                    pathname === '/dashboard/account/studio-settings'
-                      ? 'bg-[#292929]'
-                      : ''
-                  }`}
+                  className={`flex items-center gap-3 rounded-xl px-4 py-3 text-base font-medium transition hover:bg-[#292929] ${pathname === '/dashboard/account/studio-settings'
+                    ? 'bg-[#292929]'
+                    : ''
+                    }`}
                 >
                   <FiSettings size={20} />
                   Settings
@@ -96,9 +96,8 @@ const DashboardMobileSidebar = () => {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`flex items-center gap-4 rounded-xl px-3 py-2 text-base font-medium transition-colors hover:bg-[#292929] ${
-                      pathname === item.href ? 'bg-[#292929]' : ''
-                    }`}
+                    className={`flex items-center gap-4 rounded-xl px-3 py-2 text-base font-medium transition-colors hover:bg-[#292929] ${pathname === item.href ? 'bg-[#292929]' : ''
+                      }`}
                     aria-current={pathname === item.href ? 'page' : undefined}
                   >
                     {item.icon}
@@ -131,9 +130,8 @@ const DashboardMobileSidebar = () => {
 
             <Link
               href='/dashboard/account/settings'
-              className={`flex items-center gap-3 rounded-xl px-4 py-3 text-base font-medium transition hover:bg-[#292929] ${
-                pathname === '/dashboard/account/settings' ? 'bg-[#292929]' : ''
-              }`}
+              className={`flex items-center gap-3 rounded-xl px-4 py-3 text-base font-medium transition hover:bg-[#292929] ${pathname === '/dashboard/account/settings' ? 'bg-[#292929]' : ''
+                }`}
               aria-current={
                 pathname === '/dashboard/account/settings' ? 'page' : undefined
               }

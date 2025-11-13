@@ -27,7 +27,11 @@ export default function RecordingExamplePage() {
   });
 
   useEffect(() => {
-    if (stream) setPreviewStream(stream);
+    if (stream) {
+      setTimeout(() => {
+        setPreviewStream(stream);
+      }, 0);
+    }
   }, [stream]);
 
   useEffect(() => {

@@ -19,11 +19,13 @@ export function useVideoInfo(stream: MediaStream | null): VideoInfo {
     const videoTrack = stream.getVideoTracks()[0];
     if (videoTrack) {
       const settings = videoTrack.getSettings();
-      setVideoInfo({
-        width: settings.width || 0,
-        height: settings.height || 0,
-        frameRate: settings.frameRate ? Math.round(settings.frameRate) : 0,
-      });
+      setTimeout(() => {
+        setVideoInfo({
+          width: settings.width || 0,
+          height: settings.height || 0,
+          frameRate: settings.frameRate ? Math.round(settings.frameRate) : 0,
+        });
+      }, 0);
     }
   }, [stream]);
 

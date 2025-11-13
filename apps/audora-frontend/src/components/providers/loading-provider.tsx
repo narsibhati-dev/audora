@@ -29,7 +29,9 @@ export const LoadingProvider = ({
 
   useEffect(() => {
     // Show loader when pathname changes (navigation)
-    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(true);
+    }, 0);
 
     // Hide loader after a short delay to simulate loading
     const timer = setTimeout(() => {

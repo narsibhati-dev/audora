@@ -16,7 +16,9 @@ const Header = ({ isMarketing = false }: { isMarketing?: boolean }) => {
       return;
     }
 
-    setScrolled(window.scrollY > SCROLL_THRESHOLD);
+    setTimeout(() => {
+      setScrolled(window.scrollY > SCROLL_THRESHOLD);
+    }, 0);
 
     const onScroll = () => {
       setScrolled(window.scrollY > SCROLL_THRESHOLD);
