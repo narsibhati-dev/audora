@@ -1,6 +1,7 @@
 {
   "extends": "@audora/typescript-config/nextjs.json",
   "compilerOptions": {
+    "skipLibCheck": true,
     "plugins": [
       {
         "name": "next"
