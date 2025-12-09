@@ -51,6 +51,7 @@ export const verifyToken = (token: string): TokenPayload | null => {
  * @param participantRole - The participant role.
  * @param recordable - Whether the meeting is recordable.
  * @param roomId - The room ID.
+ * @returns The JWT token.
  */
 export const generateMeetingToken = ({
   studioId,
@@ -82,12 +83,12 @@ export const generateMeetingToken = ({
  * @returns The meeting token payload.
  */
 export const verifyMeetingToken = (
-  token: string,
+  token: string
 ): MeetingTokenPayload | null => {
   try {
     const decoded = jwt.verify(
       token,
-      NEXTAUTH_SECRET as string,
+      NEXTAUTH_SECRET as string
     ) as MeetingTokenPayload;
     return decoded;
   } catch (error) {

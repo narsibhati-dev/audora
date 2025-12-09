@@ -21,10 +21,10 @@
     "studio": "bunx prisma studio"
   },
   "peerDependencies": {
-    "typescript": "^5"
+    "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@prisma/client": "^6.7.0",
-    "prisma": "^6.7.0"
+    "@prisma/client": "^6.19.0",
+    "prisma": "^6.19.0"
   }
 }
