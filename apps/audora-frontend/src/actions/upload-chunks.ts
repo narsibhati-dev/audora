@@ -1,10 +1,10 @@
 'use server';
 
-import { API_URL } from '@/config';
+import { HTTP_URL } from '@/config';
 import axios from 'axios';
 
 export const uploadChunks = async (formData: FormData) => {
-  const response = await axios.post(`${API_URL}/recording/chunks`, formData, {
+  const response = await axios.post(`${HTTP_URL}/recording/chunks`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },

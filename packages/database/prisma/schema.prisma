@@ -5,55 +5,55 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 model User {
   id        String   @id @default(uuid())
   name      String
   email     String   @unique
-  password  String?  
+  password  String?
   image     String?
   provider  String   @default("credentials")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  studio    Studio?  @relation("UserStudio")
-  
+  studio Studio? @relation("UserStudio")
+
   @@index([id])
 }
 
 model Studio {
-  id                         String   @id @default(uuid())
-  studioSlug                 String   @unique
-  studioName                 String
-  token                      String   @unique @default(cuid())
+  id         String @id @default(uuid())
+  studioSlug String @unique
+  studioName String
+  token      String @unique @default(cuid())
 
   // settings
-  enableLobby                Boolean  @default(false)
-  enableCaptions             Boolean  @default(false)
-  recordingType              RecordingType  @default(VIDEO_AUDIO)
-  audioSampleRate            AudioSampleRate  @default(KHZ_44_1)
-  videoQuality               VideoQuality  @default(STANDARD)
-  countdownBeforeRecording   Boolean  @default(false)
-  autoStartOnGuestJoin       Boolean  @default(false)
-  noiseReduction             Boolean  @default(false)
-  pauseUploads               Boolean  @default(false)
-  language                   String   @default("English")
-  createdAt                  DateTime @default(now())
-  updatedAt                  DateTime @updatedAt
+  enableLobby              Boolean         @default(false)
+  enableCaptions           Boolean         @default(false)
+  recordingType            RecordingType   @default(VIDEO_AUDIO)
+  audioSampleRate          AudioSampleRate @default(KHZ_44_1)
+  videoQuality             VideoQuality    @default(STANDARD)
+  countdownBeforeRecording Boolean         @default(false)
+  autoStartOnGuestJoin     Boolean         @default(false)
+  noiseReduction           Boolean         @default(false)
+  pauseUploads             Boolean         @default(false)
+  language                 String          @default("English")
+  createdAt                DateTime        @default(now())
+  updatedAt                DateTime        @updatedAt
 
   // user
-  user       User     @relation("UserStudio", fields: [userId], references: [id], onDelete: Cascade)
-  userId     String   @unique
-  projects  Project[] @relation("StudioProject")
+  user     User      @relation("UserStudio", fields: [userId], references: [id], onDelete: Cascade)
+  userId   String    @unique
+  projects Project[] @relation("StudioProject")
 
-  @@index([id, userId ,studioSlug])
+  @@index([id, userId, studioSlug])
 }
 
 enum RecordingType {
@@ -72,13 +72,13 @@ enum VideoQuality {
 }
 
 model Project {
-  id         String   @id @default(uuid())
-  title      String
-  studioId   String
-  createdAt  DateTime @default(now())
+  id        String   @id @default(uuid())
+  title     String
+  studioId  String
+  createdAt DateTime @default(now())
 
-  studio     Studio   @relation("StudioProject", fields: [studioId], references: [id], onDelete: Cascade)
-  tracks     Track[] @relation("ProjectTrack")
+  studio Studio  @relation("StudioProject", fields: [studioId], references: [id], onDelete: Cascade)
+  tracks Track[] @relation("ProjectTrack")
 
   @@index([id, studioId])
 }
@@ -90,24 +90,24 @@ model Track {
   mergedVideoUrl String?
   createdAt      DateTime @default(now())
 
-  project        Project  @relation("ProjectTrack", fields: [projectId], references: [id])
-  recordings     Recording[] @relation("RecordingTrack")
+  project    Project     @relation("ProjectTrack", fields: [projectId], references: [id])
+  recordings Recording[] @relation("RecordingTrack")
 
   @@index([id, projectId])
 }
 
 model Recording {
-  id           String   @id @default(uuid())
+  id           String          @id @default(uuid())
   trackId      String
   displayName  String
   videoUrl     String?
-  duration     Int? 
-  resolution   String? @default("1280x720")
-  thumbnailUrl String? @default("https://via.placeholder.com/150")
-  status       RecordingStatus   @default(RECORDING)
-  createdAt    DateTime @default(now())
+  duration     Int?
+  resolution   String?         @default("1280x720")
+  thumbnailUrl String?         @default("https://via.placeholder.com/150")
+  status       RecordingStatus @default(RECORDING)
+  createdAt    DateTime        @default(now())
 
-  track        Track    @relation("RecordingTrack", fields: [trackId], references: [id])
+  track Track @relation("RecordingTrack", fields: [trackId], references: [id])
 
   @@index([id, trackId])
 }

@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 import { UpdateStudioSettingSchema, UpdateStudioSetting } from '@audora/types';
-import { API_URL } from '@/config';
+import { HTTP_URL } from '@/config';
 import authOptions from '@/lib/auth/auth-options';
 import { getServerSession } from 'next-auth';
 
@@ -17,7 +17,7 @@ export const createStudio = async (studioName: string) => {
 
   try {
     const response = await axios.post(
-      `${API_URL}/studio/create`,
+      `${HTTP_URL}/studio/create`,
       { studioName },
       {
         headers: {
@@ -42,7 +42,7 @@ export const updateStudioName = async (
 ) => {
   try {
     const response = await axios.post(
-      `${API_URL}/studio/update`,
+      `${HTTP_URL}/studio/update`,
       { studioId, studioName },
       {
         headers: {
@@ -68,7 +68,7 @@ export const deleteStudio = async () => {
   }
 
   try {
-    const response = await axios.delete(`${API_URL}/studio/delete`, {
+    const response = await axios.delete(`${HTTP_URL}/studio/delete`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `${session.user.accessToken}`,
@@ -86,7 +86,7 @@ export const deleteStudio = async () => {
  */
 export const getStudio = async (accessToken: string) => {
   try {
-    const response = await axios.get(`${API_URL}/studio/get`, {
+    const response = await axios.get(`${HTTP_URL}/studio/get`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `${accessToken}`,
@@ -119,7 +119,7 @@ export const updateStudioSetting = async (
 
   try {
     const response = await axios.post(
-      `${API_URL}/studio/update-setting`,
+      `${HTTP_URL}/studio/update-setting`,
       {
         studioId,
         settingName: parsed.data.settingName,

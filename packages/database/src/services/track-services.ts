@@ -1,4 +1,4 @@
-import type { Track } from "@prisma/client";
+import type { Track } from "../../generated/prisma/client.js";
 import { client } from "../client";
 
 // track services
@@ -48,7 +48,7 @@ export const getTracksByProjectIdService = async (projectId: string) => {
 
 export const updateTrackService = async (
   trackId: string,
-  data: Partial<Track>,
+  data: Partial<Track>
 ) => {
   const track = await client.track.update({
     where: { id: trackId },

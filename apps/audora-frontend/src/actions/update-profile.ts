@@ -1,7 +1,7 @@
 'use server';
 
 import axios from 'axios';
-import { API_URL } from '@/config';
+import { HTTP_URL } from '@/config';
 import { getServerSession } from 'next-auth';
 import authOptions from '@/lib/auth/auth-options';
 
@@ -14,7 +14,7 @@ export const updateProfile = async (profileData: { name: string }) => {
 
   try {
     const response = await axios.put(
-      `${API_URL}/profile/update-name`,
+      `${HTTP_URL}/profile/update-name`,
       {
         name: profileData.name,
       },

@@ -31,13 +31,8 @@
       "persistent": true
     },
 
-    "start": {
-      "dependsOn": ["start:frontend", "start:api", "start:signal"],
-      "cache": false
-    },
-
     "start:frontend": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "env": [
         "GOOGLE_CLIENT_ID",
@@ -49,7 +44,8 @@
         "NEXT_PUBLIC_SIGNAL_URL",
         "NODE_ENV"
       ],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "outputs": [".next/**", "!.next/cache/**"],
+      "persistent": true
     },
 
     "start:api": {
@@ -76,6 +72,7 @@
 
     "generate": {
       "cache": false,
+      "env": ["DATABASE_URL"],
       "persistent": true
     },
 

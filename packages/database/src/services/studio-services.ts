@@ -3,7 +3,7 @@ import type {
   VideoQuality,
   RecordingType,
   Studio,
-} from "@prisma/client";
+} from "../../generated/prisma/client.js";
 
 import { client } from "../client";
 import slugifyStudioName from "../utils/slugifyStudioName";
@@ -64,7 +64,7 @@ export const createStudioService = async ({
 
 export const updateStudioService = async (
   studioId: string,
-  data: Partial<Studio>,
+  data: Partial<Studio>
 ) => {
   const studio = await client.studio.update({
     where: { id: studioId },

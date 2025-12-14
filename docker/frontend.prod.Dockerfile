@@ -2,7 +2,7 @@
 # Frontend Dockerfile (Bun)
 # ============================
 
-FROM oven/bun:1.2.9@sha256:7eb9c0438a42438d884891f5460d6f5b89c20797cb58062b6d28ccba725a8c42
+FROM oven/bun:1.3.4@sha256:335649abebdd8d815579aac4a6bc9350c293e40848763db73b0955d08333f7bd
 
 WORKDIR /app
 

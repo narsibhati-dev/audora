@@ -3,7 +3,7 @@
 import { getServerSession } from 'next-auth';
 import authOptions from '@/lib/auth/auth-options';
 import axios from 'axios';
-import { API_URL } from '@/config';
+import { HTTP_URL } from '@/config';
 
 export interface CreateProjectResponse {
   success: boolean;
@@ -41,7 +41,7 @@ export const createProject = async (
       };
     }
 
-    const response = await axios(`${API_URL}/api/projects`, {
+    const response = await axios(`${HTTP_URL}/api/projects`, {
       method: 'POST',
       data: {
         studioSlug,
@@ -84,33 +84,25 @@ export const createTrack = async (
       };
     }
 
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/tracks`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          projectId,
-          name: trackName,
-        }),
+    const response = await axios(`${HTTP_URL}/api/tracks`, {
+      method: 'POST',
+      data: {
+        projectId,
+        name: trackName,
       },
-    );
+    });
 
-    const data = await response.json();
-
-    if (!response.ok) {
+    if (!response.data.success) {
       return {
         success: false,
-        message: data.message || 'Failed to create track',
+        message: response.data.message || 'Failed to create track',
       };
     }
 
     return {
       success: true,
       message: 'Track created successfully',
-      track: data.track,
+      track: response.data.data,
     };
   } catch (error) {
     console.error('Error creating track:', error);

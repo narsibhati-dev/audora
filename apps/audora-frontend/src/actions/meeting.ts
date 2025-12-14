@@ -1,6 +1,6 @@
 'use server';
 
-import { API_URL } from '@/config';
+import { HTTP_URL } from '@/config';
 import axios from 'axios';
 
 export const generateMeetingToken = async (
@@ -9,7 +9,7 @@ export const generateMeetingToken = async (
   studioToken?: string | null,
 ) => {
   const response = await axios.post(
-    `${API_URL}/meeting/generate-token`,
+    `${HTTP_URL}/generate-token`,
     {
       studioSlug,
       userId,

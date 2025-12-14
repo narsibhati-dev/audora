@@ -1,7 +1,7 @@
 'use server';
 
 import axios from 'axios';
-import { API_URL } from '@/config';
+import { HTTP_URL } from '@/config';
 
 export interface AuthError {
   response?: {
@@ -19,7 +19,7 @@ export const RegisterUser = async (userData: {
   provider?: string;
 }) => {
   try {
-    const response = await axios.post(`${API_URL}/auth/register`, userData);
+    const response = await axios.post(`${HTTP_URL}/auth/register`, userData);
     return response.data;
   } catch (error) {
     const err = error as AuthError;
@@ -36,7 +36,7 @@ export const LoginUser = async (userData: {
   password: string;
 }) => {
   try {
-    const response = await axios.post(`${API_URL}/auth/login`, userData);
+    const response = await axios.post(`${HTTP_URL}/auth/login`, userData);
 
     if (!response.data) {
       throw new Error('No data received from server');
@@ -73,7 +73,7 @@ export const RegisterWithGoogle = async (userData: {
   name: string;
 }) => {
   try {
-    const response = await axios.post(`${API_URL}/auth/google`, userData);
+    const response = await axios.post(`${HTTP_URL}/auth/google`, userData);
 
     const processedData = {
       success: true,
