@@ -5,8 +5,8 @@ services:
       dockerfile: docker/frontend.prod.Dockerfile
       args:
         NEXT_PUBLIC_SITE_URL: http://localhost:3000
-        NEXT_PUBLIC_HTTP_URL: http://localhost:9000
-        NEXT_PUBLIC_SIGNAL_URL: ws://localhost:8000
+        NEXT_PUBLIC_HTTP_URL: http://backend:9000
+        NEXT_PUBLIC_SIGNALING_URL: ws://localhost:8000
     ports:
       - "3000:3000"
     depends_on:
@@ -16,13 +16,20 @@ services:
         condition: service_healthy
     environment:
       NEXT_PUBLIC_SITE_URL: http://localhost:3000
-      NEXT_PUBLIC_HTTP_URL: http://localhost:9000
-      NEXT_PUBLIC_SIGNAL_URL: ws://localhost:8000
+      NEXT_PUBLIC_HTTP_URL: http://backend:9000
+      NEXT_PUBLIC_SIGNALING_URL: ws://localhost:8000
       NODE_ENV: production
       NEXTAUTH_URL: http://localhost:3000
-      NEXTAUTH_SECRET: changeme
-      GOOGLE_CLIENT_ID: ""
-      GOOGLE_CLIENT_SECRET: ""
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-changeme}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl --fail http://localhost:3000 || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
 
   backend:
     build:
@@ -37,14 +44,16 @@ services:
         condition: service_healthy
     environment:
       DATABASE_URL: postgresql://audora_user:supersecret123@database:5432/audora
-      JWT_SECRET: changeme
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-changeme}
       FRONTEND_URL: http://localhost:3000
+      NODE_ENV: production
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "curl --fail http://localhost:9000/health || exit 1"]
+      test: ["CMD-SHELL", "curl --fail http://localhost:9000/ || exit 1"]
       interval: 5s
       timeout: 3s
-      retries: 3
+      retries: 5
+      start_period: 15s
 
   signal:
     build:
@@ -54,13 +63,21 @@ services:
         DATABASE_URL: postgresql://audora_user:supersecret123@database:5432/audora
     ports:
       - "8000:8000"
+      - "8001:8001"
     depends_on:
       database:
         condition: service_healthy
     environment:
       DATABASE_URL: postgresql://audora_user:supersecret123@database:5432/audora
-      JWT_SECRET: changeme
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-changeme}
+      NODE_ENV: production
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl --fail http://localhost:8001/health || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
 
   database:
     image: postgres:15

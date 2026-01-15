@@ -1,0 +1,68 @@
+# Dependencies
+node_modules
+**/node_modules
+
+# Build outputs
+.next
+**/.next
+dist
+**/dist
+out
+**/out
+
+# Generated files
+**/generated
+
+# Git
+.git
+.gitignore
+
+# IDE and editors
+.idea
+.vscode
+*.swp
+*.swo
+*.vim
+
+# Environment files (don't leak secrets)
+.env
+.env.*
+!.env.example
+
+# Turborepo cache
+.turbo
+**/.turbo
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+
+# Docker files (not needed in build context)
+docker-compose*.yml
+Dockerfile*
+docker/*.Dockerfile
+
+# Documentation
+*.md
+!README.md
+LICENSE*
+
+# Test files
+coverage
+**/.coverage
+.nyc_output
+
+# Misc
+*.tgz
+*.tar.gz
+.eslintcache
+.cache

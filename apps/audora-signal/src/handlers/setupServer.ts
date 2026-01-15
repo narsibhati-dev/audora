@@ -5,7 +5,7 @@ import type { InboundMessage } from "@audora/types";
 import { roomEventHandler } from "./roomHandler";
 import { webRTCHandler } from "./webRTCHandler";
 import { sendAndClose } from "../utils/sendAndClose";
-import { removeParticipantBySocket } from "../rooms/room-manager";
+// import { removeParticipantBySocket } from "../rooms/room-manager";
 import { authenticateWebSocket } from "../services/auth";
 import { getToken } from "../services/getToken";
 import { meetingHandler } from "./meetingHandler";
@@ -74,13 +74,13 @@ export const setupSignalingServer = (wss: WebSocketServer) => {
             sendAndClose(
               socket,
               "error",
-              `Unknown message type: ${message.type}`,
+              `Unknown message type: ${message.type}`
             );
         }
       } catch (error) {
         logger.error(
           `Error handling message of type "${message?.type}":`,
-          error,
+          error
         );
         sendAndClose(socket, "error", "Internal server error");
       }
@@ -93,7 +93,7 @@ export const setupSignalingServer = (wss: WebSocketServer) => {
         // removeParticipantBySocket(studioSlug, socket);
 
         logger.info(
-          `[${studioSlug}] ${participantRole} (${userId}) connection closed`,
+          `[${studioSlug}] ${participantRole} (${userId}) connection closed`
         );
 
         // Trigger leave logic

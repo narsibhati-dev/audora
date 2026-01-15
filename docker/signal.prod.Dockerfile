@@ -1,26 +1,27 @@
-# ============================
 # WebSocket Signal Dockerfile (Bun)
-# ============================
 
-FROM oven/bun:1.3.4@sha256:335649abebdd8d815579aac4a6bc9350c293e40848763db73b0955d08333f7bd
+FROM oven/bun:1.3.4-debian
+
+# Install curl for health checks
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
 ARG DATABASE_URL
 ENV DATABASE_URL=$DATABASE_URL
 
-# Copy necessary files for dependency installation
-COPY ../package.json ./package.json
-COPY ../bun.lock ./bun.lock
-COPY ../turbo.json ./turbo.json
-COPY ../packages ./packages
-COPY ../apps/audora-signal ./apps/audora-signal
+COPY package.json bun.lock turbo.json ./
 
-# Install deps
+COPY packages/database/package.json ./packages/database/
+COPY packages/types/package.json ./packages/types/
+COPY packages/typescript-config/package.json ./packages/typescript-config/
+COPY apps/audora-signal/package.json ./apps/audora-signal/
+
 RUN bun install
 
-# Expose backend port
-EXPOSE 8000
+COPY packages ./packages
+COPY apps/audora-signal ./apps/audora-signal
 
-# Run the server with database deployment
+EXPOSE 8000 8001
+
 CMD ["bun", "run", "start:signal"]
