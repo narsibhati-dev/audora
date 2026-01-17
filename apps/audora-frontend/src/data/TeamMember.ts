@@ -13,8 +13,8 @@ export const teamMembers: TeamMemberSchema[] = [
   {
     name: 'Narsi Bhati',
     role: 'Founder & Full-Stack Engineer',
-    image: '/images/team/narsi-bhati.png',
-    bio: 'Passionate about real-time media, distributed systems, and building reliable user-first applications. Leads product and tech at Audora.',
+    image: '/images/team/narsi-bhati.jpg',
+    bio: 'Experienced in real-time media, distributed systems, and the development of robust, user-centered applications. Responsible for leading product and technology at Audora.',
     linkedin: siteMetadata.linkedIn,
     twitter: siteMetadata.twitter,
   },

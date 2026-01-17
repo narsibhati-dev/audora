@@ -1,109 +1,148 @@
-# Audora.xyz 🎙️
+# Audora.xyz
 
 ![Audora Logo](apps/audora-frontend/public/images/audora-logo-black.webp)
 
-## **High-Quality Podcast Recording Platform**
+## High-Quality Podcast Recording Platform
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![Code of Conduct](https://img.shields.io/badge/Code%20of%20Conduct-v2.0-ff69b4.svg)](CODE_OF_CONDUCT.md)
 
-## Code of Conduct
+---
 
-Please read and follow our [Code of Conduct](./CODE_OF_CONDUCT.md) to help keep **Audora** a welcoming and inclusive space for everyone.
+## Table of Contents
 
-## License
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [Database Management](#database-management)
+- [Deployment](#deployment)
+- [Available Scripts](#available-scripts)
+- [Development Tools](#development-tools)
+- [Support](#support)
+- [License](#license)
 
-This project is licensed under the [MIT License](./LICENSE.md).
+---
 
-## 🏗 Project Structure
-
-This monorepo is managed using **Turborepo** and is structured as follows:
-
-```sh
-audora/
-├── apps/ # Contains independent applications
-│   ├── audora-frontend/        # Next.js app for the UI
-│   ├── audora-backend/         # Fastify backend for API handling
-│   ├── audora-signal/       # WebSocket server for real-time communication
-├── packages/ # Shared code across apps
-│   ├── database/        # Prisma & PostgreSQL setup
-│   ├── types/           # Shared TypeScript types
-# │   ├── backend-common/  # Common utilities for backend services
-├── docker/              # Docker configuration
-│   ├── backend.prod.Dockerfile    # Production Dockerfile for backend
-│   ├── frontend.prod.Dockerfile   # Production Dockerfile for frontend
-│   ├── signal.prod.Dockerfile  # Production Dockerfile for WebSocket
-│   ├── db.docker-compose.yml         # Docker Compose configuration
-├── .github/workflows/    # GitHub Actions CI/CD pipelines
-│   ├── cd_api.yml    # CI/CD pipeline for backend
-│   ├── cd_frontend.yml   # CI/CD pipeline for frontend
-│   ├── cd_signal.yml  # CI/CD pipeline for WebSocket
-├── turbo.json           # Turborepo config file
-├── package.json         # Root package.json for Bun & Turborepo setup
-└── README.md            # Project documentation
-```
-
-## 🧩 Features
+## Features
 
 Audora offers a comprehensive set of features for professional podcast recording:
 
-- 🎥 **High-Quality Recording**
-  - Studio-grade audio and video recording
-  - Multiple input device support
-  - Customizable recording settings
+- **High-Quality Recording** - Studio-grade audio and video recording with multiple input device support
+- **Real-Time Communication** - WebRTC-based peer-to-peer connections with low-latency streaming
+- **Reliable Uploads** - S3 multipart uploads with automatic retry and resume capability
+- **Professional Processing** - Video transcoding, audio normalization, and custom branding
+- **Security and Privacy** - End-to-end encryption with secure room management
 
-- 🌐 **Real-Time Communication**
-  - WebRTC-based peer-to-peer connections
-  - Low-latency audio/video streaming
-  - Multi-participant support
+---
 
-- 📤 **Reliable Uploads**
-  - S3 multipart uploads with automatic retry
-  - Progress tracking and resume capability
-  - Secure file transfer
+## Tech Stack
 
-- 🎬 **Professional Processing**
-  - Video transcoding pipeline
-  - Audio normalization and enhancement
-  - Custom overlays and branding
+| Category  | Technology             |
+| --------- | ---------------------- |
+| Monorepo  | Turborepo              |
+| Runtime   | Bun                    |
+| Frontend  | Next.js 14             |
+| Backend   | Express                |
+| Real-time | WebRTC, WebSocket      |
+| Database  | PostgreSQL, Prisma     |
+| Storage   | AWS S3                 |
+| Media     | FFmpeg                 |
+| DevOps    | Docker, GitHub Actions |
 
-- 🔒 **Security & Privacy**
-  - End-to-end encryption
-  - Secure room management
-  - Privacy-focused design
+---
 
-## 🚀 Getting Started
+## Project Structure
+
+This monorepo is managed using **Turborepo** and is structured as follows:
+
+```text
+audora/
+├── apps/
+│   ├── audora-frontend/       # Next.js app for the UI
+│   ├── audora-api/            # Express backend for API handling
+│   └── audora-signal/         # WebSocket server for real-time communication
+├── packages/
+│   ├── database/              # Prisma and PostgreSQL setup
+│   ├── types/                 # Shared TypeScript types
+│   ├── ui/                    # Shared UI components
+│   └── typescript-config/     # Shared TypeScript configuration
+├── docker/
+│   ├── backend.prod.Dockerfile
+│   ├── frontend.prod.Dockerfile
+│   ├── signal.prod.Dockerfile
+│   └── db.docker-compose.yml
+├── .github/workflows/         # GitHub Actions CI/CD pipelines
+├── turbo.json                 # Turborepo configuration
+├── docker-compose.yml         # Full stack Docker Compose
+└── package.json               # Root package.json
+```
+
+---
+
+## Getting Started
 
 ### Prerequisites
 
-- **Bun** (v1.2.5 or later)
-- **Node.js** (v18 or later)
-- **PostgreSQL** (v14 or later)
-- **FFmpeg**
-- **AWS Account** (for S3)
+- **Bun** v1.2.5 or later
+- **Node.js** v18 or later
+- **PostgreSQL** v14 or later
 - **Docker** and **Docker Compose**
+- **FFmpeg** (for media processing)
 
-### Install Dependencies
+### Installation
+
+Clone the repository and install dependencies:
 
 ```sh
 bun install
 ```
 
-### Configure Environment Variables
+Copy the environment example file and configure:
 
-Create environment files for each app:
+```sh
+cp .env.example .env
+```
 
-1. Copy the example environment files
-2. Rename them to `.env` in each app directory
-3. Fill in the required values like `DATABASE_URL`, `AWS_CREDENTIALS`, etc.
-
-### Database Setup
-
-Start the PostgreSQL database using Docker:
+Start the database:
 
 ```sh
 bun run db:up
+```
+
+Generate Prisma client and run migrations:
+
+```sh
+bun run db:deploy
+```
+
+Start the development server:
+
+```sh
+bun run dev
+```
+
+---
+
+## Database Management
+
+### Start PostgreSQL
+
+```sh
+bun run db:up
+```
+
+### Stop PostgreSQL
+
+```sh
+bun run db:down
+```
+
+### Run Migrations
+
+```sh
+bun run db:deploy
 ```
 
 ### Generate Prisma Client
@@ -112,154 +151,102 @@ bun run db:up
 bun run generate
 ```
 
-### Deploy Database Migrations
+---
+
+## Deployment
+
+### Docker Compose (Recommended)
+
+Start all services with a single command:
 
 ```sh
-bun run db:deploy
+docker compose up -d
 ```
 
-### Run the Application
+This starts:
 
-#### Development Mode
+- PostgreSQL database on port 5432
+- Backend API on port 9000
+- Signal server on port 8000
+- Frontend on port 3000
+
+### Individual Docker Builds
 
 ```sh
-bun run dev
+# Build all services
+docker compose build
+
+# Build specific service
+docker compose build frontend
+docker compose build backend
+docker compose build signal
 ```
 
-#### Production Mode
+### Production Dockerfiles
 
-```sh
-bun run build
-bun run start
-```
+Located in the `/docker` directory:
 
-Or use the combined command:
-
-```sh
-bun run server:start
-```
-
-### Start Individual Apps
-
-```sh
-# Start frontend only
-bun run start:frontend
-
-# Start backend API only
-bun run start:backend
-
-# Start WebSocket server only
-bun run start:websocket
-```
-
-## 📦 Tech Stack
-
-- **Turborepo** → Monorepo management
-- **Bun** → Fast JavaScript package manager & runtime
-- **Next.js 14** → Frontend framework
-- **Fastify** → Backend API
-- **WebRTC** → Real-time communication
-- **PostgreSQL** → Database
-- **Prisma** → ORM for database management
-- **AWS S3** → File storage
-- **FFmpeg** → Media processing
-- **Docker** → Containerization
-- **GitHub Actions** → CI/CD pipelines
-
-## 🗄 Database Setup
-
-### Start PostgreSQL with Docker
-
-```sh
-bun db:up
-```
-
-### Stop PostgreSQL
-
-```sh
-bun db:down
-```
-
-### Run Database Migrations
-
-```sh
-bun run db:deploy
-```
-
-## 🚢 Deployment
-
-The project includes production Docker configurations and GitHub Actions workflows for continuous deployment:
-
-### Docker Production Setup
-
-The `/docker` directory contains production Dockerfiles for each service:
-
-- `backend.prod.Dockerfile` - Production container for the backend API
-- `frontend.prod.Dockerfile` - Production container for the Next.js frontend
-- `websocket.prod.Dockerfile` - Production container for the WebSocket server
+- `backend.prod.Dockerfile` - Backend API container
+- `frontend.prod.Dockerfile` - Next.js frontend container
+- `signal.prod.Dockerfile` - WebSocket server container
 
 ### CI/CD Pipelines
 
-GitHub Actions workflows in the `.github/workflows` directory automate the deployment process:
+GitHub Actions workflows automate deployment:
 
-- `cd_backend.yml` - Deploys the backend service
+- `cd_api.yml` - Deploys the backend service
 - `cd_frontend.yml` - Deploys the frontend application
-- `cd_websocket.yml` - Deploys the WebSocket server
+- `cd_signal.yml` - Deploys the WebSocket server
 
-## 📜 Available Scripts
+---
 
-```json
-{
-  "scripts": {
-    "dev": "turbo run dev",
-    "build": "turbo run build",
-    "start": "turbo run start",
-    "start:frontend": "turbo run start:frontend --filter=audora-frontend",
-    "start:backend": "turbo run start:backend --filter=audora-backend",
-    "start:websocket": "turbo run start:websocket --filter=audora-websocket",
-    "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "check-types": "turbo run check-types",
-    "db:up": "docker-compose -f docker/docker-compose.yml up -d",
-    "db:down": "docker-compose -f docker/docker-compose.yml down",
-    "infra:build": "docker-compose -f docker-compose.yml build",
-    "infra:up": "docker-compose -f docker-compose.yml up -d",
-    "infra:down": "docker-compose -f docker-compose.yml down",
-    "db:deploy": "turbo run db:deploy",
-    "server:start": "bun run db:deploy && bun run start",
-    "generate": "turbo run generate"
-  }
-}
-```
+## Available Scripts
+
+| Script                   | Description                        |
+| ------------------------ | ---------------------------------- |
+| `bun run dev`            | Start all apps in development mode |
+| `bun run build`          | Build all apps for production      |
+| `bun run start`          | Start all apps in production mode  |
+| `bun run start:frontend` | Start frontend only                |
+| `bun run start:api`      | Start backend API only             |
+| `bun run start:signal`   | Start WebSocket server only        |
+| `bun run db:up`          | Start PostgreSQL with Docker       |
+| `bun run db:down`        | Stop PostgreSQL                    |
+| `bun run db:deploy`      | Run database migrations            |
+| `bun run generate`       | Generate Prisma client             |
+| `bun run lint`           | Run linting across all packages    |
+| `bun run format`         | Format code with Prettier          |
+| `bun run check-types`    | Run TypeScript type checking       |
+
+---
 
 ## Development Tools
 
 ```sh
-# Run linting across all packages
+# Run linting
 bun run lint
 
-# Format code with Prettier
+# Format code
 bun run format
 
 # Type checking
 bun run check-types
 ```
 
-## 📞 Support
+---
 
-- **Documentation**: [docs.audora.xyz](https://docs.audora.xyz)
-- **Email**: support@audora.xyz
-- **Discord**: [Join our community](https://discord.gg/audora)
+## Code of Conduct
 
-## 🙏 Acknowledgments
+Please read and follow our [Code of Conduct](./CODE_OF_CONDUCT.md) to help keep Audora a welcoming and inclusive space for everyone.
 
-- [WebRTC](https://webrtc.org/) for real-time communication
-- [FFmpeg](https://ffmpeg.org/) for media processing
-- [Prisma](https://www.prisma.io/) for database management
-- All our contributors and supporters
+---
+
+## License
+
+This project is licensed under the [MIT License](./LICENSE.md).
 
 ---
 
 <div align="center">
-Made with ❤️ by the Audora Team
+Made with care by the <b style="color:  #d3c9ff">audoralabs</b> Team
 </div>

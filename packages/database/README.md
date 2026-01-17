@@ -8,7 +8,7 @@ Built with [Prisma](https://prisma.io), [PostgreSQL](https://www.postgresql.org/
 
 ---
 
-## 📁 Folder Structure
+## Folder Structure
 
 ```bash
 Packages/database
@@ -34,7 +34,7 @@ Packages/database
 
 ---
 
-## ⚙️ Scripts
+## Scripts
 
 | Script              | Description                                    |
 | ------------------- | ---------------------------------------------- |
@@ -46,7 +46,7 @@ Packages/database
 
 ---
 
-## 🧩 Exports
+## Exports
 
 ```json
 "exports": {
@@ -60,7 +60,7 @@ Packages/database
 
 ⸻
 
-📦 Requirements
+## Requirements
 
 ```bash
 • Bun v1.2.12+

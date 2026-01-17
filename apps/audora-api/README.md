@@ -1,25 +1,25 @@
-# 🎙️ Audora Backend API
+# Audora Backend API
 
 This repository contains the **backend API** for Audora, a high-quality podcast recording platform. Built with **Fastify** and **Bun**, it manages **user authentication, podcast rooms, recording sessions, and media processing** within a **Turborepo monorepo** setup.
 
 ---
 
-## 🚀 Features
+## Features
 
-✅ **JWT-based Authentication (Signup, Signin, User Info)**  
-✅ **Podcast Room Management (Create, Join, Leave, List)**  
-✅ **Real-time WebRTC Signaling**  
-✅ **Secure Password Hashing with Bcrypt**  
-✅ **Role-Based Access Control (Middleware)**  
-✅ **RESTful API Architecture**  
-✅ **PostgreSQL Database with Prisma ORM**  
-✅ **AWS S3 Integration for Media Storage**  
-✅ **FFmpeg Media Processing Pipeline**  
-✅ **Turborepo-powered Monorepo Setup**
+- **JWT-based Authentication (Signup, Signin, User Info)**  
+- **Podcast Room Management (Create, Join, Leave, List)**  
+- **Real-time WebRTC Signaling**  
+- **Secure Password Hashing with Bcrypt**  
+- **Role-Based Access Control (Middleware)**  
+- **RESTful API Architecture**  
+- **PostgreSQL Database with Prisma ORM**  
+- **AWS S3 Integration for Media Storage**  
+- **FFmpeg Media Processing Pipeline**  
+- **Turborepo-powered Monorepo Setup**
 
 ---
 
-## 💂️ Folder Structure
+## Folder Structure
 
 ```sh
 audora-api/
@@ -40,7 +40,7 @@ audora-api/
 
 ---
 
-## ⚙️ Tech Stack
+## Tech Stack
 
 | **Category**         | **Technology**          |
 | -------------------- | ----------------------- |
@@ -56,9 +56,9 @@ audora-api/
 
 ---
 
-## 🔧 Setup & Installation
+## Setup & Installation
 
-### 1️⃣ Prerequisites
+### 1. Prerequisites
 
 - **Bun** (v1.2.5 or later)
 - **PostgreSQL** (v14 or later)
@@ -66,13 +66,13 @@ audora-api/
 - **AWS Account** (for S3)
 - **Docker** and **Docker Compose**
 
-### 2️⃣ Install Dependencies
+### 2. Install Dependencies
 
 ```sh
 bun install
 ```
 
-### 3️⃣ Environment Setup
+### 3. Environment Setup
 
 Create a `.env` file in the root directory:
 
@@ -95,7 +95,7 @@ PORT=4000
 NODE_ENV=development
 ```
 
-### 4️⃣ Database Setup
+### 4. Database Setup
 
 Start PostgreSQL using Docker:
 
@@ -115,7 +115,7 @@ Run migrations:
 bun run db:deploy
 ```
 
-### 5️⃣ Start the Server
+### 5. Start the Server
 
 Development mode:
 
@@ -133,7 +133,7 @@ The server will start at `http://localhost:8000`.
 
 ---
 
-## 📝 API Endpoints
+## API Endpoints
 
 ### **Authentication Routes (`/api/auth`)**
 
@@ -171,7 +171,7 @@ The server will start at `http://localhost:8000`.
 
 ---
 
-## 🔧 Available Scripts
+## Available Scripts
 
 ```json
 {
@@ -190,19 +190,19 @@ The server will start at `http://localhost:8000`.
 
 ---
 
-## 🛡️ Security & Best Practices
+## Security & Best Practices
 
-🔹 **JWT Authentication**: Uses secure HTTP-only cookies to store tokens.  
-🔹 **Password Hashing**: Bcrypt is used to hash and securely store passwords.  
-🔹 **CORS Protection**: API requests are restricted to trusted frontend origins.  
-🔹 **Environment Variables**: All sensitive data is stored in `.env` files.  
-🔹 **Input Validation**: All API inputs are validated using Zod schemas.  
-🔹 **Rate Limiting**: API endpoints are protected against abuse.  
-🔹 **Media Security**: Secure S3 uploads with signed URLs and access control.
+- **JWT Authentication**: Uses secure HTTP-only cookies to store tokens.  
+- **Password Hashing**: Bcrypt is used to hash and securely store passwords.  
+- **CORS Protection**: API requests are restricted to trusted frontend origins.  
+- **Environment Variables**: All sensitive data is stored in `.env` files.  
+- **Input Validation**: All API inputs are validated using Zod schemas.  
+- **Rate Limiting**: API endpoints are protected against abuse.  
+- **Media Security**: Secure S3 uploads with signed URLs and access control.
 
 ---
 
-## 🌟 Contributing
+## Contributing
 
 Contributions are welcome Please follow these steps:
 
@@ -214,10 +214,10 @@ Contributions are welcome Please follow these steps:
 
 ---
 
-## 📝 License
+## License
 
 This project is licensed under the **MIT License**.
 
 ---
 
-🎙️ **"Record, Collaborate, and Share Your Voice with the World!"**
+**"Record, Collaborate, and Share Your Voice with the World!"**
