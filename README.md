@@ -1,6 +1,6 @@
 # Audora.xyz
 
-![Audora Logo](apps/audora-frontend/public/images/audora-logo-black.webp)
+![Audora Logo](assets/audora-logo.webp)
 
 ## High-Quality Podcast Recording Platform
 
@@ -24,6 +24,10 @@
 - [License](#license)
 
 ---
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=narsibhati-dev/audora&type=date&legend=top-left)](https://www.star-history.com/#narsibhati-dev/audora&type=date&legend=top-left)
 
 ## Features
 
