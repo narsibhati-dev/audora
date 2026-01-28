@@ -1,4 +1,6 @@
-export const videoEditorFaqs = [
+import type { FaqItem } from './recording';
+
+export const videoEditorFaqItems: FaqItem[] = [
   {
     question: 'What video formats are supported?',
     answer:

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { useLayoutStore } from '@/store/layout-store';
-import { CameraOffIcon, MicrophoneOffIcon } from '@/data/icons';
+import { CameraOffIcon, MicrophoneOffIcon } from '@/data';
 import { motion } from 'framer-motion';
 
 type Props = {

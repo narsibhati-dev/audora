@@ -1,39 +1,38 @@
-import {
-  Podcast,
-  MonitorPlay,
-  SlidersHorizontal,
-  CircleDot,
-} from 'lucide-react';
+import type { IconKey } from '../icons';
 
-export const products = [
+export interface ProductNavItem {
+  iconKey: IconKey;
+  title: string;
+  description: string;
+  href: string;
+}
+
+export const productItems: ProductNavItem[] = [
   {
-    icon: CircleDot,
+    iconKey: 'lucideCircleDot',
     title: 'Recording',
     description: '4K video and audio recorder.',
     href: '/recording',
   },
   {
-    icon: SlidersHorizontal,
+    iconKey: 'lucideSlidersHorizontal',
     title: 'Editing',
     description: 'AI, text-based video editor.',
     href: '/video-editor',
   },
   {
-    icon: Podcast,
+    iconKey: 'lucidePodcast',
     title: 'Live Streaming',
     description: 'For livestreams in full HD.',
     href: '/live-streaming',
   },
   {
-    icon: MonitorPlay,
+    iconKey: 'lucideMonitorPlay',
     title: 'Webinars',
     description: 'Host, record, and repurpose.',
     href: '/use-cases/webinars',
   },
-  // {
-  //   icon: Sparkles,
-  //   title: "Magic Clips",
-  //   description: "AI-generated highlight reels.",
-  //   href: "/magic-clips",
-  // },
 ];
+
+// Backwards-compatible alias (prefer `productItems`)
+export const products = productItems;

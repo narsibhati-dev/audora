@@ -1,7 +1,7 @@
 import React from 'react';
 import getPageMetadata from '@/lib/seo/getPageMetadata';
 import FAQ from '@/components/marketing/use-cases/FAQ';
-import { recordingFaqs } from '@/data/recording-faq';
+import { recordingFaqItems } from '@/data';
 import HowItWorksRecording from '@/components/marketing/use-cases/recording/HowItWorks';
 import FeatureGrid from '@/components/marketing/use-cases/FeatureGrid';
 import { FaClock, FaMicrophone, FaWaveSquare } from 'react-icons/fa';
@@ -71,7 +71,7 @@ const RecordingPage = () => {
 
       <section className='bg-black'>
         <HowItWorksRecording />
-        <FAQ faqs={recordingFaqs} />
+        <FAQ faqs={recordingFaqItems} />
       </section>
     </main>
   );

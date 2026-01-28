@@ -12,7 +12,7 @@ import {
   StreamingResolutionIcon,
   AudienceInfoIcon,
   ZapIcon,
-} from '@/data/icons';
+} from '@/data';
 import Link from 'next/link';
 import QualitySelector from './quality-selector';
 

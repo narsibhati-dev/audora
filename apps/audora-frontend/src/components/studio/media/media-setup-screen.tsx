@@ -8,7 +8,7 @@ import {
   CameraOffIcon,
   MicrophoneIcon,
   MicrophoneOffIcon,
-} from '@/data/icons';
+} from '@/data';
 import { useSystemStreamStore } from '@/store/webrtc/system-stream';
 
 export default function MediaSetupScreen() {

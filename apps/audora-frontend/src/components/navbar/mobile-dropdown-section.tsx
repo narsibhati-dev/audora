@@ -3,12 +3,14 @@
 import React from 'react';
 import Link from 'next/link';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import type { IconKey } from '@/data';
+import { getIcon } from '@/data';
 
 type DropdownItem = {
   title: string;
   href: string;
   description: string;
-  icon: React.ElementType;
+  iconKey: IconKey;
 };
 
 type Props = {
@@ -56,7 +58,10 @@ const MobileDropdownSection: React.FC<Props> = ({
               }}
             >
               <div className='bg-primary-100 rounded-md p-3'>
-                <item.icon className='text-primary-500 h-5 w-5' />
+                {(() => {
+                  const Icon = getIcon(item.iconKey);
+                  return <Icon className='text-primary-500 h-5 w-5' />;
+                })()}
               </div>
               <div>
                 <p className='text-base font-semibold text-black'>

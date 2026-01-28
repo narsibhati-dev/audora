@@ -15,7 +15,7 @@ import {
 import Logo from '../../logo';
 import Tooltip from '../tooltip';
 import AvatarDropdown from '../avatar/avatar-dropdown';
-import { DashboardSidebarIcon } from '@/data/icons';
+import { DashboardSidebarIcon } from '@/data';
 import { Plus } from 'lucide-react';
 import PopupWrapper from '../../shared/ui/popup-wrapper';
 import CreateStudioPopup from '../account/create-studio-popup';

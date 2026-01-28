@@ -2,21 +2,23 @@
 
 import React from 'react';
 import Link from 'next/link';
-import type { IconType } from 'react-icons';
+import type { IconKey } from '@/data';
+import { getIcon } from '@/data';
 
 interface ProductItemProps {
-  icon: IconType;
+  iconKey: IconKey;
   title: string;
   description: string;
   href: string;
 }
 
 const ProductItem = ({
-  icon: Icon,
+  iconKey,
   title,
   description,
   href,
 }: ProductItemProps) => {
+  const Icon = getIcon(iconKey);
   return (
     <Link href={href} aria-label={title} className='block'>
       <div className='group flex w-full cursor-pointer items-start gap-3 rounded-lg p-3 transition-colors hover:bg-zinc-100'>

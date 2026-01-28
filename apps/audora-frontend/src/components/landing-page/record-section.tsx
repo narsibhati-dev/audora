@@ -13,7 +13,7 @@ interface Participant {
 const participants: Participant[] = [
   {
     name: 'Narsi',
-    avatar: '/images/team/narsi-bhati.png',
+    avatar: '/images/team/narsi-bhati.jpg',
     status: 'Ready',
     resolution: '3840 × 2160',
   },

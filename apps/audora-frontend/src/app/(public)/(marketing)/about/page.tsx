@@ -1,36 +1,10 @@
 import React from 'react';
-import { teamMembers } from '@/data/TeamMember';
+import { teamMembers } from '@/data';
 import TeamMemberCard from '@/components/about/team-member-card';
-import {
-  InnovationIcon,
-  AccessibilityIcon,
-  QualityIcon,
-  XIcon,
-} from '@/data/icons';
+import { aboutValues, getIcon, XIcon } from '@/data';
 import AboutHeroSection from '@/components/about/about-hero-section';
 import siteMetadata from '@/lib/seo/siteMetadata';
 import getPageMetadata from '@/lib/seo/getPageMetadata';
-
-const values = [
-  {
-    title: 'Innovation',
-    description:
-      "We constantly push the boundaries of what's possible in remote content creation, making it easy to collaborate and record from anywhere.",
-    icon: <InnovationIcon />,
-  },
-  {
-    title: 'Accessibility',
-    description:
-      'Professional-grade recording tools for podcasts, meetings, and more—available to everyone, no matter their experience level.',
-    icon: <AccessibilityIcon />,
-  },
-  {
-    title: 'Quality',
-    description:
-      'Local recording for every participant ensures the best possible audio and video quality, every time.',
-    icon: <QualityIcon />,
-  },
-];
 
 export const metadata = getPageMetadata({
   title: 'Audora About',
@@ -56,35 +30,38 @@ const AboutPage = () => {
             </p>
           </div>
           <div className='mx-auto grid max-w-7xl grid-cols-1 gap-10 md:grid-cols-3'>
-            {values.map((value, index) => (
-              <div
-                key={index}
-                className='group relative overflow-hidden rounded-3xl border border-white/10 bg-white/10 p-8 text-center shadow-lg backdrop-blur-md transition-all duration-300 before:pointer-events-none before:absolute before:inset-0 before:rounded-3xl before:bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] before:from-[#a18fff]/40 before:to-transparent before:opacity-0 before:transition-opacity before:duration-300 group-hover:before:opacity-100 hover:scale-105 hover:border-transparent hover:bg-white/20 hover:shadow-2xl'
-                style={{ minHeight: 340 }}
-              >
-                <div className='mb-6 flex justify-center'>
-                  <span className='from-primary-500 to-primary-600 relative inline-flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br shadow-xl transition-transform duration-300 group-hover:shadow-2xl'>
-                    <span className='from-primary-500 to-primary-600 absolute inset-0 z-0 rounded-full bg-gradient-to-br opacity-40 blur-xl'></span>
-                    <span className='relative z-10 text-4xl text-white'>
-                      {value.icon}
+            {aboutValues.map((value, index) => {
+              const Icon = getIcon(value.iconKey);
+              return (
+                <div
+                  key={index}
+                  className='group relative overflow-hidden rounded-3xl border border-white/10 bg-white/10 p-8 text-center shadow-lg backdrop-blur-md transition-all duration-300 before:pointer-events-none before:absolute before:inset-0 before:rounded-3xl before:bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] before:from-[#a18fff]/40 before:to-transparent before:opacity-0 before:transition-opacity before:duration-300 group-hover:before:opacity-100 hover:scale-105 hover:border-transparent hover:bg-white/20 hover:shadow-2xl'
+                  style={{ minHeight: 340 }}
+                >
+                  <div className='mb-6 flex justify-center'>
+                    <span className='from-primary-500 to-primary-600 relative inline-flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br shadow-xl transition-transform duration-300 group-hover:shadow-2xl'>
+                      <span className='from-primary-500 to-primary-600 absolute inset-0 z-0 rounded-full bg-gradient-to-br opacity-40 blur-xl'></span>
+                      <span className='relative z-10 text-4xl text-white'>
+                        <Icon className='h-10 w-10' />
+                      </span>
                     </span>
-                  </span>
+                  </div>
+                  <h3 className='group-hover:text-primary-500 mb-4 text-2xl font-bold text-white transition-colors duration-300 md:text-3xl'>
+                    {value.title}
+                  </h3>
+                  <p className='text-base leading-relaxed font-light text-gray-200 md:text-lg'>
+                    {value.description}
+                  </p>
+                  {/* Animated gradient border on hover */}
+                  <span className='group-hover:border-gradient-to-r group-hover :from-primary-500 group-hover:to-primary-600 hover:border-primary-500 pointer-events-none absolute inset-0 rounded-3xl border-2 border-transparent transition-all duration-300 group-hover:border-[3px]' />
+                  {/* Subtle noise overlay for texture */}
+                  <span
+                    className='pointer-events-none absolute inset-0 rounded-3xl opacity-10 mix-blend-soft-light'
+                    style={{ backgroundImage: 'url("/noise.png")' }}
+                  />
                 </div>
-                <h3 className='group-hover:text-primary-500 mb-4 text-2xl font-bold text-white transition-colors duration-300 md:text-3xl'>
-                  {value.title}
-                </h3>
-                <p className='text-base leading-relaxed font-light text-gray-200 md:text-lg'>
-                  {value.description}
-                </p>
-                {/* Animated gradient border on hover */}
-                <span className='group-hover:border-gradient-to-r group-hover :from-primary-500 group-hover:to-primary-600 hover:border-primary-500 pointer-events-none absolute inset-0 rounded-3xl border-2 border-transparent transition-all duration-300 group-hover:border-[3px]' />
-                {/* Subtle noise overlay for texture */}
-                <span
-                  className='pointer-events-none absolute inset-0 rounded-3xl opacity-10 mix-blend-soft-light'
-                  style={{ backgroundImage: 'url("/noise.png")' }}
-                />
-              </div>
-            ))}
+              );
+            })}
           </div>
         </section>
 

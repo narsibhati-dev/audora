@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
-import { products } from '@/data/ProductsList';
+import { productItems } from '@/data';
 import Logo from '../logo';
 import MobileDropdownSection from './mobile-dropdown-section';
 import siteMetadata from '@/lib/seo/siteMetadata';
@@ -12,7 +12,9 @@ const noScrollbar = `
   .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 `;
 
-const menuSections = [{ label: 'Product', key: 'product1', items: products }];
+const menuSections = [
+  { label: 'Product', key: 'product1', items: productItems },
+];
 
 const MobileNavbar = ({ scrolled }: { scrolled: boolean }) => {
   const [isOpen, setIsOpen] = useState(false);

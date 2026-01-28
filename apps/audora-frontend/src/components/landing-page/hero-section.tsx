@@ -1,16 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import siteMetadata from '@/lib/seo/siteMetadata';
-
-const options = [
-  'Podcasts',
-  'Video interviews',
-  'Transcriptions',
-  'Webinars',
-  'Video marketing',
-  'AI show notes',
-  'Captions',
-];
+import { heroOptions } from '@/data';
 
 const HeroSection = () => {
   return (
@@ -44,7 +35,7 @@ const HeroSection = () => {
           confidence - all in one powerful platform.
         </p>
         <div className='mb-6 hidden flex-wrap gap-2 md:mb-8 md:flex md:gap-3'>
-          {options.map(option => (
+          {heroOptions.map(option => (
             <button
               key={option}
               className='rounded-full border border-gray-400 bg-black/30 px-3 py-1.5 text-xs text-gray-100 transition-colors hover:bg-white/10 sm:text-sm md:px-4 md:py-2'

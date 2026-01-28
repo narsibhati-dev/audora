@@ -1,7 +1,11 @@
 import { HiCheck, HiOutlineChevronDown } from 'react-icons/hi';
-import { CameraOffIcon, MicrophoneOffIcon, MicrophoneIcon } from '@/data/icons';
-import { CameraIcon } from '@/data/icons';
-import { SpeakerIcon } from '@/data/icons';
+import {
+  CameraIcon,
+  CameraOffIcon,
+  MicrophoneIcon,
+  MicrophoneOffIcon,
+  SpeakerIcon,
+} from '@/data';
 import { useState, useEffect, useRef } from 'react';
 
 interface Props {

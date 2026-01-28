@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 import HoverCard from './hover-card';
 import Image from 'next/image';
-import { products } from '@/data/ProductsList';
+import { productItems } from '@/data';
 import ProductItem from './product-item';
 import siteMetadata from '@/lib/seo/siteMetadata';
 // import GithubStar from '../github-star';
@@ -26,10 +26,10 @@ const Navbar = ({ scrolled }: { scrolled: boolean }) => {
               {/* Left column with feature list */}
               <div className='space-y-1 py-4 text-sm'>
                 <h3 className='mb-3 text-lg font-bold text-black'>Products</h3>
-                {products.map(item => (
+                {productItems.map(item => (
                   <ProductItem
                     key={item.title}
-                    icon={item.icon}
+                    iconKey={item.iconKey}
                     title={item.title}
                     description={item.description}
                     href={item.href}

@@ -2,6 +2,7 @@
   "extends": "@audora/typescript-config/nextjs.json",
   "compilerOptions": {
     "skipLibCheck": true,
+    "allowImportingTsExtensions": true,
     "plugins": [
       {
         "name": "next"
@@ -16,8 +17,7 @@
     "**/*.tsx",
     "next-env.d.ts",
     "next.config.js",
-    ".next/types/**/*.ts",
-    "src/data/..ts"
+    ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }

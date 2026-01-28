@@ -7,7 +7,7 @@ import {
   ScreenFitIcon,
   // SpeakerFullIcon,
   SpeakerSplitIcon,
-} from '@/data/icons';
+} from '@/data';
 import { useLayoutStore } from '@/store/layout-store';
 import { motion, AnimatePresence } from 'framer-motion';
 

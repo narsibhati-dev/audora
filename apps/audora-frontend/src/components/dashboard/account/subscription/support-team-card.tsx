@@ -1,4 +1,4 @@
-import { SupportIcon, SupportIcon2, SupportIcon3 } from '@/data/icons';
+import { SupportIcon, SupportIcon2, SupportIcon3 } from '@/data';
 import Image from 'next/image';
 
 const SupportTeamCard = () => (

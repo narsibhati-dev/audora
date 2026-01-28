@@ -1,9 +1,8 @@
-import { TeamMemberSchema } from '@/data/TeamMember';
-import { LinkedInIcon, XIcon } from '@/data/icons';
+import { TeamMember, LinkedInIcon, XIcon } from '@/data';
 import Image from 'next/image';
 import React from 'react';
 
-const TeamMemberCard = (member: TeamMemberSchema) => {
+const TeamMemberCard = (member: TeamMember) => {
   return (
     <div className='group gradient-bg flex h-full flex-col rounded-3xl border border-white/10 p-8 text-center shadow-xl transition-all duration-300 hover:border-[#6965db]/30 hover:shadow-2xl'>
       <div className='relative mx-auto mb-6 h-32 w-32'>

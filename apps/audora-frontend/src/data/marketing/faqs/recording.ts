@@ -1,4 +1,9 @@
-export const recordingFaqs = [
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+export const recordingFaqItems: FaqItem[] = [
   {
     question: 'What audio formats are supported?',
     answer:

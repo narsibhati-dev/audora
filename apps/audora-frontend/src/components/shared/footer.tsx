@@ -1,6 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
-import { socialLinks, footerSections, bottomLinks } from '@/data/FooterData';
+import {
+  footerBottomLinks,
+  footerNavSections,
+  footerSocialLinks,
+  getIcon,
+} from '@/data';
 import Logo from '../logo';
 
 const Footer = () => {
@@ -16,29 +21,26 @@ const Footer = () => {
               platform.
             </p>
             <div className='flex space-x-4'>
-              {socialLinks.map(({ href, label, iconPath }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='text-gray-400 transition-colors hover:text-white'
-                  aria-label={label}
-                >
-                  <svg
-                    className='h-6 w-6'
-                    fill='currentColor'
-                    viewBox='0 0 24 24'
+              {footerSocialLinks.map(({ href, label, iconKey }) => {
+                const Icon = getIcon(iconKey);
+                return (
+                  <a
+                    key={label}
+                    href={href}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='text-gray-400 transition-colors hover:text-white'
+                    aria-label={label}
                   >
-                    <path d={iconPath} />
-                  </svg>
-                </a>
-              ))}
+                    <Icon className='h-6 w-6' />
+                  </a>
+                );
+              })}
             </div>
           </div>
 
           {/* Sections */}
-          {footerSections.map(({ title, links }) => (
+          {footerNavSections.map(({ title, links }) => (
             <div key={title}>
               <h3 className='mb-4 font-semibold text-white'>{title}</h3>
               <ul className='space-y-2'>
@@ -64,7 +66,7 @@ const Footer = () => {
               © {new Date().getFullYear()} Audora. All rights reserved.
             </p>
             <div className='flex space-x-6'>
-              {bottomLinks.map(({ name, href }) => (
+              {footerBottomLinks.map(({ name, href }) => (
                 <Link
                   key={name}
                   href={href}

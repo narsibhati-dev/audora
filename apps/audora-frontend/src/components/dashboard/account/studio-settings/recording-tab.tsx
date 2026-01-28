@@ -1,4 +1,4 @@
-import { InfoIcon } from '@/data/icons';
+import { InfoIcon } from '@/data';
 import Link from 'next/link';
 import React from 'react';
 import {

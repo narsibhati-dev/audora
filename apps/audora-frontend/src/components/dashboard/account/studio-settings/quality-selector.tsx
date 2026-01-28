@@ -1,4 +1,4 @@
-import { ZapIcon } from '@/data/icons';
+import { ZapIcon } from '@/data';
 
 type QualityOption = {
   label: string;

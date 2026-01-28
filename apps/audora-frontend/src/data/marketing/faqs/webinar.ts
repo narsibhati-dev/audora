@@ -1,4 +1,6 @@
-export const webinarFaqs = [
+import type { FaqItem } from './recording.ts';
+
+export const webinarFaqItems: FaqItem[] = [
   {
     question: 'How many guests can I host at my webinar?',
     answer:

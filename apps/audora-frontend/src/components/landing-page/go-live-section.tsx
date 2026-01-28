@@ -1,72 +1,8 @@
 import React from 'react';
-import {
-  FaYoutube,
-  FaLinkedin,
-  FaTwitch,
-  FaTiktok,
-  FaXTwitter,
-  FaFacebook,
-  FaInstagram,
-  FaVideo,
-} from 'react-icons/fa6';
 import Image from 'next/image';
 import Link from 'next/link';
 import siteMetadata from '@/lib/seo/siteMetadata';
-
-const leftIcons = [
-  {
-    icon: <FaFacebook />,
-    color: 'bg-blue-600',
-    label: 'Facebook',
-    gradient: 'linear-gradient(90deg, #1877f2 60%, transparent 100%)',
-  },
-  {
-    icon: <FaXTwitter />,
-    color: 'bg-black',
-    label: 'Twitter',
-    gradient: 'linear-gradient(90deg, #000000 60%, transparent 100%)',
-  },
-  {
-    icon: <FaYoutube />,
-    color: 'bg-red-600',
-    label: 'YouTube',
-    gradient: 'linear-gradient(90deg, #ff0000 60%, transparent 100%)',
-  },
-  {
-    icon: <FaLinkedin />,
-    color: 'bg-blue-700',
-    label: 'LinkedIn',
-    gradient: 'linear-gradient(90deg, #0a66c2 60%, transparent 100%)',
-  },
-];
-
-const rightIcons = [
-  {
-    icon: <FaTwitch />,
-    color: 'bg-purple-600',
-    label: 'Twitch',
-    gradient: 'linear-gradient(270deg, #9147ff 60%, transparent 100%)',
-  },
-  {
-    icon: <FaInstagram />,
-    color: 'bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600',
-    label: 'Instagram',
-    gradient:
-      'linear-gradient(270deg, #f9d423 0%, #e65c00 30%, #e1306c 60%, #8a3ab9 80%, transparent 100%)',
-  },
-  {
-    icon: <FaTiktok />,
-    color: 'bg-black',
-    label: 'TikTok',
-    gradient: 'linear-gradient(270deg, #000000 60%, transparent 100%)',
-  },
-  {
-    icon: <FaVideo />,
-    color: 'bg-primary-500',
-    label: 'Video',
-    gradient: 'linear-gradient(270deg, #7357ff 60%, transparent 100%)',
-  },
-];
+import { getIcon, goLiveLeftPlatforms, goLiveRightPlatforms } from '@/data';
 
 const GoLiveSection = () => {
   return (
@@ -100,29 +36,32 @@ const GoLiveSection = () => {
         <div className='relative mt-8 flex w-full items-center justify-center'>
           {/* Left icons and lines */}
           <div className='top-1/2 left-0 z-10 hidden h-[350px] -translate-x-10 flex-col justify-between gap-8 md:flex'>
-            {leftIcons.map((item, idx) => (
-              <div key={idx} className='relative flex items-center'>
-                {/* Icon with double border */}
-                <div
-                  className={`relative z-10 flex h-16 w-16 items-center justify-center rounded-full border-4 ${item.color}`}
-                >
+            {goLiveLeftPlatforms.map((item, idx) => {
+              const Icon = getIcon(item.iconKey);
+              return (
+                <div key={idx} className='relative flex items-center'>
+                  {/* Icon with double border */}
                   <div
-                    className={`flex h-12 w-12 items-center justify-center rounded-full ${item.color}`}
+                    className={`relative z-10 flex h-16 w-16 items-center justify-center rounded-full border-4 ${item.color}`}
                   >
                     <div
-                      className={`flex h-10 w-10 items-center justify-center rounded-full ${item.color} text-2xl text-white`}
+                      className={`flex h-12 w-12 items-center justify-center rounded-full ${item.color}`}
                     >
-                      {item.icon}
+                      <div
+                        className={`flex h-10 w-10 items-center justify-center rounded-full ${item.color} text-2xl text-white`}
+                      >
+                        <Icon />
+                      </div>
                     </div>
                   </div>
+                  {/* Connecting line */}
+                  <div
+                    className='absolute top-1/2 left-16 h-1 w-24 -translate-y-1/2'
+                    style={{ background: item.gradient }}
+                  />
                 </div>
-                {/* Connecting line */}
-                <div
-                  className='absolute top-1/2 left-16 h-1 w-24 -translate-y-1/2'
-                  style={{ background: item.gradient }}
-                />
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* Central image */}
@@ -147,29 +86,32 @@ const GoLiveSection = () => {
 
           {/* Right icons and lines */}
           <div className='top-1/2 right-0 z-10 hidden h-[350px] translate-x-10 flex-col justify-between gap-8 md:flex'>
-            {rightIcons.map((item, idx) => (
-              <div key={idx} className='relative flex items-center'>
-                {/* Connecting line */}
-                <div
-                  className='absolute top-1/2 right-16 h-1 w-24 -translate-y-1/2'
-                  style={{ background: item.gradient }}
-                />
-                {/* Icon with double border */}
-                <div
-                  className={`relative z-10 flex h-16 w-16 items-center justify-center rounded-full border-4 ${item.color}`}
-                >
+            {goLiveRightPlatforms.map((item, idx) => {
+              const Icon = getIcon(item.iconKey);
+              return (
+                <div key={idx} className='relative flex items-center'>
+                  {/* Connecting line */}
                   <div
-                    className={`flex h-12 w-12 items-center justify-center rounded-full ${item.color}`}
+                    className='absolute top-1/2 right-16 h-1 w-24 -translate-y-1/2'
+                    style={{ background: item.gradient }}
+                  />
+                  {/* Icon with double border */}
+                  <div
+                    className={`relative z-10 flex h-16 w-16 items-center justify-center rounded-full border-4 ${item.color}`}
                   >
                     <div
-                      className={`flex h-10 w-10 items-center justify-center rounded-full ${item.color} text-2xl text-white`}
+                      className={`flex h-12 w-12 items-center justify-center rounded-full ${item.color}`}
                     >
-                      {item.icon}
+                      <div
+                        className={`flex h-10 w-10 items-center justify-center rounded-full ${item.color} text-2xl text-white`}
+                      >
+                        <Icon />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import FAQ from '@/components/marketing/use-cases/FAQ';
 import HowItWorks from '@/components/marketing/use-cases/webinars/HowItWorks';
 import getPageMetadata from '@/lib/seo/getPageMetadata';
-import { webinarFaqs } from '@/data/webinar-faq';
+import { webinarFaqItems } from '@/data';
 import FeatureGrid from '@/components/marketing/use-cases/FeatureGrid';
 import { FaUsers, FaVideo } from 'react-icons/fa';
 import { FaCalendarCheck } from 'react-icons/fa';
@@ -58,7 +58,7 @@ const WebinarsPage = () => {
       <section className='bg-gradient-to-b from-[#0a0a0a] via-[#121212] to-[#1f1f1f]'>
         <HowItWorks />
         {/* FAQ Section */}
-        <FAQ faqs={webinarFaqs} />
+        <FAQ faqs={webinarFaqItems} />
       </section>
     </main>
   );

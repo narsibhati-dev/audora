@@ -1,7 +1,7 @@
 import React from 'react';
 import getPageMetadata from '@/lib/seo/getPageMetadata';
 import FAQ from '@/components/marketing/use-cases/FAQ';
-import { videoEditorFaqs } from '@/data/video-editor-faq';
+import { videoEditorFaqItems } from '@/data';
 import HowItWorksVideoEditor from '@/components/marketing/use-cases/video-editor/HowItWorks';
 
 import FeatureGrid from '@/components/marketing/use-cases/FeatureGrid';
@@ -79,7 +79,7 @@ const VideoEditorPage = () => {
 
       <section className='bg-black'>
         <HowItWorksVideoEditor />
-        <FAQ faqs={videoEditorFaqs} />
+        <FAQ faqs={videoEditorFaqItems} />
       </section>
     </main>
   );

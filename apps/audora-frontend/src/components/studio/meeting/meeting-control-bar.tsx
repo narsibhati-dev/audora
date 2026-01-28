@@ -11,7 +11,7 @@ import {
   MicrophoneIcon,
   MicrophoneOffIcon,
   CameraOffIcon,
-} from '@/data/icons';
+} from '@/data';
 import LayoutControlPanel from './layout-control-panel';
 import { useRouter } from 'next/navigation';
 import { useSystemStreamStore } from '@/store/webrtc/system-stream';

@@ -1,4 +1,4 @@
-import { ZapIcon } from '@/data/icons';
+import { ZapIcon } from '@/data';
 
 const PlanCard = () => (
   <div className='flex flex-col gap-2 rounded-2xl bg-[#18181b] p-6'>
