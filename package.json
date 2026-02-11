@@ -23,8 +23,9 @@
     "infra:build": "docker-compose -f docker-compose.yml build --no-cache"
   },
   "devDependencies": {
-    "prettier": "^3.7.4",
-    "turbo": "^2.7.5",
+    "baseline-browser-mapping": "^2.9.19",
+    "prettier": "^3.8.1",
+    "turbo": "^2.8.0",
     "typescript": "^5.9.3"
   },
   "engines": {
