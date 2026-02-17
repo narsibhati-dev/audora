@@ -75,7 +75,7 @@ function PricingCard({ plan }: { plan: PricingPlan }) {
 
 const PricingPage = () => {
   return (
-    <main className='min-h-screen bg-black px-4 py-12 md:py-16'>
+    <main className='bg-black px-4 py-12 md:py-16'>
       <div className='mx-auto max-w-6xl grid gap-8 md:grid-cols-3'>
         {PRICING_PLANS.map((plan) => (
           <PricingCard key={plan.id} plan={plan} />
