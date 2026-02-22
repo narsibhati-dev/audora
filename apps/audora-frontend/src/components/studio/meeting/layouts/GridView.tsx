@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m, useReducedMotion } from 'framer-motion';
 import VideoTile from '../video-tile';
 import { DisplayParticipant } from './types';
 
@@ -10,6 +10,7 @@ interface GridViewProps {
 
 export default function GridView({ participants }: GridViewProps) {
   const total = participants.length;
+  const shouldReduceMotion = useReducedMotion();
 
   if (total === 4) {
     const participantChunks = [
@@ -18,16 +19,16 @@ export default function GridView({ participants }: GridViewProps) {
     ];
     return (
       <div className='flex h-full w-full flex-col gap-2 p-2'>
-        {participantChunks.map((chunk, index) => (
-          <div key={index} className='flex flex-1 gap-2'>
+        {participantChunks.map((chunk) => (
+          <div key={chunk.map((p) => p.id).join('-')} className='flex flex-1 gap-2'>
             {chunk.map(p => (
-              <motion.div
+              <m.div
                 key={p.id}
                 className='flex-1'
-                initial={{ opacity: 0, y: 20 }}
+                initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}
-                transition={{ duration: 0.4 }}
+                exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: shouldReduceMotion ? 0 : 0.4 }}
               >
                 <VideoTile
                   label={p.name}
@@ -39,7 +40,7 @@ export default function GridView({ participants }: GridViewProps) {
                   camOn={p.isCameraOn}
                   micOn={p.isMicOn}
                 />
-              </motion.div>
+              </m.div>
             ))}
           </div>
         ))}
@@ -56,12 +57,12 @@ export default function GridView({ participants }: GridViewProps) {
   return (
     <div className={`grid ${gridClasses} h-full w-full gap-2 p-2`}>
       {participants.map((p, i) => (
-        <motion.div
+        <m.div
           key={p.id}
-          initial={{ opacity: 0, y: 20 + i * 10 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 20 + i * 10 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 + i * 10 }}
-          transition={{ duration: 0.4 }}
+          exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 20 + i * 10 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.4 }}
         >
           <VideoTile
             label={p.name}
@@ -71,7 +72,7 @@ export default function GridView({ participants }: GridViewProps) {
             camOn={p.isCameraOn}
             micOn={p.isMicOn}
           />
-        </motion.div>
+        </m.div>
       ))}
     </div>
   );

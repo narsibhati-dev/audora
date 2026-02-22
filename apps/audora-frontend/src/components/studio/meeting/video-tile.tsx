@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { useLayoutStore } from '@/store/layout-store';
 import { CameraOffIcon, MicrophoneOffIcon } from '@/data';
-import { motion } from 'framer-motion';
+import { m, useReducedMotion } from 'framer-motion';
 
 type Props = {
   label: string;
@@ -25,6 +25,7 @@ export default function VideoTile({
   const videoRef = useRef<HTMLVideoElement>(null);
   const { fitMode } = useLayoutStore();
   const isFillMode = fitMode === 'fill';
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     if (videoRef.current && stream) {
@@ -33,12 +34,12 @@ export default function VideoTile({
   }, [stream]);
 
   return (
-    <motion.div
+    <m.div
       layout
-      initial={{ opacity: 0, scale: 0.97 }}
+      initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.97 }}
       animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.3 }}
+      exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95 }}
+      transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
       className={`relative flex items-center justify-center overflow-hidden rounded-lg border-2 ${borderColor} bg-dashboard-bg h-full w-full transition-all duration-300`}
     >
       <video
@@ -50,11 +51,11 @@ export default function VideoTile({
       />
 
       {!camOn && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+        <m.div
+          initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          transition={{ duration: 0.3 }}
+          exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
           className='absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/80 text-white'
         >
           <div className='flex flex-col items-center space-y-4'>
@@ -67,7 +68,7 @@ export default function VideoTile({
               </span>
             </div>
           </div>
-        </motion.div>
+        </m.div>
       )}
 
       <div className='absolute bottom-2 left-3 rounded-full bg-black/60 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm'>
@@ -75,15 +76,15 @@ export default function VideoTile({
       </div>
 
       {!micOn && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
+        <m.div
+          initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.2 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
           className='absolute right-4 bottom-4 text-white'
         >
           <MicrophoneOffIcon className='h-5 w-5' />
-        </motion.div>
+        </m.div>
       )}
-    </motion.div>
+    </m.div>
   );
 }

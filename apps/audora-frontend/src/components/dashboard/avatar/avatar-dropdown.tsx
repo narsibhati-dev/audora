@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { m, useReducedMotion } from 'framer-motion';
 import { FiLogOut, FiUser } from 'react-icons/fi';
 import { MdBolt, MdOutlinePlayCircle } from 'react-icons/md';
 import Link from 'next/link';
@@ -11,6 +11,7 @@ import { signOut } from 'next-auth/react';
 export default function AvatarDropdown({ collapsed = false }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   // Close menu on outside click
   useEffect(() => {
@@ -34,11 +35,11 @@ export default function AvatarDropdown({ collapsed = false }) {
       </button>
 
       {open && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 10 }}
+        <m.div
+          initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.95, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 10 }}
-          transition={{ duration: 0.15 }}
+          exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95, y: 10 }}
+          transition={{ duration: shouldReduceMotion ? 0 : 0.15 }}
           className={
             collapsed
               ? 'origin-top-center absolute right-0 bottom-full left-[130px] mb-3 w-68 -translate-x-1/2 overflow-hidden rounded-2xl border border-[#2c2c2c] bg-[#1a1a1a] p-4 shadow-xl'
@@ -83,7 +84,7 @@ export default function AvatarDropdown({ collapsed = false }) {
               Log out
             </button>
           </div>
-        </motion.div>
+        </m.div>
       )}
     </div>
   );

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useReducer, useEffect, useRef } from 'react';
 import {
   GridLayoutIcon,
   ScreenFillIcon,
@@ -9,13 +9,31 @@ import {
   SpeakerSplitIcon,
 } from '@/data';
 import { useLayoutStore } from '@/store/layout-store';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence, useReducedMotion } from 'framer-motion';
+
+type PanelState = { isOpen: boolean };
+type PanelAction = { type: 'OPEN' } | { type: 'CLOSE' } | { type: 'TOGGLE' };
+
+function panelReducer(state: PanelState, action: PanelAction): PanelState {
+  switch (action.type) {
+    case 'OPEN':
+      return { isOpen: true };
+    case 'CLOSE':
+      return { isOpen: false };
+    case 'TOGGLE':
+      return { isOpen: !state.isOpen };
+    default:
+      return state;
+  }
+}
 
 export default function LayoutControlPanel() {
   const { layout, setLayout, fitMode, setFitMode } = useLayoutStore();
-  const [isOpen, setIsOpen] = useState(false);
+  const [state, dispatch] = useReducer(panelReducer, { isOpen: false });
+  const isOpen = state.isOpen;
   const panelRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -26,35 +44,32 @@ export default function LayoutControlPanel() {
         buttonRef.current &&
         !buttonRef.current.contains(event.target as Node)
       ) {
-        setIsOpen(false);
+        dispatch({ type: 'CLOSE' });
       }
     }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isOpen]);
 
+  useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === '1') setLayout('grid');
-      // if (event.key === '2') setLayout('speaker-full');
       if (event.key === '2') setLayout('speaker-split');
     }
-
     document.addEventListener('keydown', handleKeyDown);
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isOpen]);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [setLayout]);
 
   return (
     <div className='relative z-50'>
       <AnimatePresence>
         {isOpen && (
-          <motion.div
+          <m.div
             ref={panelRef}
-            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 10, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.95 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
+            exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 10, scale: 0.95 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2, ease: 'easeOut' }}
             className='border-dashboard-bg-light bg-dashboard-bg-darkest pointer-events-auto absolute right-0 bottom-16 z-50 w-80 space-y-4 rounded-xl border p-4 text-white shadow-2xl backdrop-blur-md'
           >
             <div className='space-y-2'>
@@ -126,20 +141,20 @@ export default function LayoutControlPanel() {
                 Fit
               </button>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 
-      <motion.button
+      <m.button
         ref={buttonRef}
-        onClick={() => setIsOpen(!isOpen)}
-        whileTap={{ scale: 0.9 }}
+        onClick={() => dispatch({ type: 'TOGGLE' })}
+        whileTap={shouldReduceMotion ? undefined : { scale: 0.9 }}
         className='z-50 cursor-pointer rounded-lg p-2 transition-all duration-200 hover:bg-white/10'
       >
         {layout === 'grid' && <GridLayoutIcon className='h-6 w-6' />}
         {/* {layout === 'speaker-full' && <SpeakerFullIcon className="h-6 w-6" />} */}
         {layout === 'speaker-split' && <SpeakerSplitIcon className='h-6 w-6' />}
-      </motion.button>
+      </m.button>
     </div>
   );
 }

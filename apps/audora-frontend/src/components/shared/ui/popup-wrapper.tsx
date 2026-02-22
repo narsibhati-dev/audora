@@ -1,7 +1,7 @@
 'use client';
 
 import { X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence, useReducedMotion } from 'framer-motion';
 import React, { useRef } from 'react';
 
 type PopupWrapperProps = {
@@ -16,27 +16,42 @@ export default function PopupWrapper({
   children,
 }: PopupWrapperProps) {
   const modalRef = useRef<HTMLDivElement>(null);
+  const shouldReduceMotion = useReducedMotion();
+
+  function handleOverlayKeyDown(e: React.KeyboardEvent) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onClose();
+    }
+  }
 
   return (
     <AnimatePresence>
       {open && (
         <>
-          <motion.div
+          <m.div
             className='fixed inset-0 z-40 bg-black/50'
-            initial={{ opacity: 0 }}
+            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            exit={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
           />
-          <motion.div
+          <m.div
             className='fixed inset-0 z-50 flex items-center justify-center p-4'
-            initial={{ scale: 0.95, opacity: 0 }}
+            initial={shouldReduceMotion ? { opacity: 1 } : { scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.95, opacity: 0 }}
+            exit={shouldReduceMotion ? { opacity: 1 } : { scale: 0.95, opacity: 0 }}
             onClick={onClose}
+            role='button'
+            tabIndex={0}
+            onKeyDown={handleOverlayKeyDown}
+            aria-label='Close modal'
           >
             <div
               ref={modalRef}
+              role='dialog'
+              aria-modal='true'
               onClick={e => e.stopPropagation()}
+              onKeyDown={e => e.stopPropagation()}
               className='relative w-full max-w-lg rounded-xl bg-zinc-900 p-6 text-white shadow-xl'
             >
               <button
@@ -47,7 +62,7 @@ export default function PopupWrapper({
               </button>
               {children}
             </div>
-          </motion.div>
+          </m.div>
         </>
       )}
     </AnimatePresence>

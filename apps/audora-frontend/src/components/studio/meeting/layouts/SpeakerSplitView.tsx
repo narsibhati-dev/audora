@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { m, useReducedMotion } from 'framer-motion';
 import VideoTile from '../video-tile';
 import { DisplayParticipant } from './types';
 
@@ -13,14 +13,15 @@ export default function SpeakerSplitView({
   mainSpeaker,
   otherParticipants,
 }: SpeakerSplitViewProps) {
+  const shouldReduceMotion = useReducedMotion();
   return (
     <div className='flex h-full w-full flex-row gap-2 p-2'>
-      <motion.div
+      <m.div
         className='relative flex-[3]'
-        initial={{ opacity: 0, x: -20 }}
+        initial={shouldReduceMotion ? false : { opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: -20 }}
-        transition={{ duration: 0.4 }}
+        exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: -20 }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.4 }}
       >
         <VideoTile
           label={mainSpeaker.name}
@@ -32,23 +33,23 @@ export default function SpeakerSplitView({
           micOn={mainSpeaker.isMicOn}
           isSelf={!!mainSpeaker.isSelf}
         />
-      </motion.div>
+      </m.div>
 
-      <motion.div
+      <m.div
         className='flex w-64 flex-col gap-2 overflow-y-auto'
-        initial={{ opacity: 0, x: 20 }}
+        initial={shouldReduceMotion ? false : { opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: 20 }}
-        transition={{ duration: 0.4 }}
+        exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: 20 }}
+        transition={{ duration: shouldReduceMotion ? 0 : 0.4 }}
       >
         {otherParticipants.map((p, i) => (
-          <motion.div
+          <m.div
             key={p.id}
             className='aspect-video'
-            initial={{ opacity: 0, y: 10 * (i + 1) }}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 10 * (i + 1) }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 * (i + 1) }}
-            transition={{ duration: 0.3 }}
+            exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 10 * (i + 1) }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
           >
             <VideoTile
               label={p.name}
@@ -58,9 +59,9 @@ export default function SpeakerSplitView({
               micOn={p.isMicOn}
               isSelf={!!p.isSelf}
             />
-          </motion.div>
+          </m.div>
         ))}
-      </motion.div>
+      </m.div>
     </div>
   );
 }

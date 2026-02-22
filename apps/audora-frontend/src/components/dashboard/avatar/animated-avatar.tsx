@@ -1,24 +1,24 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { useId } from 'react';
+import { m, useReducedMotion } from 'framer-motion';
 
 export const AnimatedAvatar = ({ open }: { open: boolean }) => {
   const gradientId = useId();
+  const shouldReduceMotion = useReducedMotion();
 
   return (
-    <motion.svg
+    <m.svg
       width='46'
       height='46'
       viewBox='0 0 48 48'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
-      whileHover={{ rotate: -10, scale: 1.1, x: -4 }}
-      transition={{ type: 'spring', stiffness: 200, damping: 12 }}
+      whileHover={shouldReduceMotion ? undefined : { rotate: -10, scale: 1.1, x: -4 }}
+      transition={shouldReduceMotion ? undefined : { type: 'spring', stiffness: 200, damping: 12 }}
       className={`${
         open ? 'border-dashboard-bg-light' : 'border-transparent'
       } hover:border-dashboard-bg-light cursor-pointer rounded-full border-4 shadow-none`}
-      style={{ willChange: 'transform' }}
     >
       {/* Gradient Face Circle */}
       <defs>
@@ -39,7 +39,7 @@ export const AnimatedAvatar = ({ open }: { open: boolean }) => {
       <circle cx='24' cy='24' r='20' fill={`url(#${gradientId})`} />
 
       {/* Eyes with Safari-safe transform */}
-      <motion.ellipse
+      <m.ellipse
         cx='18'
         cy='20'
         rx='1.2'
@@ -50,10 +50,10 @@ export const AnimatedAvatar = ({ open }: { open: boolean }) => {
           transformOrigin: 'center center',
           transformBox: 'fill-box',
         }}
-        animate={{ scaleY: [1, 0.15, 1] }}
-        transition={{ repeat: Infinity, repeatDelay: 4, duration: 0.15 }}
+        animate={shouldReduceMotion ? undefined : { scaleY: [1, 0.15, 1] }}
+        transition={shouldReduceMotion ? undefined : { repeat: Infinity, repeatDelay: 4, duration: 0.15 }}
       />
-      <motion.ellipse
+      <m.ellipse
         cx='30'
         cy='20'
         rx='1.2'
@@ -64,8 +64,8 @@ export const AnimatedAvatar = ({ open }: { open: boolean }) => {
           transformOrigin: 'center center',
           transformBox: 'fill-box',
         }}
-        animate={{ scaleY: [1, 0.15, 1] }}
-        transition={{ repeat: Infinity, repeatDelay: 4.3, duration: 0.15 }}
+        animate={shouldReduceMotion ? undefined : { scaleY: [1, 0.15, 1] }}
+        transition={shouldReduceMotion ? undefined : { repeat: Infinity, repeatDelay: 4.3, duration: 0.15 }}
       />
 
       {/* Mouth with adjusted position */}
@@ -74,6 +74,6 @@ export const AnimatedAvatar = ({ open }: { open: boolean }) => {
         fill='black'
         transform='translate(17 20)'
       />
-    </motion.svg>
+    </m.svg>
   );
 };
