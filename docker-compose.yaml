@@ -20,7 +20,7 @@ services:
       NEXT_PUBLIC_SIGNALING_URL: ws://localhost:8000
       NODE_ENV: production
       NEXTAUTH_URL: http://localhost:3000
-      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-changeme}
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
     restart: unless-stopped
@@ -36,15 +36,15 @@ services:
       context: .
       dockerfile: docker/backend.prod.Dockerfile
       args:
-        DATABASE_URL: postgresql://audora_user:supersecret123@database:5432/audora
+        DATABASE_URL: ${DATABASE_URL}
     ports:
       - "9000:9000"
     depends_on:
       database:
         condition: service_healthy
     environment:
-      DATABASE_URL: postgresql://audora_user:supersecret123@database:5432/audora
-      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-changeme}
+      DATABASE_URL: ${DATABASE_URL}
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
       FRONTEND_URL: http://localhost:3000
       NODE_ENV: production
     restart: unless-stopped
@@ -60,7 +60,7 @@ services:
       context: .
       dockerfile: docker/signal.prod.Dockerfile
       args:
-        DATABASE_URL: postgresql://audora_user:supersecret123@database:5432/audora
+        DATABASE_URL: ${DATABASE_URL}
     ports:
       - "8000:8000"
       - "8001:8001"
@@ -68,8 +68,8 @@ services:
       database:
         condition: service_healthy
     environment:
-      DATABASE_URL: postgresql://audora_user:supersecret123@database:5432/audora
-      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-changeme}
+      DATABASE_URL: ${DATABASE_URL}
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
       NODE_ENV: production
     restart: unless-stopped
     healthcheck:
@@ -84,7 +84,7 @@ services:
     restart: always
     environment:
       POSTGRES_USER: audora_user
-      POSTGRES_PASSWORD: supersecret123
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: audora
     volumes:
       - audora_postgres_data:/var/lib/postgresql/data

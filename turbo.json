@@ -56,7 +56,9 @@
         "FRONTEND_URL",
         "PORT",
         "NEXTAUTH_SECRET",
-        "NODE_ENV"
+        "NODE_ENV",
+        "KAFKA_BROKERS",
+        "KAFKA_TOPIC"
       ],
       "cache": false,
       "persistent": true
@@ -65,18 +67,38 @@
     "start:signal": {
       "dependsOn": ["^db:deploy"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "env": ["DATABASE_URL", "PORT", "NODE_ENV", "NEXTAUTH_SECRET"],
+      "env": ["DATABASE_URL", "PORT", "NODE_ENV", "NEXTAUTH_SECRET", "DEBUG"],
       "cache": false,
       "persistent": true
     },
 
-    "generate": {
+    "db:generate": {
       "cache": false,
       "env": ["DATABASE_URL"],
       "persistent": true
     },
 
+    "db:seed": {
+      "cache": false,
+      "env": ["DATABASE_URL"]
+    },
+
     "db:deploy": {
+      "cache": false,
+      "env": ["DATABASE_URL"]
+    },
+
+    "db:reset": {
+      "cache": false,
+      "env": ["DATABASE_URL"]
+    },
+
+    "db:migrate": {
+      "cache": false,
+      "env": ["DATABASE_URL"]
+    },
+
+    "db:studio": {
       "cache": false,
       "env": ["DATABASE_URL"]
     }

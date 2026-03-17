@@ -177,6 +177,7 @@ export const useSignaling = ({
       setStatus('disconnected');
       connectionReadyRef.current = false;
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- `onClose` intentionally excluded; including it would reconnect on every parent re-render
   }, [token, studioSlug]);
 
   useEffect(() => {

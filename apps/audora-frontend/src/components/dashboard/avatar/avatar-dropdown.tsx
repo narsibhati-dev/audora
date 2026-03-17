@@ -36,9 +36,15 @@ export default function AvatarDropdown({ collapsed = false }) {
 
       {open && (
         <m.div
-          initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.95, y: 10 }}
+          initial={
+            shouldReduceMotion ? false : { opacity: 0, scale: 0.95, y: 10 }
+          }
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95, y: 10 }}
+          exit={
+            shouldReduceMotion
+              ? { opacity: 0 }
+              : { opacity: 0, scale: 0.95, y: 10 }
+          }
           transition={{ duration: shouldReduceMotion ? 0 : 0.15 }}
           className={
             collapsed

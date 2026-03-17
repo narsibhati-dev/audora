@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Open_Sans } from 'next/font/google';
-import '@audora/tailwind-css';
+import '@/styles/globals.css';
 import siteMetadata from '@/lib/seo/siteMetadata';
 import { Toaster } from 'react-hot-toast';
 import ReactQueryProvider from '@/lib/react-query';
@@ -83,23 +83,23 @@ export default function RootLayout({
           <FramerMotionProvider>
             <LoadingProvider>
               {children}
-            <Toaster
-              position='top-right'
-              reverseOrder={false}
-              toastOptions={{
-                style: {
-                  background: '#1a1a1a',
-                  color: '#fff',
-                  border: '1px solid #222',
-                  borderRadius: '10px',
-                  padding: '10px',
-                  fontSize: '14px',
-                  fontWeight: 'bold',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                  zIndex: 1000,
-                },
-              }}
-            />
+              <Toaster
+                position='top-right'
+                reverseOrder={false}
+                toastOptions={{
+                  style: {
+                    background: '#1a1a1a',
+                    color: '#fff',
+                    border: '1px solid #222',
+                    borderRadius: '10px',
+                    padding: '10px',
+                    fontSize: '14px',
+                    fontWeight: 'bold',
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                    zIndex: 1000,
+                  },
+                }}
+              />
             </LoadingProvider>
           </FramerMotionProvider>
         </ReactQueryProvider>

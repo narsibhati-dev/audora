@@ -46,9 +46,15 @@ export default function SpeakerSplitView({
           <m.div
             key={p.id}
             className='aspect-video'
-            initial={shouldReduceMotion ? false : { opacity: 0, y: 10 * (i + 1) }}
+            initial={
+              shouldReduceMotion ? false : { opacity: 0, y: 10 * (i + 1) }
+            }
             animate={{ opacity: 1, y: 0 }}
-            exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 10 * (i + 1) }}
+            exit={
+              shouldReduceMotion
+                ? { opacity: 0 }
+                : { opacity: 0, y: 10 * (i + 1) }
+            }
             transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
           >
             <VideoTile

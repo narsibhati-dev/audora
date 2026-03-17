@@ -1,9 +1,9 @@
-import express from "express";
+import express, { type Router } from "express";
 
 import { auth } from "../middleware/auth";
 import { setProfileName } from "../controllers/profile.controller";
 
-const profileRouter = express.Router();
+const profileRouter: Router = express.Router();
 
 profileRouter.use(auth);
 

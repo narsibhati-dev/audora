@@ -3,7 +3,6 @@ import {
   addProjectId,
   addTrackId,
   broadcastToRoom,
-  removeRoom,
   updateRecordingStatus,
 } from "../rooms/room-manager";
 import type { InboundMessage } from "@audora/types";

@@ -101,7 +101,7 @@ export const isUserInRoom = (roomId: string, userId: string): boolean => {
   return room.participants.some((p) => p.userId === userId);
 };
 
-export const sendToSocket = (socket: WebSocket, message: any) => {
+export const sendToSocket = (socket: WebSocket, message: Record<string, unknown>) => {
   if (socket.readyState === WebSocket.OPEN) {
     socket.send(JSON.stringify(message));
     return true;
@@ -111,7 +111,7 @@ export const sendToSocket = (socket: WebSocket, message: any) => {
 
 export const broadcastToRoom = (
   roomId: string,
-  message: any,
+  message: Record<string, unknown>,
   excludeSocket?: WebSocket
 ) => {
   const room = rooms.get(roomId);

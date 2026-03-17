@@ -26,12 +26,16 @@ const PageNotFound = () => {
           <m.h1
             initial={shouldReduceMotion ? false : { scale: 0.5 }}
             animate={{ scale: 1 }}
-            transition={shouldReduceMotion ? { duration: 0 } : {
-              type: 'spring',
-              stiffness: 260,
-              damping: 20,
-              delay: 0.2,
-            }}
+            transition={
+              shouldReduceMotion
+                ? { duration: 0 }
+                : {
+                    type: 'spring',
+                    stiffness: 260,
+                    damping: 20,
+                    delay: 0.2,
+                  }
+            }
             className='mb-4 text-8xl font-bold text-white'
           >
             404

@@ -6,7 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start:frontend": "next start",
-    "lint": "next lint",
+    "lint": "eslint . --max-warnings 0",
     "check-types": "tsc --noEmit --pretty",
     "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
     "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
@@ -16,7 +16,7 @@
     "upgrade:tailwind": "bunx @tailwindcss/upgrade@latest"
   },
   "dependencies": {
-    "@audora/tailwind-css": "*",
+    "@audora/types": "*",
     "@next/third-parties": "16.0.8",
     "@tanstack/react-query": "^5.90.11",
     "@types/bcrypt": "^5.0.2",
@@ -40,9 +40,7 @@
   },
   "devDependencies": {
     "@audora/eslint-config": "*",
-    "@audora/types": "*",
     "@audora/typescript-config": "*",
-    "@eslint/eslintrc": "^3.3.3",
     "@tailwindcss/postcss": "^4.1.17",
     "@types/minimatch": "^5.1.2",
     "@types/node": "^20.19.25",

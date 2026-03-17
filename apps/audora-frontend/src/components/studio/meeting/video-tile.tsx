@@ -54,7 +54,9 @@ export default function VideoTile({
         <m.div
           initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95 }}
+          exit={
+            shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95 }
+          }
           transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
           className='absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/80 text-white'
         >

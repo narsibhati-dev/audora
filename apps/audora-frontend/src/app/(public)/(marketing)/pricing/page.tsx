@@ -16,22 +16,27 @@ function PricingCard({ plan }: { plan: PricingPlan }) {
     plan.id === 'custom' ? `mailto:${siteMetadata.email}` : plan.ctaHref;
   const isMailto = plan.id === 'custom';
 
-  const ctaClassName = `mt-6 inline-flex justify-center rounded-lg px-6 py-3 font-semibold transition ${plan.highlight
+  const ctaClassName = `mt-6 inline-flex justify-center rounded-lg px-6 py-3 font-semibold transition ${
+    plan.highlight
       ? 'bg-primary-500 text-white hover:bg-primary-600'
       : 'bg-zinc-700 text-white hover:bg-zinc-600'
-    }`;
+  }`;
 
   return (
     <div
-      className={`flex flex-col rounded-2xl border p-6 ${plan.highlight
-          ? 'border-primary-500 bg-zinc-900 shadow-lg shadow-primary-500/10'
+      className={`flex flex-col rounded-2xl border p-6 ${
+        plan.highlight
+          ? 'border-primary-500 shadow-primary-500/10 bg-zinc-900 shadow-lg'
           : 'border-zinc-700/80 bg-zinc-900'
-        }`}
+      }`}
     >
       {plan.badge && (
         <span
-          className={`mb-3 inline-flex w-fit rounded-lg px-2.5 py-0.5 text-xs font-semibold ${plan.highlight ? 'bg-primary-500 text-white' : 'bg-zinc-700 text-zinc-200'
-            }`}
+          className={`mb-3 inline-flex w-fit rounded-lg px-2.5 py-0.5 text-xs font-semibold ${
+            plan.highlight
+              ? 'bg-primary-500 text-white'
+              : 'bg-zinc-700 text-zinc-200'
+          }`}
         >
           {plan.badge}
         </span>
@@ -53,9 +58,12 @@ function PricingCard({ plan }: { plan: PricingPlan }) {
           : `${plan.recordingHours} hr/month recording`}
       </p>
       <ul className='mt-6 flex-1 space-y-3'>
-        {plan.features.map((feature) => (
-          <li key={feature} className='flex items-start gap-2 text-sm text-zinc-300'>
-            <Check className='mt-0.5 h-5 w-5 shrink-0 text-primary-500' />
+        {plan.features.map(feature => (
+          <li
+            key={feature}
+            className='flex items-start gap-2 text-sm text-zinc-300'
+          >
+            <Check className='text-primary-500 mt-0.5 h-5 w-5 shrink-0' />
             <span>{feature}</span>
           </li>
         ))}
@@ -76,8 +84,8 @@ function PricingCard({ plan }: { plan: PricingPlan }) {
 const PricingPage = () => {
   return (
     <main className='bg-black px-4 py-12 md:py-16'>
-      <div className='mx-auto max-w-6xl grid gap-8 md:grid-cols-3'>
-        {PRICING_PLANS.map((plan) => (
+      <div className='mx-auto grid max-w-6xl gap-8 md:grid-cols-3'>
+        {PRICING_PLANS.map(plan => (
           <PricingCard key={plan.id} plan={plan} />
         ))}
       </div>

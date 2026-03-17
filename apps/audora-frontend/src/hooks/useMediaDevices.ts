@@ -116,6 +116,7 @@ export const useMediaDevices = () => {
       // }
       stopAllTracks();
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- `audioOutputId` intentionally excluded; only used to set initial default, adding it causes a loop
   }, [videoDeviceId, audioInputId]);
 
   const toggleMic = () => {

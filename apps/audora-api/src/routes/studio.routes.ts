@@ -1,4 +1,4 @@
-import express from "express";
+import express, { type Router } from "express";
 import { auth } from "../middleware/auth";
 import {
   createStudio,
@@ -8,7 +8,7 @@ import {
   updateStudioSetting,
 } from "../controllers/studio.controller";
 
-const studioRouter = express.Router();
+const studioRouter: Router = express.Router();
 
 studioRouter.use(auth);
 

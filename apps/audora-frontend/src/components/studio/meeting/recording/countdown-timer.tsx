@@ -42,6 +42,7 @@ export const CountdownTimer = ({
     }, 1000);
 
     return () => clearInterval(interval);
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- `time` intentionally excluded; adding it restarts the interval on every tick
   }, [isVisible, handleComplete]);
 
   if (!isVisible || time <= 0) return null;

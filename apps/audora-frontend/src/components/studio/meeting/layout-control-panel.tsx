@@ -66,10 +66,19 @@ export default function LayoutControlPanel() {
         {isOpen && (
           <m.div
             ref={panelRef}
-            initial={shouldReduceMotion ? false : { opacity: 0, y: 10, scale: 0.95 }}
+            initial={
+              shouldReduceMotion ? false : { opacity: 0, y: 10, scale: 0.95 }
+            }
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 10, scale: 0.95 }}
-            transition={{ duration: shouldReduceMotion ? 0 : 0.2, ease: 'easeOut' }}
+            exit={
+              shouldReduceMotion
+                ? { opacity: 0 }
+                : { opacity: 0, y: 10, scale: 0.95 }
+            }
+            transition={{
+              duration: shouldReduceMotion ? 0 : 0.2,
+              ease: 'easeOut',
+            }}
             className='border-dashboard-bg-light bg-dashboard-bg-darkest pointer-events-auto absolute right-0 bottom-16 z-50 w-80 space-y-4 rounded-xl border p-4 text-white shadow-2xl backdrop-blur-md'
           >
             <div className='space-y-2'>

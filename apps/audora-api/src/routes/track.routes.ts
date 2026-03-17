@@ -1,8 +1,8 @@
-import express from "express";
+import express, { type Router } from "express";
 
 // import { auth } from "../middleware/auth";
 
-const trackRouter = express.Router();
+const trackRouter: Router = express.Router();
 
 // trackRouter.use(auth);
 

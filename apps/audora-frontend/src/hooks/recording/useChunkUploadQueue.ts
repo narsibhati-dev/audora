@@ -57,6 +57,7 @@ export const useChunkUploadQueue = () => {
       processQueue();
     }, 2000); // retry every 2s
     return () => clearInterval(interval);
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- `processQueue` is not stable; including it causes infinite re-renders
   }, []);
 
   return { enqueue, isUploading };

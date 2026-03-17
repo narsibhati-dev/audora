@@ -7,7 +7,6 @@ import {
   sendToSocket,
   getRoomParticipants,
   isUserInRoom,
-  type Participant,
   getRoom,
 } from "../rooms/room-manager";
 

@@ -1,6 +1,5 @@
 import { Queue } from "bullmq";
 import { Kafka, type Producer } from "kafkajs";
-import { kafkaProducer } from "./kafkaProducer";
 
 export const queue = new Queue("recording-chunks");
 

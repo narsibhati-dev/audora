@@ -46,7 +46,7 @@ export function handleWebSocket(ws: WebSocket) {
           }
           break;
 
-        case "session-end":
+        case "session-end": {
           const stitchPlan = generateStitchPlan(
             new Map(
               sessionMap
@@ -59,6 +59,7 @@ export function handleWebSocket(ws: WebSocket) {
             JSON.stringify(stitchPlan, null, 2),
           );
           break;
+        }
       }
     } catch (error) {
       console.error("Invalid message format or processing error:", error);

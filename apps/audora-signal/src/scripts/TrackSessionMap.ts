@@ -7,21 +7,21 @@ export interface MediaChunk {
 export class TrackSessionMap {
   private userTracks: Map<string, MediaChunk[]> = new Map();
 
-  addUser(userId: string, timestamp: number) {
+  addUser(userId: string, _timestamp: number) {
     if (!this.userTracks.has(userId)) {
       this.userTracks.set(userId, []);
     }
   }
 
-  markUserLeft(userId: string, timestamp: number) {
+  markUserLeft(_userId: string, _timestamp: number) {
     // Optional: mark end time or flag as offline
   }
 
-  startRecording(userId: string, timestamp: number) {
+  startRecording(_userId: string, _timestamp: number) {
     // Optional: record when recording started
   }
 
-  stopRecording(userId: string, timestamp: number) {
+  stopRecording(_userId: string, _timestamp: number) {
     // Optional: record when recording stopped
   }
 

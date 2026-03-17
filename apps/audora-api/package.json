@@ -4,14 +4,20 @@
   "type": "module",
   "private": true,
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@audora/eslint-config": "*",
+    "@audora/typescript-config": "*",
+    "eslint": "^9.25.0",
+    "typescript": "^5.9.3"
   },
   "peerDependencies": {
     "typescript": "^5"
   },
   "scripts": {
     "start:api": "bun run src/server.ts",
-    "dev": "bun run src/server.ts"
+    "dev": "bun run src/server.ts",
+    "lint": "eslint . --max-warnings 0",
+    "check-types": "tsc --noEmit --pretty"
   },
   "dependencies": {
     "@audora/database": "*",

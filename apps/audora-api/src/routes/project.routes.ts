@@ -1,4 +1,4 @@
-import express from "express";
+import express, { type Router } from "express";
 import { auth } from "../middleware/auth";
 import {
   createProject,
@@ -8,7 +8,7 @@ import {
   updateProject,
 } from "../controllers/project.controller";
 
-const projectRouter = express.Router();
+const projectRouter: Router = express.Router();
 
 projectRouter.use(auth);
 

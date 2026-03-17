@@ -1,4 +1,4 @@
-import { type Response } from "express";
+import { type Request, type Response } from "express";
 import {
   createProjectService,
   deleteProjectService,
@@ -8,9 +8,8 @@ import {
 } from "@audora/database/projectServices";
 import { getStudioByStudioSlugService } from "@audora/database/studioServices";
 import { HttpStatus } from "../utils/HttpStatus";
-import type { AuthRequest } from "../utils/request-type";
 
-export const createProject = async (req: AuthRequest, res: Response) => {
+export const createProject = async (req: Request, res: Response) => {
   const { title, studioId } = req.body;
 
   if (!title || !studioId) {
@@ -38,8 +37,8 @@ export const createProject = async (req: AuthRequest, res: Response) => {
   }
 };
 
-export const deleteProject = async (req: AuthRequest, res: Response) => {
-  const { projectId } = req.params;
+export const deleteProject = async (req: Request, res: Response) => {
+  const projectId = req.params["projectId"] as string;
 
   if (!projectId) {
     res.status(HttpStatus.BAD_REQUEST).json({
@@ -66,8 +65,8 @@ export const deleteProject = async (req: AuthRequest, res: Response) => {
   }
 };
 
-export const getProject = async (req: AuthRequest, res: Response) => {
-  const { projectId } = req.params;
+export const getProject = async (req: Request, res: Response) => {
+  const projectId = req.params["projectId"] as string;
 
   if (!projectId) {
     res.status(HttpStatus.BAD_REQUEST).json({
@@ -94,7 +93,7 @@ export const getProject = async (req: AuthRequest, res: Response) => {
   }
 };
 
-export const getProjects = async (req: AuthRequest, res: Response) => {
+export const getProjects = async (req: Request, res: Response) => {
   const { studioSlug, page } = req.query;
 
   if (!studioSlug || !page) {
@@ -141,8 +140,8 @@ export const getProjects = async (req: AuthRequest, res: Response) => {
   }
 };
 
-export const updateProject = async (req: AuthRequest, res: Response) => {
-  const { projectId } = req.params;
+export const updateProject = async (req: Request, res: Response) => {
+  const projectId = req.params["projectId"] as string;
   const { title } = req.body;
 
   if (!projectId || !title || !req.auth?.id) {

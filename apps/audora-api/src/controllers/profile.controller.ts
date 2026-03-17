@@ -1,9 +1,8 @@
-import { type Response } from "express";
+import { type Request, type Response } from "express";
 import { HttpStatus } from "../utils/HttpStatus";
-import type { AuthRequest } from "../utils/request-type";
 import { getUserById, updateUserById } from "@audora/database/userServices";
 
-export const setProfileName = async (req: AuthRequest, res: Response) => {
+export const setProfileName = async (req: Request, res: Response) => {
   const userId = req.auth?.id;
 
   if (!userId) {

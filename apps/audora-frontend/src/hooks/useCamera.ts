@@ -19,6 +19,7 @@ function useCamera(videoRef: React.RefObject<HTMLVideoElement>) {
     return () => {
       stream?.getTracks().forEach(track => track.stop());
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- `videoRef` is a stable ref object, not a reactive value
   }, []);
 }
 

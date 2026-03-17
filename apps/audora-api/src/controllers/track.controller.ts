@@ -1,9 +1,8 @@
-import { type Response } from "express";
-import { type AuthRequest } from "../utils/request-type";
+import { type Request, type Response } from "express";
 import { HttpStatus } from "../utils/HttpStatus";
 import { createTrackService } from "@audora/database/trackServices";
 
-export const createTrack = async (req: AuthRequest, res: Response) => {
+export const createTrack = async (req: Request, res: Response) => {
   const { title, projectId, trackType } = req.body;
 
   if (!title || !projectId || !trackType) {
@@ -40,12 +39,8 @@ export const createTrack = async (req: AuthRequest, res: Response) => {
   }
 };
 
-export const deleteTrack = async (req: AuthRequest, res: Response) => {
-  const { trackId } = req.params;
-};
+export const deleteTrack = async (_req: Request, _res: Response) => {};
 
-export const getTrack = async (req: AuthRequest, res: Response) => {
-  const { trackId } = req.params;
-};
+export const getTrack = async (_req: Request, _res: Response) => {};
 
-export const getTracks = async (req: AuthRequest, res: Response) => {};
+export const getTracks = async (_req: Request, _res: Response) => {};

@@ -1,9 +1,8 @@
-import { type Response, type NextFunction } from "express";
+import { type Request, type Response, type NextFunction } from "express";
 import { verifyToken } from "../utils/jwt";
 import { HttpStatus } from "../utils/HttpStatus";
-import type { AuthRequest } from "../utils/request-type";
 
-export const auth = (req: AuthRequest, res: Response, next: NextFunction) => {
+export const auth = (req: Request, res: Response, next: NextFunction) => {
   try {
     const authHeader = req.headers?.authorization;
     if (!authHeader) {
@@ -33,7 +32,7 @@ export const auth = (req: AuthRequest, res: Response, next: NextFunction) => {
       id: decoded.id,
     };
     next();
-  } catch (error) {
+  } catch {
     res
       .status(HttpStatus.UNAUTHORIZED)
       .json({ message: "Authentication Failed" });

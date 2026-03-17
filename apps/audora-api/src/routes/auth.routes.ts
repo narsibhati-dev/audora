@@ -1,4 +1,4 @@
-import express from "express";
+import express, { type Router } from "express";
 import {
   register,
   login,
@@ -6,7 +6,7 @@ import {
 } from "../controllers/auth.controller";
 import { authLimiter } from "../middleware/rateLimiters";
 
-const authRouter = express.Router();
+const authRouter: Router = express.Router();
 
 authRouter.post("/register", authLimiter, register);
 authRouter.post("/login", authLimiter, login);

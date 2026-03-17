@@ -19,15 +19,20 @@ export default function GridView({ participants }: GridViewProps) {
     ];
     return (
       <div className='flex h-full w-full flex-col gap-2 p-2'>
-        {participantChunks.map((chunk) => (
-          <div key={chunk.map((p) => p.id).join('-')} className='flex flex-1 gap-2'>
+        {participantChunks.map(chunk => (
+          <div
+            key={chunk.map(p => p.id).join('-')}
+            className='flex flex-1 gap-2'
+          >
             {chunk.map(p => (
               <m.div
                 key={p.id}
                 className='flex-1'
                 initial={shouldReduceMotion ? false : { opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
+                exit={
+                  shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 20 }
+                }
                 transition={{ duration: shouldReduceMotion ? 0 : 0.4 }}
               >
                 <VideoTile
@@ -61,7 +66,9 @@ export default function GridView({ participants }: GridViewProps) {
           key={p.id}
           initial={shouldReduceMotion ? false : { opacity: 0, y: 20 + i * 10 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 20 + i * 10 }}
+          exit={
+            shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 20 + i * 10 }
+          }
           transition={{ duration: shouldReduceMotion ? 0 : 0.4 }}
         >
           <VideoTile

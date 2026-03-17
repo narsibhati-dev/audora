@@ -34,7 +34,7 @@ export const setupSignalingServer = (wss: WebSocketServer) => {
 
       try {
         message = JSON.parse(data.toString());
-      } catch (error) {
+      } catch {
         logger.error("Invalid JSON received:", data.toString());
         sendAndClose(socket, "error", "Malformed message: Invalid JSON format");
         return;

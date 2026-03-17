@@ -74,7 +74,7 @@ export const register = async (req: Request, res: Response) => {
     });
 
     return;
-  } catch (error) {
+  } catch {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
       success: false,
       error: "Internal server error",
@@ -134,7 +134,7 @@ export const login = async (req: Request, res: Response) => {
       accessToken,
     });
     return;
-  } catch (error) {
+  } catch {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
       success: false,
       error: "Internal server error",

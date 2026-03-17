@@ -15,7 +15,7 @@ export const webRTCHandler = ({
   meetingToken: MeetingTokenPayload;
 }) => {
   const { type, data } = message;
-  const { studioSlug, userId, participantRole } = meetingToken;
+  const { studioSlug, participantRole } = meetingToken;
   const logPrefix = `[SIGNAL] ${type} | ${studioSlug} | ${participantRole}`;
 
   // if (

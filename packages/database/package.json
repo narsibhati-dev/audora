@@ -15,20 +15,24 @@
     "./recordingServices": "./src/services/recording-services.ts"
   },
   "scripts": {
-    "generate": "bunx prisma generate",
-    "reset": "bun prisma migrate reset",
-    "migrate": "bun prisma migrate dev",
-    "db:deploy": "bun prisma migrate deploy && bun run generate",
-    "studio": "bunx prisma studio"
+    "db:up": "docker compose -f ../../docker-compose.yml up -d database",
+    "db:down": "docker compose -f ../../docker-compose.yml down database",
+    "db:generate": "bunx prisma generate",
+    "db:deploy": "bun prisma migrate deploy && bun run db:generate",
+    "db:seed": "bun prisma/seed.ts",
+    "db:studio": "bunx prisma studio",
+    "db:reset": "bun prisma migrate reset",
+    "db:migrate": "bun prisma migrate dev"
   },
   "peerDependencies": {
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@prisma/adapter-pg": "^7.1.0",
-    "@prisma/client": "^7.1.0",
+    "@prisma/adapter-pg": "7.5.0",
+    "@prisma/client": "7.5.0",
+    "dotenv": "^16.5.0",
     "nanoid": "^5.0.9",
     "pg": "^8.16.3",
-    "prisma": "^7.1.0"
+    "prisma": "7.5.0"
   }
 }

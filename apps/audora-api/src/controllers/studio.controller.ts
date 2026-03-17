@@ -1,4 +1,4 @@
-import type { Request, Response } from "express";
+import { type Request, type Response } from "express";
 import {
   createStudioService,
   updateStudioService,
@@ -6,9 +6,8 @@ import {
   getStudioByUserIdService,
 } from "@audora/database/studioServices";
 import { HttpStatus } from "../utils/HttpStatus";
-import type { AuthRequest } from "../utils/request-type";
 
-export const createStudio = async (req: AuthRequest, res: Response) => {
+export const createStudio = async (req: Request, res: Response) => {
   const userId = req.auth?.id as string;
 
   if (!userId) {
@@ -71,7 +70,7 @@ export const createStudio = async (req: AuthRequest, res: Response) => {
   }
 };
 
-export const updateStudio = async (req: AuthRequest, res: Response) => {
+export const updateStudio = async (req: Request, res: Response) => {
   const { studioId, studioName } = req.body;
 
   if (!studioId || !studioName) {
@@ -102,7 +101,7 @@ export const updateStudio = async (req: AuthRequest, res: Response) => {
   }
 };
 
-export const deleteStudio = async (req: AuthRequest, res: Response) => {
+export const deleteStudio = async (req: Request, res: Response) => {
   const userId = req.auth?.id;
 
   if (!userId) {
@@ -148,7 +147,7 @@ export const deleteStudio = async (req: AuthRequest, res: Response) => {
   }
 };
 
-export const getStudio = async (req: AuthRequest, res: Response) => {
+export const getStudio = async (req: Request, res: Response) => {
   const userId = req.auth?.id;
 
   if (!userId) {
@@ -185,7 +184,7 @@ export const getStudio = async (req: AuthRequest, res: Response) => {
   }
 };
 
-export const updateStudioSetting = async (req: AuthRequest, res: Response) => {
+export const updateStudioSetting = async (req: Request, res: Response) => {
   const { studioId, settingName, settingValue } = req.body;
 
   const userId = req.auth?.id;

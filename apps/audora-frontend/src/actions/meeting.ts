@@ -8,19 +8,23 @@ export const generateMeetingToken = async (
   userId: string | undefined,
   studioToken?: string | null,
 ) => {
-  const response = await axios.post(
-    `${HTTP_URL}/generate-token`,
-    {
-      studioSlug,
-      userId,
-      studioToken,
-    },
-    {
-      headers: {
-        'Content-Type': 'application/json',
+  try {
+    const response = await axios.post(
+      `${HTTP_URL}/meeting/generate-token`,
+      {
+        studioSlug,
+        userId,
+        studioToken,
       },
-    },
-  );
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
 
-  return response.data;
+    return response.data;
+  } catch {
+    return { success: false, message: 'Failed to generate meeting token' };
+  }
 };

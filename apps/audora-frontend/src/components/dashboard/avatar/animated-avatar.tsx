@@ -14,8 +14,14 @@ export const AnimatedAvatar = ({ open }: { open: boolean }) => {
       viewBox='0 0 48 48'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
-      whileHover={shouldReduceMotion ? undefined : { rotate: -10, scale: 1.1, x: -4 }}
-      transition={shouldReduceMotion ? undefined : { type: 'spring', stiffness: 200, damping: 12 }}
+      whileHover={
+        shouldReduceMotion ? undefined : { rotate: -10, scale: 1.1, x: -4 }
+      }
+      transition={
+        shouldReduceMotion
+          ? undefined
+          : { type: 'spring', stiffness: 200, damping: 12 }
+      }
       className={`${
         open ? 'border-dashboard-bg-light' : 'border-transparent'
       } hover:border-dashboard-bg-light cursor-pointer rounded-full border-4 shadow-none`}
@@ -51,7 +57,11 @@ export const AnimatedAvatar = ({ open }: { open: boolean }) => {
           transformBox: 'fill-box',
         }}
         animate={shouldReduceMotion ? undefined : { scaleY: [1, 0.15, 1] }}
-        transition={shouldReduceMotion ? undefined : { repeat: Infinity, repeatDelay: 4, duration: 0.15 }}
+        transition={
+          shouldReduceMotion
+            ? undefined
+            : { repeat: Infinity, repeatDelay: 4, duration: 0.15 }
+        }
       />
       <m.ellipse
         cx='30'
@@ -65,7 +75,11 @@ export const AnimatedAvatar = ({ open }: { open: boolean }) => {
           transformBox: 'fill-box',
         }}
         animate={shouldReduceMotion ? undefined : { scaleY: [1, 0.15, 1] }}
-        transition={shouldReduceMotion ? undefined : { repeat: Infinity, repeatDelay: 4.3, duration: 0.15 }}
+        transition={
+          shouldReduceMotion
+            ? undefined
+            : { repeat: Infinity, repeatDelay: 4.3, duration: 0.15 }
+        }
       />
 
       {/* Mouth with adjusted position */}
