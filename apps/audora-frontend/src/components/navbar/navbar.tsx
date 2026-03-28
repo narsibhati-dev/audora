@@ -7,25 +7,21 @@ import Image from 'next/image';
 import { productItems } from '@/data';
 import ProductItem from './product-item';
 import siteMetadata from '@/lib/seo/siteMetadata';
-// import GithubStar from '../github-star';
 
-const Navbar = ({ scrolled }: { scrolled: boolean }) => {
-  const textColor = scrolled
-    ? 'text-black hover:text-gray-600'
-    : 'text-zinc-100 hover:text-zinc-300';
-  const buttonBg = scrolled
-    ? 'bg-black text-white hover:bg-neutral-800'
-    : 'bg-white text-black hover:bg-neutral-100';
-
+const Navbar = () => {
   return (
-    <nav className='relative z-50 hidden w-full items-center justify-between pl-12 font-semibold text-white md:flex'>
-      <ul className='flex space-x-8'>
+    <nav className='relative z-50 hidden w-full items-center justify-between pl-12 md:flex'>
+
+      {/* Nav links */}
+      <ul className='flex items-center gap-8'>
         <li className='relative z-50'>
-          <HoverCard triggerText={'Product'} className={textColor}>
-            <div className='grid grid-cols-2 gap-6 pl-12'>
-              {/* Left column with feature list */}
-              <div className='space-y-1 py-4 text-sm'>
-                <h3 className='mb-3 text-lg font-bold text-black'>Products</h3>
+          <HoverCard triggerText='Product'>
+            <div className='grid grid-cols-2 gap-0'>
+              {/* Left: product list */}
+              <div className='space-y-0.5 p-4'>
+                <p className='mb-3 font-mono text-[10px] uppercase tracking-[0.2em] text-[#b0a394]'>
+                  Products
+                </p>
                 {productItems.map(item => (
                   <ProductItem
                     key={item.title}
@@ -37,38 +33,56 @@ const Navbar = ({ scrolled }: { scrolled: boolean }) => {
                 ))}
               </div>
 
-              {/* Right column with image */}
-              <div className='w-full space-y-2 rounded-r-lg bg-zinc-100 p-4'>
+              {/* Right: preview image */}
+              <div className='overflow-hidden rounded-r-xl bg-[#f0ece5] p-4'>
                 <Image
                   src='/images/product-preview.webp'
-                  alt='Preview'
+                  alt='Product preview'
                   width={200}
                   height={200}
-                  className='h-84 w-full rounded-md object-center'
+                  className='h-full w-full rounded-lg object-cover opacity-90'
                 />
               </div>
             </div>
           </HoverCard>
         </li>
-        <li className={`${textColor} cursor-pointer`}>
-          <Link href={'/blogs'}>Blogs</Link>
+
+        <li>
+          <Link
+            href='/blogs'
+            className='text-sm font-medium text-[#7a6f65] transition-colors duration-200 hover:text-[#1a1714]'
+          >
+            Blogs
+          </Link>
         </li>
-        <li className={`${textColor} cursor-pointer`}>
-          <Link href={'/pricing'}>Pricing</Link>
+
+        <li>
+          <Link
+            href='/pricing'
+            className='text-sm font-medium text-[#7a6f65] transition-colors duration-200 hover:text-[#1a1714]'
+          >
+            Pricing
+          </Link>
         </li>
       </ul>
 
-      <div className='flex items-center space-x-4 text-base font-semibold'>
-        <Link href={siteMetadata.dashboard} className={`${textColor}`}>
-          Login
-        </Link>
+      {/* Right: auth actions */}
+      <div className='flex items-center gap-3'>
+        <div className='h-4 w-px bg-[#ddd6cc]' />
+
         <Link
           href={siteMetadata.dashboard}
-          className={`${buttonBg} cursor-pointer rounded-lg px-4 py-2`}
+          className='text-sm font-medium text-[#7a6f65] transition-colors duration-200 hover:text-[#1a1714]'
+        >
+          Login
+        </Link>
+
+        <Link
+          href={siteMetadata.dashboard}
+          className='inline-flex items-center gap-1.5 rounded-lg bg-[#1a1714] px-4 py-2 text-sm font-semibold text-[#f7f5f1] transition-all duration-200 hover:bg-[#2e2a25] active:scale-[0.98]'
         >
           Start for Free
         </Link>
-        {/* <GithubStar /> */}
       </div>
     </nav>
   );

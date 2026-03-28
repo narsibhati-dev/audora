@@ -8,7 +8,7 @@ const MainLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <div className='bg-black'>
+    <div className='overflow-x-hidden bg-[#f7f5f1]'>
       <Header />
       <main className='text-white'>{children}</main>
       <Footer />

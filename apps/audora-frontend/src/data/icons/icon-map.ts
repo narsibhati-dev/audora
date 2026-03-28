@@ -10,6 +10,7 @@ import {
   FaFacebook,
   FaInstagram,
   FaVideo,
+  FaGithub,
 } from 'react-icons/fa6';
 
 // Lucide icons (used in navbar product list)
@@ -65,6 +66,7 @@ export const iconMap = {
   faInstagram: FaInstagram,
   faTiktok: FaTiktok,
   faVideo: FaVideo,
+  faGithub: FaGithub,
 
   // lucide-react (navbar products)
   lucideCircleDot: CircleDot,

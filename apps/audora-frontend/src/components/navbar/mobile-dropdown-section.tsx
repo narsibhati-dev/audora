@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import type { IconKey } from '@/data';
 import { getIcon } from '@/data';
 
@@ -31,46 +31,49 @@ const MobileDropdownSection: React.FC<Props> = ({
   onCloseMenu,
 }) => {
   return (
-    <div className='border-b border-gray-400'>
+    <div className='border-b border-[#e4dfd6]'>
       <button
         onClick={() => onToggle(sectionKey)}
-        className='flex w-full items-center justify-between py-4 text-lg font-semibold text-black'
+        className='flex w-full items-center justify-between py-4 text-base font-medium text-[#5a4e44] transition-colors hover:text-[#1a1714]'
         aria-expanded={isOpen}
         aria-controls={`dropdown-${sectionKey}`}
       >
         {label}
-        {isOpen ? <ChevronUp /> : <ChevronDown />}
+        <ChevronDown
+          className={`h-4 w-4 text-[#b0a394] transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+        />
       </button>
+
       {isOpen && items.length > 0 && (
         <div
-          className='pb-2 pl-4 transition-all duration-300'
+          className='space-y-1 pb-3 pl-2'
           id={`dropdown-${sectionKey}`}
         >
-          {items.map(item => (
-            <Link
-              key={item.title}
-              href={item.href}
-              className='flex items-center gap-4 py-2'
-              onClick={() => {
-                window.scrollTo(0, 0);
-                onToggle(sectionKey); // close dropdown
-                onCloseMenu(); // close menu
-              }}
-            >
-              <div className='bg-primary-100 rounded-md p-3'>
-                {(() => {
-                  const Icon = getIcon(item.iconKey);
-                  return <Icon className='text-primary-500 h-5 w-5' />;
-                })()}
-              </div>
-              <div>
-                <p className='text-base font-semibold text-black'>
-                  {item.title}
-                </p>
-                <p className='mt-1 text-sm text-zinc-600'>{item.description}</p>
-              </div>
-            </Link>
-          ))}
+          {items.map(item => {
+            const Icon = getIcon(item.iconKey);
+            return (
+              <Link
+                key={item.title}
+                href={item.href}
+                className='group flex items-center gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-[#ede8e1]'
+                onClick={() => {
+                  window.scrollTo(0, 0);
+                  onToggle(sectionKey);
+                  onCloseMenu();
+                }}
+              >
+                <div className='shrink-0 rounded-lg bg-[#e8e2d8] p-2'>
+                  <Icon className='h-4 w-4 text-[#b8620a]' />
+                </div>
+                <div>
+                  <p className='text-sm font-semibold text-[#1a1714]'>
+                    {item.title}
+                  </p>
+                  <p className='text-xs text-[#9a8878]'>{item.description}</p>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       )}
     </div>

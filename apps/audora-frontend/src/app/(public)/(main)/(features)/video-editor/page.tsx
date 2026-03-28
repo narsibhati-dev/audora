@@ -77,10 +77,8 @@ const VideoEditorPage = () => {
         features={videoEditorFeatures}
       />
 
-      <section className='bg-black'>
-        <HowItWorksVideoEditor />
-        <FAQ faqs={videoEditorFaqItems} />
-      </section>
+      <HowItWorksVideoEditor />
+      <FAQ faqs={videoEditorFaqItems} />
     </main>
   );
 };

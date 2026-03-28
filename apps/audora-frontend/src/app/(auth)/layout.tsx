@@ -1,5 +1,4 @@
 import WorkInProgress from '@/components/work-in progress';
-import { FaArrowLeft } from 'react-icons/fa';
 import Link from 'next/link';
 import React from 'react';
 
@@ -8,10 +7,10 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
     <>
       <Link
         href='/'
-        className='fixed top-2 left-4 z-70 flex items-center gap-2 text-sm text-zinc-200 transition-all duration-200 hover:text-white'
+        className='fixed top-4 left-6 z-70 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-[#9a8878] transition-colors hover:text-[#1a1714]'
         aria-label='Back to home'
       >
-        <FaArrowLeft className='text-sm' /> Home
+        ← Home
       </Link>
 
       <WorkInProgress title='The backend is in development mode right now as we’re adding new features. The production-ready backend will go live soon.' />

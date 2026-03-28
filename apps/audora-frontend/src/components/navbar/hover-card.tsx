@@ -23,7 +23,7 @@ const HoverCard = ({
   };
 
   const handleMouseLeave = () => {
-    timeoutRef.current = setTimeout(() => setIsOpen(false), 100);
+    timeoutRef.current = setTimeout(() => setIsOpen(false), 120);
   };
 
   return (
@@ -39,12 +39,14 @@ const HoverCard = ({
       />
 
       <div
-        className={`absolute top-full left-0 mt-7 w-[800px] rounded-xl border border-gray-300 bg-white text-gray-800 shadow-xl transition-all duration-200 ${
+        className={`absolute top-full left-0 mt-5 w-[700px] overflow-hidden rounded-xl border border-[#e4dfd6] bg-[#faf8f5] shadow-[0_8px_40px_rgba(0,0,0,0.1)] transition-all duration-200 ${
           isOpen
-            ? 'pointer-events-auto scale-100 opacity-100'
-            : 'pointer-events-none scale-95 opacity-0'
+            ? 'pointer-events-auto translate-y-0 opacity-100'
+            : 'pointer-events-none -translate-y-1 opacity-0'
         }`}
       >
+        {/* Warm top accent */}
+        <div className='h-[2px] bg-gradient-to-r from-[#b8620a]/40 via-[#e4dfd6] to-transparent' />
         {children}
       </div>
     </div>

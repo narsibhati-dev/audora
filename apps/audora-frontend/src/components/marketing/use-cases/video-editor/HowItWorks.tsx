@@ -6,84 +6,88 @@ interface StepProps {
   icon: React.ReactNode;
   title: string;
   description: string;
+  isLast: boolean;
 }
 
-const Step = ({ number, icon, title, description }: StepProps) => (
-  <div className='relative'>
-    <div className='flex items-start gap-6'>
-      <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/10 text-white'>
-        {icon}
-      </div>
-      <div>
-        <div className='mb-2 flex items-center gap-2'>
-          <span className='text-sm font-medium text-white/50'>
-            Step {number}
-          </span>
-          <div className='h-px w-8 bg-white/20' />
-        </div>
-        <h3 className='mb-2 text-xl font-semibold text-white'>{title}</h3>
-        <p className='text-white/70'>{description}</p>
-      </div>
-    </div>
-    {number < 4 && (
-      <div className='absolute top-12 left-6 h-full w-px bg-white/10' />
+const Step = ({ number, icon, title, description, isLast }: StepProps) => (
+  <div className='relative flex items-start gap-6'>
+    {/* Vertical connector */}
+    {!isLast && (
+      <div className='absolute top-12 left-5 h-full w-px bg-[#ddd6cc]' />
     )}
+
+    {/* Step icon circle */}
+    <div className='relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#e4dfd6] bg-white text-[#b8620a] shadow-sm'>
+      {icon}
+    </div>
+
+    <div className='pb-10'>
+      <div className='mb-2 flex items-center gap-2'>
+        <span className='font-mono text-[10px] uppercase tracking-[0.18em] text-[#b0a394]'>
+          Step {number}
+        </span>
+        <span className='h-px w-6 bg-[#ddd6cc]' />
+      </div>
+      <h3 className='font-syne mb-1.5 text-[17px] font-bold text-[#1a1714]'>{title}</h3>
+      <p className='text-[14px] leading-relaxed text-[#7a6f65]'>{description}</p>
+    </div>
   </div>
 );
 
 const HowItWorksVideoEditor = () => {
   const steps = [
     {
-      number: 1,
-      icon: <Upload className='h-6 w-6' />,
-      title: 'Upload Your Media',
-      description:
-        'Import your video files, images, and audio tracks into the editor. We support all major formats.',
+      icon: <Upload className='h-4 w-4' />,
+      title: 'Import Your Media',
+      description: 'Upload video files, images, and audio tracks. We support all major formats up to 4K resolution.',
     },
     {
-      number: 2,
-      icon: <Edit className='h-6 w-6' />,
-      title: 'Edit Your Content',
-      description:
-        'Use our intuitive tools to trim, cut, and arrange your clips. Add text, transitions, and effects.',
+      icon: <Edit className='h-4 w-4' />,
+      title: 'Edit on the Timeline',
+      description: 'Trim, cut, and arrange clips with precision using our multi-track timeline interface.',
     },
     {
-      number: 3,
-      icon: <Wand2 className='h-6 w-6' />,
-      title: 'Enhance Your Video',
-      description:
-        'Apply professional effects, color grading, and audio mixing to perfect your video.',
+      icon: <Wand2 className='h-4 w-4' />,
+      title: 'Enhance & Polish',
+      description: 'Apply effects, color grading, transitions, and audio mixing to perfect your video.',
     },
     {
-      number: 4,
-      icon: <Share2 className='h-6 w-6' />,
+      icon: <Share2 className='h-4 w-4' />,
       title: 'Export & Share',
-      description:
-        'Export your finished video in your preferred format and share it with your audience.',
+      description: 'Export your finished video in your preferred format and share it directly to your audience.',
     },
   ];
 
   return (
-    <section className='mx-auto max-w-3xl px-4 py-24 sm:px-6 lg:px-8'>
-      <div className='text-center'>
-        <h2 className='text-3xl font-bold text-white sm:text-4xl'>
-          How It Works
-        </h2>
-        <p className='mt-4 text-lg text-white/70'>
-          Create professional videos in just a few simple steps
-        </p>
-      </div>
+    <section className='bg-[#f0ece5] py-24'>
+      <div className='mx-auto max-w-10xl px-8 sm:px-12 lg:px-16 xl:px-24'>
 
-      <div className='mt-16 space-y-12'>
-        {steps.map(step => (
-          <Step
-            key={step.number}
-            number={step.number}
-            icon={step.icon}
-            title={step.title}
-            description={step.description}
-          />
-        ))}
+        <div className='mb-14'>
+          <div className='mb-5 flex items-center gap-2.5'>
+            <span className='h-px w-6 bg-[#b8620a]/60' />
+            <span className='font-mono text-[11px] uppercase tracking-[0.24em] text-[#b8620a]'>
+              How it works
+            </span>
+          </div>
+          <h2 className='font-syne text-[clamp(2rem,4.5vw,3.5rem)] font-extrabold leading-[0.95] tracking-[-0.04em] text-[#1a1714]'>
+            Edit like a pro
+            <br />
+            from day one.
+          </h2>
+        </div>
+
+        <div className='max-w-xl'>
+          {steps.map((step, i) => (
+            <Step
+              key={i}
+              number={i + 1}
+              icon={step.icon}
+              title={step.title}
+              description={step.description}
+              isLast={i === steps.length - 1}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

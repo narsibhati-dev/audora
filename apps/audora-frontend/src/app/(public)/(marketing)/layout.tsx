@@ -8,9 +8,9 @@ const MarketingLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <div className='bg-gray-100'>
+    <div className='overflow-x-hidden bg-[#f7f5f1]'>
       <Header isMarketing={true} />
-      <main className='mt-16'>{children}</main>
+      <main>{children}</main>
       <Footer />
     </div>
   );

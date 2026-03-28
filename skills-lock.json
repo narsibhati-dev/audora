@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "ux-improve": {
+      "source": "101xanshu/ux-improve",
+      "sourceType": "github",
+      "computedHash": "b6b56019ef210ca921e170bfac8f2d28a35f624064933ed1810f6551420ffcdf"
+    }
+  }
+}

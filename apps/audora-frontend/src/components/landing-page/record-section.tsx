@@ -1,5 +1,8 @@
-import React from 'react';
+'use client';
+
+import React, { useRef } from 'react';
 import Image from 'next/image';
+import { m, useInView } from 'framer-motion';
 import siteMetadata from '@/lib/seo/siteMetadata';
 
 interface Participant {
@@ -15,147 +18,216 @@ const participants: Participant[] = [
     name: 'Narsi',
     avatar: '/images/team/narsi-bhati.jpg',
     status: 'Ready',
-    resolution: '3840 × 2160',
+    resolution: '3840×2160',
   },
   {
     name: 'Stephen',
     avatar: '/images/stephen.png',
     status: 'Ready',
-    resolution: '3840 × 2160',
+    resolution: '3840×2160',
   },
   {
     name: 'All Speakers',
     avatar: null,
     status: '',
-    resolution: '3840 × 2160',
+    resolution: '3840×2160',
     icon: (
-      <svg
-        width='32'
-        height='32'
-        fill='none'
-        viewBox='0 0 24 24'
-        aria-hidden='true'
-      >
-        <circle cx='12' cy='8' r='4' fill='#a1a1aa' />
-        <rect x='4' y='16' width='16' height='4' rx='2' fill='#a1a1aa' />
+      <svg width='20' height='20' fill='none' viewBox='0 0 24 24' aria-hidden>
+        <circle cx='12' cy='8' r='4' fill='#9a8878' />
+        <rect x='4' y='16' width='16' height='4' rx='2' fill='#9a8878' />
       </svg>
     ),
   },
 ];
 
+const FEATURES = [
+  'Separate audio + video track per participant',
+  'Local recording — no internet dependency',
+  'Up to 4K UHD resolution at 60fps',
+];
+
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.09, delayChildren: 0.04 } },
+};
+
+const fromLeft = {
+  hidden: { opacity: 0, x: -26 },
+  show: { opacity: 1, x: 0, transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] } },
+};
+
+const fromRight = {
+  hidden: { opacity: 0, x: 24 },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.75, delay: 0.12, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 16 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+};
+
 const RecordSection = () => {
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: '-10%' });
+
   return (
-    <section className='bg-[#f7f7fa] py-20' aria-labelledby='record-heading'>
-      <div className='mx-auto flex max-w-6xl flex-col items-center px-4 text-center'>
-        <h1
-          id='record-heading'
-          className='mb-4 text-5xl font-extrabold text-black'
-        >
-          Record it.
-        </h1>
-        <p className='mx-auto mb-8 max-w-2xl text-lg text-gray-600'>
-          Studio-quality, separate audio and video tracks for each participant,
-          thanks to our local recording technology.
-        </p>
-        <div className='mb-12 flex flex-col justify-center gap-4 sm:flex-row'>
-          <a
-            href={siteMetadata.dashboard}
-            className='bg-primary-500 hover:bg-primary-600 focus:ring-primary-500 rounded-lg px-8 py-3 text-lg font-semibold text-white shadow transition-all duration-300 hover:scale-105 focus:ring-2 focus:ring-offset-2 focus:outline-none'
-            aria-label='Start recording for free'
-          >
-            Start for Free
-          </a>
-          <a
-            href='/recording'
-            className='group text-primary-500 hover:text-primary-600 flex items-center justify-center font-medium transition-all duration-300 hover:underline'
-          >
-            Learn more{' '}
-            <span className='ml-1 transition-transform duration-300 group-hover:translate-x-1'>
-              →
-            </span>
-          </a>
-        </div>
-        {/* Main content */}
-        <div className='relative mt-8 flex w-full flex-col items-center justify-center md:flex-row'>
-          {/* Device image */}
-          <div className='relative w-full scale-[1.02] overflow-hidden rounded-3xl border border-gray-200 shadow-2xl transition-transform duration-300 md:w-[600px]'>
-            <Image
-              src='/images/4k.png'
-              alt='4K Quality Badge'
-              width={1200}
-              height={800}
-              className='h-auto w-full object-cover'
-              priority
-              sizes='600px'
-            />
-            {/* REC badge */}
-            <div className='absolute top-4 right-4 flex animate-pulse items-center gap-1 rounded-lg bg-red-600 px-3 py-1 text-xs font-bold text-white shadow'>
-              <span className='inline-block h-2 w-2 rounded-full bg-white' />{' '}
-              REC
-            </div>
+    <section
+      ref={ref}
+      className='relative overflow-hidden bg-[#f0ece5] py-28'
+      aria-labelledby='record-heading'
+    >
+      {/* Top rule */}
+      <div aria-hidden className='absolute top-0 left-0 right-0 h-px bg-[#e4dfd6]' />
+
+      <m.div
+        variants={stagger}
+        initial='hidden'
+        animate={inView ? 'show' : 'hidden'}
+        className='relative z-10 mx-auto max-w-10xl px-8 sm:px-12 lg:px-16 xl:px-24'
+      >
+        <div className='grid grid-cols-1 items-start gap-14 lg:grid-cols-[1fr_460px] lg:gap-16'>
+
+          {/* ── LEFT: Copy ────────────────────────────────────── */}
+          <div className='flex flex-col justify-center'>
+
+            {/* Section label */}
+            <m.div variants={fadeUp} className='mb-8 flex items-center gap-2.5'>
+              <span className='h-px w-6 bg-[#b8620a]/60' />
+              <span className='font-mono text-[11px] uppercase tracking-[0.24em] text-[#b8620a]'>
+                01 — Record
+              </span>
+            </m.div>
+
+            {/* Headline */}
+            <m.h2
+              id='record-heading'
+              variants={fromLeft}
+              className='font-syne mb-7 text-[clamp(3rem,7vw,6rem)] font-extrabold leading-none tracking-[-0.045em] text-[#1a1714]'
+            >
+              Record it.
+            </m.h2>
+
+            {/* Feature bullets */}
+            <m.div variants={fadeUp} className='mb-10 space-y-3.5'>
+              {FEATURES.map((feat, i) => (
+                <div key={i} className='flex items-start gap-3'>
+                  <div className='mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#b8620a]' />
+                  <p className='text-[15px] leading-relaxed text-[#7a6f65]'>{feat}</p>
+                </div>
+              ))}
+            </m.div>
+
+            {/* CTAs */}
+            <m.div variants={fadeUp} className='flex flex-wrap items-center gap-4'>
+              <a
+                href={siteMetadata.dashboard}
+                className='group inline-flex items-center gap-2 rounded-lg bg-[#1a1714] px-7 py-3.5 text-sm font-semibold text-[#f7f5f1] transition-all duration-200 hover:bg-[#2e2a25] active:scale-[0.98]'
+                aria-label='Start recording for free'
+              >
+                Start for Free
+                <span className='transition-transform duration-200 group-hover:translate-x-0.5'>→</span>
+              </a>
+              <a
+                href='/recording'
+                className='text-sm text-[#7a6f65] underline underline-offset-4 decoration-[#c8b9a8]/60 transition-colors hover:text-[#1a1714]'
+              >
+                Learn more
+              </a>
+            </m.div>
           </div>
-          {/* Floating cards */}
-          <div className='mt-8 flex w-full flex-col gap-6 md:mt-0 md:ml-8 md:max-w-lg'>
-            {/* Download tracks card */}
-            <div className='scale-[1.02] rounded-2xl bg-zinc-900 p-6 shadow-lg transition-transform duration-300'>
-              <div className='mb-4 text-base font-semibold text-white'>
-                Download separate tracks
+
+          {/* ── RIGHT: Visuals ────────────────────────────────── */}
+          <m.div variants={fromRight} className='flex flex-col gap-4'>
+
+            {/* 4K preview */}
+            <div className='relative overflow-hidden rounded-2xl border border-[#e4dfd6] shadow-[0_4px_24px_rgba(0,0,0,0.07)]'>
+              <Image
+                src='/images/4k.png'
+                alt='4K Quality Recording'
+                width={1200}
+                height={800}
+                className='h-auto w-full object-cover'
+                priority
+                sizes='460px'
+              />
+
+              {/* REC badge */}
+              <div className='absolute top-4 right-4 z-10 flex items-center gap-1.5 rounded-md bg-white/80 px-2.5 py-1 backdrop-blur-sm'>
+                <span className='h-1.5 w-1.5 rounded-full bg-red-400' />
+                <span className='font-mono text-[9px] font-medium uppercase tracking-wider text-[#5a4e44]'>
+                  Rec
+                </span>
               </div>
-              <div className='space-y-3'>
+            </div>
+
+            {/* Tracks download card */}
+            <div className='rounded-2xl border border-[#e4dfd6] bg-white p-5 shadow-[0_2px_12px_rgba(0,0,0,0.05)]'>
+              <div className='mb-4 flex items-center justify-between'>
+                <p className='font-mono text-[10px] uppercase tracking-[0.18em] text-[#b0a394]'>
+                  Download separate tracks
+                </p>
+                <span className='rounded-md border border-[#ddd6cc] bg-[#f5f0e8] px-2 py-0.5 font-mono text-[10px] text-[#b8620a]'>
+                  Lossless
+                </span>
+              </div>
+
+              <div className='space-y-2'>
                 {participants.map(p => (
                   <div
                     key={p.name}
-                    className='flex items-center justify-between rounded-xl bg-zinc-800 px-4 py-3 transition-colors duration-300 hover:bg-zinc-700'
+                    className='group flex items-center justify-between rounded-xl border border-[#ede8e1] bg-[#faf8f5] px-4 py-3 transition-all duration-200 hover:border-[#ddd6cc] hover:bg-[#f5f2ed]'
                   >
                     <div className='flex items-center gap-3'>
                       {p.avatar ? (
-                        <div className='relative h-12 min-h-[48px] w-12 min-w-[48px]'>
+                        <div className='relative h-9 w-9 shrink-0'>
                           <Image
                             src={p.avatar}
                             alt={`${p.name}'s avatar`}
                             fill
-                            sizes='48px'
-                            className='rounded-full border-2 border-zinc-700 object-cover'
+                            sizes='36px'
+                            className='rounded-full border border-[#e4dfd6] object-cover'
                           />
                         </div>
                       ) : (
-                        <div className='flex h-12 min-h-[48px] w-12 min-w-[48px] items-center justify-center rounded-full border-2 border-zinc-600 bg-zinc-700'>
+                        <div className='flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#e4dfd6] bg-[#f0ece5]'>
                           {p.icon}
                         </div>
                       )}
                       <div>
-                        <div className='font-medium text-white'>{p.name}</div>
+                        <p className='text-sm font-medium text-[#1a1714]'>{p.name}</p>
                         {p.status && (
-                          <div className='text-xs text-zinc-400'>
-                            {p.status}
-                          </div>
+                          <p className='font-mono text-[11px] text-[#b0a394]'>{p.status}</p>
                         )}
                       </div>
                     </div>
                     <div className='flex items-center gap-4'>
-                      <span className='text-xs text-zinc-400'>
+                      <span className='hidden font-mono text-[10px] text-[#c8b9a8] sm:block'>
                         {p.resolution}
                       </span>
                       <button
-                        className='hover:text-primary-500 text-white transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-50'
-                        aria-label={`Download ${p.name}'s WAV file`}
+                        className='font-mono text-[11px] text-[#9a8878] transition-colors hover:text-[#b8620a]'
+                        aria-label={`Download ${p.name}'s WAV`}
                       >
-                        {`"WAV"`}
+                        WAV
                       </button>
                       <button
-                        className='hover:text-primary-500 text-white transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-50'
-                        aria-label={`Download ${p.name}'s MP4 file`}
+                        className='font-mono text-[11px] text-[#9a8878] transition-colors hover:text-[#b8620a]'
+                        aria-label={`Download ${p.name}'s MP4`}
                       >
-                        {`"MP4"`}
+                        MP4
                       </button>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-          </div>
+          </m.div>
         </div>
-      </div>
+      </m.div>
     </section>
   );
 };

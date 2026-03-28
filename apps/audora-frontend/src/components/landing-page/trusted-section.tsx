@@ -19,7 +19,7 @@ const TrustedSection = () => {
 
   return (
     <section className='bg-gradient-to-r from-black/80 via-black/40 to-black/0 py-10'>
-      <div className='mx-auto max-w-7xl px-4'>
+      <div className='mx-auto max-w-10xl px-4'>
         <h2 className='mb-8 text-center text-2xl font-extrabold text-white sm:text-3xl'>
           Made with Audora
         </h2>

@@ -41,18 +41,14 @@ const LoginForm = () => {
     } catch (error) {
       if (error instanceof Error) {
         try {
-          // Handle Zod validation errors
           const zodError = JSON.parse(error.message);
           const formattedErrors: Partial<UserLogin> = {};
-
           zodError.forEach((err: { path: string[]; message: string }) => {
             const field = err.path[0] as keyof UserLogin;
             formattedErrors[field] = err.message;
           });
-
           setErrors(formattedErrors);
         } catch {
-          // If it's not a Zod error, show the error message
           toast.error(error.message);
         }
       }
@@ -63,38 +59,35 @@ const LoginForm = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prev: UserLogin) => ({
-      ...prev,
-      [name]: value,
-    }));
-    // Clear error when user starts typing
+    setFormData((prev: UserLogin) => ({ ...prev, [name]: value }));
     if (errors[name as keyof UserLogin]) {
-      setErrors((prev: Partial<UserLogin>) => ({
-        ...prev,
-        [name]: undefined,
-      }));
+      setErrors((prev: Partial<UserLogin>) => ({ ...prev, [name]: undefined }));
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className='mb-2 w-full max-w-xs space-y-3'>
-      <div className='space-y-1'>
+    <form onSubmit={handleSubmit} className='w-full space-y-3'>
+      <div>
         <input
           type='email'
           name='email'
           required
           value={formData.email}
           onChange={handleChange}
-          placeholder='Email'
+          placeholder='Email address'
           disabled={isLoading}
-          className={`focus:ring-primary w-full rounded-lg bg-[#18181b] px-4 py-2 text-white placeholder-gray-400 hover:bg-[#2c2c33] focus:ring-1 focus:outline-none ${
-            errors.email ? 'border border-red-500' : ''
+          className={`w-full rounded-lg border px-4 py-3 text-[14px] text-[#1a1714] placeholder-[#b0a394] outline-none transition-colors ${
+            errors.email
+              ? 'border-red-400 bg-red-50'
+              : 'border-[#ddd6cc] bg-white focus:border-[#9a8878]'
           }`}
         />
-        {errors.email && <p className='text-sm text-red-500'>{errors.email}</p>}
+        {errors.email && (
+          <p className='mt-1.5 text-[12px] text-red-500'>{errors.email}</p>
+        )}
       </div>
 
-      <div className='relative space-y-1'>
+      <div className='relative'>
         <input
           type={showPassword ? 'text' : 'password'}
           name='password'
@@ -103,36 +96,38 @@ const LoginForm = () => {
           onChange={handleChange}
           placeholder='Password'
           disabled={isLoading}
-          className={`focus:ring-primary w-full rounded-lg bg-[#18181b] px-4 py-3 text-white placeholder-gray-400 hover:bg-[#2c2c33] focus:ring-1 focus:outline-none ${
-            errors.password ? 'border border-red-500' : ''
+          className={`w-full rounded-lg border px-4 py-3 pr-16 text-[14px] text-[#1a1714] placeholder-[#b0a394] outline-none transition-colors ${
+            errors.password
+              ? 'border-red-400 bg-red-50'
+              : 'border-[#ddd6cc] bg-white focus:border-[#9a8878]'
           }`}
         />
         <button
           type='button'
-          className='absolute top-1/2 right-3 -translate-y-1/2 text-sm font-medium text-indigo-300 hover:text-indigo-400'
+          className='absolute top-1/2 right-4 -translate-y-1/2 font-mono text-[11px] uppercase tracking-[0.12em] text-[#9a8878] transition-colors hover:text-[#1a1714]'
           onClick={() => setShowPassword(v => !v)}
           tabIndex={-1}
         >
           {showPassword ? 'Hide' : 'Show'}
         </button>
         {errors.password && (
-          <p className='text-sm text-red-500'>{errors.password}</p>
+          <p className='mt-1.5 text-[12px] text-red-500'>{errors.password}</p>
         )}
       </div>
 
       <button
         type='submit'
         disabled={isLoading}
-        className={`mt-2 w-full rounded-lg bg-[#a78bfa] px-4 py-3 text-base font-semibold text-white transition-colors hover:bg-[#8b5cf6] focus:ring-1 focus:ring-indigo-500 focus:outline-none ${
-          isLoading ? 'cursor-not-allowed opacity-50' : ''
+        className={`mt-1 w-full rounded-lg bg-[#1a1714] px-4 py-3.5 text-[13px] font-semibold text-[#f7f5f1] transition-colors hover:bg-[#2e2a25] active:scale-[0.99] ${
+          isLoading ? 'cursor-not-allowed opacity-60' : ''
         }`}
       >
         {isLoading ? (
           <div className='flex justify-center'>
-            <HashLoader color='#fafafa' size={20} />
+            <HashLoader color='#f7f5f1' size={18} />
           </div>
         ) : (
-          'Login'
+          'Sign in'
         )}
       </button>
     </form>

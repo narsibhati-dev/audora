@@ -61,4 +61,9 @@ export const footerSocialLinks: SocialLinkItem[] = [
     label: 'LinkedIn',
     iconKey: 'LinkedInIcon',
   },
+  {
+    href: 'https://github.com/audoralabs',
+    label: 'GitHub',
+    iconKey: 'faGithub',
+  },
 ];

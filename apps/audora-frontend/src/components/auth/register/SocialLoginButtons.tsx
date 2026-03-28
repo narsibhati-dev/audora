@@ -4,47 +4,29 @@ import { FcGoogle } from 'react-icons/fc';
 import { FaApple } from 'react-icons/fa';
 import { loginWithGoogle } from '@/lib/auth/loginWithGoogle';
 
-interface SocialLoginButton {
-  icon: React.ReactNode;
-  onClick?: () => void;
-  label: string;
-}
-
 interface SocialLoginButtonsProps {
   onGoogleLogin?: () => void;
   onAppleLogin?: () => void;
 }
 
-const socialButtons: SocialLoginButton[] = [
-  {
-    icon: <FcGoogle className='text-2xl' />,
-    label: 'Login with Google',
-  },
-  {
-    icon: <FaApple className='text-2xl' />,
-    label: 'Login with Apple',
-  },
-];
-
 export default function SocialLoginButtons({}: SocialLoginButtonsProps) {
-  const handleClick = (index: number) => {
-    if (index === 0) {
-      loginWithGoogle();
-    }
-  };
-
   return (
-    <div className='flex gap-4'>
-      {socialButtons.map((button, index) => (
-        <button
-          key={button.label}
-          className='hover:ring-primary-500 flex h-12 w-12 cursor-pointer items-center justify-center rounded-xl border border-white/10 bg-gradient-to-r from-[#18181b] via-[#232329] to-[#18181b] text-2xl text-white shadow-lg transition-all duration-150 hover:scale-105 hover:ring-1 hover:outline-none'
-          onClick={() => handleClick(index)}
-          aria-label={button.label}
-        >
-          {button.icon}
-        </button>
-      ))}
+    <div className='flex w-full gap-3'>
+      <button
+        onClick={() => loginWithGoogle()}
+        className='flex flex-1 items-center justify-center gap-2.5 rounded-lg border border-[#ddd6cc] bg-white px-4 py-3 text-[13px] font-medium text-[#1a1714] transition-all duration-200 hover:border-[#b0a394] hover:bg-[#f7f5f1] active:scale-[0.98]'
+        aria-label='Continue with Google'
+      >
+        <FcGoogle className='text-[18px]' />
+        <span>Google</span>
+      </button>
+      <button
+        className='flex flex-1 items-center justify-center gap-2.5 rounded-lg border border-[#ddd6cc] bg-white px-4 py-3 text-[13px] font-medium text-[#1a1714] transition-all duration-200 hover:border-[#b0a394] hover:bg-[#f7f5f1] active:scale-[0.98]'
+        aria-label='Continue with Apple'
+      >
+        <FaApple className='text-[18px]' />
+        <span>Apple</span>
+      </button>
     </div>
   );
 }

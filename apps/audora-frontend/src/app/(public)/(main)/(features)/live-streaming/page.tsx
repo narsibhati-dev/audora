@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import getPageMetadata from '@/lib/seo/getPageMetadata';
 import FeatureGrid from '@/components/marketing/use-cases/FeatureGrid';
 
@@ -63,34 +62,10 @@ const LiveStreamPage = () => {
         imageAlt='Professional live streaming setup with multiple screens showing stream analytics, chat interface, and video preview'
       />
 
-      {/* Features Section */}
-      <section className='bg-white p-12 text-center text-black'>
-        <FeatureGrid
-          title='Why Choose Our Streaming?'
-          features={streamingFeatures}
-        />
-      </section>
-
-      <section className='bg-white px-4 pb-8'>
-        {/* CTA Section */}
-        <section className='mx-auto w-full max-w-7xl rounded-3xl bg-gradient-to-b from-[#0a0a0a] via-[#121212] to-[#1f1f1f] p-12 text-center text-white'>
-          <h2 className='mb-6 text-3xl font-bold sm:text-4xl'>
-            Ready to Start Streaming?
-          </h2>
-          <p className='mx-auto mb-8 max-w-2xl text-lg text-white/90'>
-            Join thousands of content creators who trust Audora for their live
-            streaming needs.
-          </p>
-          <div className='flex justify-center'>
-            <Link
-              href={siteMetadata.dashboard}
-              className='bg-primary-500 hover:bg-primary-600 inline-flex items-center justify-center rounded-xl px-8 py-4 font-semibold text-white shadow-lg transition-colors hover:shadow-xl'
-            >
-              Start Streaming Now
-            </Link>
-          </div>
-        </section>
-      </section>
+      <FeatureGrid
+        title='Why Choose Our Streaming?'
+        features={streamingFeatures}
+      />
     </main>
   );
 };

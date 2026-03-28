@@ -20,15 +20,17 @@ const ProductItem = ({
 }: ProductItemProps) => {
   return (
     <Link href={href} aria-label={title} className='block'>
-      <div className='group flex w-full cursor-pointer items-start gap-3 rounded-lg p-3 transition-colors hover:bg-zinc-100'>
-        <div className='bg-primary-100 rounded-md p-3'>
-          {React.createElement(getIcon(iconKey), { className: 'text-primary-500 h-5 w-5' })}
+      <div className='group flex w-full cursor-pointer items-start gap-3 rounded-lg p-3 transition-all duration-150 hover:bg-[#ede8e1]'>
+        <div className='shrink-0 rounded-lg bg-[#e8e2d8] p-2.5'>
+          {React.createElement(getIcon(iconKey), {
+            className: 'h-4 w-4 text-[#b8620a]',
+          })}
         </div>
         <div>
-          <p className='text-sm font-semibold text-black group-hover:text-[#7b61ff]'>
+          <p className='text-sm font-semibold text-[#1a1714] transition-colors duration-150'>
             {title}
           </p>
-          <p className='text-sm text-zinc-600 group-hover:text-zinc-800'>
+          <p className='mt-0.5 text-xs leading-relaxed text-[#9a8878]'>
             {description}
           </p>
         </div>

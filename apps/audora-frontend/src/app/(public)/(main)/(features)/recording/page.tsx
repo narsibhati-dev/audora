@@ -69,10 +69,8 @@ const RecordingPage = () => {
         features={recordingFeatures}
       />
 
-      <section className='bg-black'>
-        <HowItWorksRecording />
-        <FAQ faqs={recordingFaqItems} />
-      </section>
+      <HowItWorksRecording />
+      <FAQ faqs={recordingFaqItems} />
     </main>
   );
 };

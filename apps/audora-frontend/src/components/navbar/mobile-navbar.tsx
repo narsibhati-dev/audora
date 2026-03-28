@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
@@ -5,79 +7,66 @@ import { productItems } from '@/data';
 import Logo from '../logo';
 import MobileDropdownSection from './mobile-dropdown-section';
 import siteMetadata from '@/lib/seo/siteMetadata';
-// import GithubStar from '../github-star';
-
-const noScrollbar = `
-  .no-scrollbar::-webkit-scrollbar { display: none; }
-  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-`;
 
 const menuSections = [
   { label: 'Product', key: 'product1', items: productItems },
 ];
 
-const MobileNavbar = ({ scrolled }: { scrolled: boolean }) => {
+const MobileNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const textColor = scrolled ? 'text-black' : 'text-zinc-100';
 
-  // Prevent body scroll when menu is open
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
+    document.body.style.overflow = isOpen ? 'hidden' : 'unset';
+    return () => { document.body.style.overflow = 'unset'; };
   }, [isOpen]);
 
   return (
     <>
-      <style>{noScrollbar}</style>
       <div className='md:hidden'>
-        {/* Hamburger Menu Button */}
+        {/* Hamburger */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className={`${textColor} rounded-lg transition-colors`}
+          className='flex h-9 w-9 items-center justify-center rounded-lg border border-[#ddd6cc] bg-white text-[#5a4e44] transition-colors hover:border-[#c8b9a8] hover:text-[#1a1714]'
           aria-label='Toggle menu'
         >
-          {isOpen ? <X size={28} /> : <Menu size={28} />}
+          {isOpen ? <X size={18} /> : <Menu size={18} />}
         </button>
 
-        {/* Mobile Menu Overlay */}
+        {/* Backdrop */}
         <div
-          className={`fixed inset-0 z-50 bg-black/50 backdrop-blur-sm transition-opacity duration-300 ${
+          className={`fixed inset-0 z-50 bg-[#1a1714]/30 backdrop-blur-sm transition-opacity duration-300 ${
             isOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
           }`}
           onClick={() => setIsOpen(false)}
         />
 
-        {/* Mobile Menu Content */}
+        {/* Drawer */}
         <div
-          className={`fixed top-0 left-0 z-50 h-full w-full transform rounded-b-2xl bg-white shadow-xl transition-transform duration-300 ${
+          className={`fixed top-0 left-0 z-50 w-full transform rounded-b-2xl border-b border-[#e4dfd6] bg-[#f7f5f1] shadow-[0_8px_40px_rgba(0,0,0,0.1)] transition-transform duration-300 ease-in-out ${
             isOpen ? 'translate-y-0' : '-translate-y-full'
           }`}
         >
-          <div className='relative flex h-full flex-col p-4'>
-            {/* Close button */}
-            <div className='mb-2 flex items-center justify-between'>
-              <Logo scrolled={true} />
+          {/* Warm top accent */}
+          <div className='h-[2px] rounded-t-2xl bg-gradient-to-r from-[#b8620a]/50 via-[#e4dfd6] to-transparent' />
+
+          <div className='flex flex-col p-5'>
+            {/* Header row */}
+            <div className='mb-5 flex items-center justify-between'>
+              <div className='w-fit'>
+                <Logo scrolled={true} />
+              </div>
               <button
                 onClick={() => setIsOpen(false)}
-                className='rounded-lg p-2 text-black'
+                className='flex h-8 w-8 items-center justify-center rounded-lg border border-[#ddd6cc] text-[#7a6f65] transition-colors hover:border-[#c8b9a8] hover:text-[#1a1714]'
                 aria-label='Close menu'
               >
-                <X size={28} />
+                <X size={16} />
               </button>
             </div>
 
-            {/* Scrollable Menu Sections */}
-            <nav
-              className='no-scrollbar mt-2 mb-4 flex-1 overflow-y-auto pb-32'
-              style={{ maxHeight: 'calc(100dvh - 180px)' }}
-            >
+            {/* Nav links */}
+            <nav className='mb-6 space-y-0'>
               {menuSections.map((section, index) => (
                 <MobileDropdownSection
                   key={index}
@@ -94,37 +83,36 @@ const MobileNavbar = ({ scrolled }: { scrolled: boolean }) => {
 
               <Link
                 href='/blogs'
-                className='block border-b border-gray-400 py-4 text-lg font-semibold text-black'
+                className='block border-b border-[#e4dfd6] py-4 text-base font-medium text-[#5a4e44] transition-colors hover:text-[#1a1714]'
                 onClick={() => setIsOpen(false)}
               >
                 Blogs
               </Link>
               <Link
                 href='/pricing'
-                className='block border-b border-gray-400 py-4 text-lg font-semibold text-black'
+                className='block border-b border-[#e4dfd6] py-4 text-base font-medium text-[#5a4e44] transition-colors hover:text-[#1a1714]'
                 onClick={() => setIsOpen(false)}
               >
                 Pricing
               </Link>
             </nav>
 
-            {/* Auth Buttons - fixed at the bottom */}
-            <div className='fixed bottom-0 left-0 z-50 w-full space-y-4 rounded-b-2xl bg-white p-4 shadow-[0_-8px_24px_-8px_rgba(0,0,0,0.04)]'>
+            {/* CTA buttons */}
+            <div className='flex flex-col gap-3 pb-2'>
               <Link
                 href={siteMetadata.dashboard}
-                className='block w-full rounded-lg border-2 border-black py-4 text-center text-lg font-bold'
-                onClick={() => setIsOpen(false)}
-              >
-                Login
-              </Link>
-              <Link
-                href={siteMetadata.dashboard}
-                className='block w-full rounded-lg bg-black py-4 text-center text-lg font-bold text-white'
+                className='block w-full rounded-xl bg-[#1a1714] py-3.5 text-center text-sm font-semibold text-[#f7f5f1] transition-all hover:bg-[#2e2a25] active:scale-[0.98]'
                 onClick={() => setIsOpen(false)}
               >
                 Start for Free
               </Link>
-              {/* <GithubStar /> */}
+              <Link
+                href={siteMetadata.dashboard}
+                className='block w-full rounded-xl border border-[#ddd6cc] py-3.5 text-center text-sm font-medium text-[#7a6f65] transition-colors hover:border-[#c8b9a8] hover:text-[#1a1714]'
+                onClick={() => setIsOpen(false)}
+              >
+                Login
+              </Link>
             </div>
           </div>
         </div>

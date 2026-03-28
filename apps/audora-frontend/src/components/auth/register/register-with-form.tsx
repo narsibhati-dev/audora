@@ -5,63 +5,37 @@ import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
-import { FaArrowLeft, FaCheck } from 'react-icons/fa';
 import HashLoader from 'react-spinners/HashLoader';
+import Link from 'next/link';
 
-// Validation helpers
 const validateEmail = (email: string) =>
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 const validatePassword = (password: string) =>
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*.,?])(?=.{8,})/.test(password);
 
+const passwordChecks = [
+  { label: 'One capital letter', test: (pw: string) => /[A-Z]/.test(pw) },
+  { label: 'One special character', test: (pw: string) => /[!@#$%^&*.,?]/.test(pw) },
+  { label: 'One lower-case letter', test: (pw: string) => /[a-z]/.test(pw) },
+  { label: 'At least 8 characters', test: (pw: string) => pw.length >= 8 },
+];
+
 const RegisterWithForm = ({ onBack }: { onBack?: () => void }) => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-  });
+  const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
   const [passwordFocused, setPasswordFocused] = useState(false);
+  const route = useRouter();
 
-  // Password requirement checks
-  const passwordChecks = [
-    {
-      label: 'One capital letter',
-      test: (pw: string) => /[A-Z]/.test(pw),
-    },
-    {
-      label: 'One special character (!@#$..)',
-      test: (pw: string) => /[!@#$%^&*.,?]/.test(pw),
-    },
-    {
-      label: 'One lower-case letter',
-      test: (pw: string) => /[a-z]/.test(pw),
-    },
-    {
-      label: 'At least 8 characters',
-      test: (pw: string) => pw.length >= 8,
-    },
-  ];
-
-  // Validate all fields and return error messages
   const getValidationErrors = (data: typeof formData) => {
     const errs: string[] = [];
-    if (!data.name.trim()) {
-      errs.push('Name is required');
-    }
-    if (!validateEmail(data.email)) {
-      errs.push('Please enter a valid email address');
-    }
-    if (!validatePassword(data.password)) {
-      errs.push(
-        'Password should contain at least 8 characters, 1 special character (!@#$%^&*.,?), 1 Capital letter and 1 lower-case letter.',
-      );
-    }
+    if (!data.name.trim()) errs.push('Name is required');
+    if (!validateEmail(data.email)) errs.push('Please enter a valid email address');
+    if (!validatePassword(data.password))
+      errs.push('Password must have 8+ characters, uppercase, lowercase, and a special character.');
     return errs;
   };
 
-  // Only update form data on change, don't set errors
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -71,177 +45,187 @@ const RegisterWithForm = ({ onBack }: { onBack?: () => void }) => {
     e.preventDefault();
     const validationErrors = getValidationErrors(formData);
     setErrors(validationErrors);
-    if (validationErrors.length === 0) {
-      registerMutation.mutate(formData);
-    }
+    if (validationErrors.length === 0) registerMutation.mutate(formData);
   };
-
-  const route = useRouter();
 
   const registerMutation = useMutation({
     mutationFn: RegisterUser,
     onSuccess: () => {
-      toast.success('User Signed up Successfully');
+      toast.success('Account created successfully');
       route.push('/login');
     },
     onError: err => {
-      setFormData({
-        name: '',
-        email: '',
-        password: '',
-      });
+      setFormData({ name: '', email: '', password: '' });
       toast.error(err.message);
     },
   });
 
-  return (
-    <div className='relative flex h-full w-full flex-col items-center justify-center px-2 md:max-w-[45%]'>
-      <button
-        className='absolute top-2 left-2 flex items-center gap-2 rounded-md px-2 py-1 text-sm font-medium text-gray-300 hover:bg-zinc-800 hover:text-white'
-        onClick={onBack}
-        type='button'
-      >
-        <FaArrowLeft className='text-sm' /> Back
-      </button>
-      <div className='flex w-full flex-col items-start justify-start px-2'>
-        <section className='md:-translate'>
-          <h2 className='mt-10 mb-2 text-center text-2xl font-bold text-white'>
-            Create your account
-          </h2>
-          <p className='mb-6 text-center text-xs text-gray-400'>
-            {`Sign up to join Audora, it's free`}
-          </p>
-          <div className='flex w-full max-w-md flex-col justify-center px-2 py-4 md:px-10'>
-            <form className='space-y-2' onSubmit={handleSubmit}>
-              <input
-                type='text'
-                name='name'
-                placeholder='Name'
-                value={formData.name}
-                onChange={handleChange}
-                className={`w-full rounded-lg border ${errors.includes('Name is required') ? 'border-red-400' : 'border-none'} bg-[#232329] px-4 py-2.5 text-sm text-white placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:outline-none`}
-                required
-              />
-              <input
-                type='email'
-                name='email'
-                placeholder='Email'
-                value={formData.email}
-                onChange={handleChange}
-                className={`w-full rounded-lg border ${errors.some(e => e.toLowerCase().includes('email')) ? 'border-red-400' : 'border-none'} bg-[#232329] px-4 py-2.5 text-sm text-white placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:outline-none`}
-                required
-              />
-              <div className='relative'>
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  name='password'
-                  placeholder='Password'
-                  value={formData.password}
-                  onChange={handleChange}
-                  className={`w-full rounded-lg border ${errors.some(e => e.toLowerCase().includes('password')) ? 'border-red-400' : 'border-none'} bg-[#232329] px-4 py-2.5 pr-16 text-sm text-white placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:outline-none`}
-                  required
-                  onFocus={() => setPasswordFocused(true)}
-                  onBlur={() => setPasswordFocused(false)}
-                />
-                <button
-                  type='button'
-                  className='absolute top-1/2 right-3 -translate-y-1/2 text-sm font-medium text-indigo-300 hover:text-indigo-400'
-                  onClick={() => setShowPassword(v => !v)}
-                  tabIndex={-1}
-                >
-                  {showPassword ? 'Hide' : 'Show'}
-                </button>
-                {/* Password requirements tooltip */}
-                {passwordFocused && (
-                  <div className='absolute top-0 left-full z-10 ml-4 w-68 rounded-xl border border-white/10 bg-[#232329] p-3 text-sm text-gray-200 shadow-xl'>
-                    <div className='mb-2 text-sm font-semibold text-white'>
-                      Password should contain at least:
-                    </div>
-                    <ul className='space-y-2 pl-5'>
-                      {passwordChecks.map((req, idx) => (
-                        <li
-                          key={idx}
-                          className={
-                            req.test(formData.password)
-                              ? 'text-green-500'
-                              : 'text-gray-400'
-                          }
-                        >
-                          <div className='flex items-center gap-2 text-xs'>
-                            <FaCheck size={8} />
-                            {req.label}
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-              {/* Error box */}
-              <div
-                className='mb-2 rounded-lg border border-red-400 bg-[#2a2022] px-6 py-2 text-xs text-red-200 transition-all duration-200'
-                style={{
-                  minHeight: errors.length > 0 ? undefined : '40px',
-                  borderColor: errors.length > 0 ? '#f87171' : 'transparent',
-                  background: errors.length > 0 ? '#2a2022' : 'transparent',
-                }}
-              >
-                {errors.length > 0 ? (
-                  <ul className='list-disc space-y-1 pl-4'>
-                    {errors.map((err, idx) => (
-                      <li key={idx}>{err}</li>
-                    ))}
-                  </ul>
-                ) : null}
-              </div>
-              <button
-                type='submit'
-                disabled={registerMutation.isPending}
-                className={`mt-2 w-full cursor-pointer rounded-lg bg-[#a78bfa] px-4 py-3 text-base font-semibold text-white transition-colors hover:bg-[#8b5cf6] focus:ring-1 focus:ring-indigo-500 focus:outline-none ${
-                  registerMutation.isPending
-                    ? 'cursor-not-allowed opacity-50'
-                    : ''
-                }`}
-              >
-                {registerMutation.isPending ? (
-                  <div className='flex justify-center'>
-                    <HashLoader color='#fafafa' size={20} />
-                  </div>
-                ) : (
-                  'Create your account'
-                )}
-              </button>
-            </form>
-          </div>
-          <p className='mt-2 w-full text-center text-xs text-gray-400'>
-            {`By signing up, you agree to our`}{' '}
-            <a
-              href='/terms-conditions'
-              className='cursor-pointer text-gray-300 underline hover:text-gray-200'
-            >
-              Terms
-            </a>{' '}
-            &{' '}
-            <a
-              href='/privacy-policy'
-              className='cursor-pointer text-gray-300 underline hover:text-gray-200'
-            >
-              Privacy Policy
-            </a>
-            .
-          </p>
+  const nameError = errors.includes('Name is required');
+  const emailError = errors.some(e => e.toLowerCase().includes('email'));
+  const passwordError = errors.some(e => e.toLowerCase().includes('password'));
 
-          <p className='mt-4 w-full text-center text-xs text-gray-400'>
-            Have an account?{' '}
-            <a
-              href='/login'
-              className='text-primary-500 hover:text-primary-600 cursor-pointer underline'
-            >
-              Log in
-            </a>
-          </p>
-        </section>
+  return (
+    <div className='flex w-full flex-col'>
+      <div className='mb-8'>
+        <button
+          type='button'
+          onClick={onBack}
+          className='mb-6 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-[#9a8878] transition-colors hover:text-[#1a1714]'
+        >
+          ← Back
+        </button>
+        <div className='mb-2 flex items-center gap-2.5'>
+          <span className='h-px w-5 bg-[#b8620a]/60' />
+          <span className='font-mono text-[10px] uppercase tracking-[0.22em] text-[#b8620a]'>
+            Create account
+          </span>
+        </div>
+        <h2 className='font-syne text-[1.75rem] font-extrabold leading-tight tracking-[-0.03em] text-[#1a1714]'>
+          Your details.
+        </h2>
       </div>
+
+      <form className='space-y-3' onSubmit={handleSubmit}>
+        <input
+          type='text'
+          name='name'
+          placeholder='Full name'
+          value={formData.name}
+          onChange={handleChange}
+          className={`w-full rounded-lg border px-4 py-3 text-[14px] text-[#1a1714] placeholder-[#b0a394] outline-none transition-colors ${
+            nameError
+              ? 'border-red-400 bg-red-50'
+              : 'border-[#ddd6cc] bg-white focus:border-[#9a8878]'
+          }`}
+          required
+        />
+        <input
+          type='email'
+          name='email'
+          placeholder='Email address'
+          value={formData.email}
+          onChange={handleChange}
+          className={`w-full rounded-lg border px-4 py-3 text-[14px] text-[#1a1714] placeholder-[#b0a394] outline-none transition-colors ${
+            emailError
+              ? 'border-red-400 bg-red-50'
+              : 'border-[#ddd6cc] bg-white focus:border-[#9a8878]'
+          }`}
+          required
+        />
+
+        <div className='relative'>
+          <input
+            type={showPassword ? 'text' : 'password'}
+            name='password'
+            placeholder='Password'
+            value={formData.password}
+            onChange={handleChange}
+            className={`w-full rounded-lg border px-4 py-3 pr-16 text-[14px] text-[#1a1714] placeholder-[#b0a394] outline-none transition-colors ${
+              passwordError
+                ? 'border-red-400 bg-red-50'
+                : 'border-[#ddd6cc] bg-white focus:border-[#9a8878]'
+            }`}
+            required
+            onFocus={() => setPasswordFocused(true)}
+            onBlur={() => setPasswordFocused(false)}
+          />
+          <button
+            type='button'
+            className='absolute top-1/2 right-4 -translate-y-1/2 font-mono text-[11px] uppercase tracking-[0.12em] text-[#9a8878] transition-colors hover:text-[#1a1714]'
+            onClick={() => setShowPassword(v => !v)}
+            tabIndex={-1}
+          >
+            {showPassword ? 'Hide' : 'Show'}
+          </button>
+
+          {/* Password requirements — warm dark tooltip */}
+          {passwordFocused && (
+            <div className='absolute top-0 left-full z-20 ml-4 w-64 rounded-xl border border-[#2e2a25] bg-[#1a1714] p-4 shadow-[0_8px_32px_rgba(0,0,0,0.2)]'>
+              <p className='mb-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#b8620a]'>
+                Requirements
+              </p>
+              <ul className='space-y-2'>
+                {passwordChecks.map((req, idx) => {
+                  const passing = req.test(formData.password);
+                  return (
+                    <li key={idx} className='flex items-center gap-2'>
+                      <span
+                        className={`h-1.5 w-1.5 shrink-0 rounded-full transition-colors ${
+                          passing ? 'bg-emerald-400' : 'bg-[#3a3330]'
+                        }`}
+                      />
+                      <span
+                        className={`text-[12px] transition-colors ${
+                          passing ? 'text-[#9a8878]' : 'text-[#4a4440]'
+                        }`}
+                      >
+                        {req.label}
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          )}
+        </div>
+
+        {/* Error messages */}
+        {errors.length > 0 && (
+          <div className='rounded-lg border border-red-200 bg-red-50 px-4 py-3'>
+            <ul className='space-y-1'>
+              {errors.map((err, idx) => (
+                <li key={idx} className='text-[12px] text-red-600'>
+                  {err}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <button
+          type='submit'
+          disabled={registerMutation.isPending}
+          className={`mt-1 w-full rounded-lg bg-[#1a1714] px-4 py-3.5 text-[13px] font-semibold text-[#f7f5f1] transition-colors hover:bg-[#2e2a25] active:scale-[0.99] ${
+            registerMutation.isPending ? 'cursor-not-allowed opacity-60' : ''
+          }`}
+        >
+          {registerMutation.isPending ? (
+            <div className='flex justify-center'>
+              <HashLoader color='#f7f5f1' size={18} />
+            </div>
+          ) : (
+            'Create account'
+          )}
+        </button>
+      </form>
+
+      <p className='mt-5 text-[12px] leading-relaxed text-[#b0a394]'>
+        By signing up, you agree to our{' '}
+        <a
+          href='/terms-conditions'
+          className='text-[#7a6f65] underline underline-offset-2 transition-colors hover:text-[#1a1714]'
+        >
+          Terms
+        </a>{' '}
+        &amp;{' '}
+        <a
+          href='/privacy-policy'
+          className='text-[#7a6f65] underline underline-offset-2 transition-colors hover:text-[#1a1714]'
+        >
+          Privacy Policy
+        </a>
+        .
+      </p>
+
+      <p className='mt-3 text-[13px] text-[#9a8878]'>
+        Already have an account?{' '}
+        <Link
+          href='/login'
+          className='font-medium text-[#1a1714] underline underline-offset-2 transition-colors hover:text-[#b8620a]'
+        >
+          Sign in
+        </Link>
+      </p>
     </div>
   );
 };
