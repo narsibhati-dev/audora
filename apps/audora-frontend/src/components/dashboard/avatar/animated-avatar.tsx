@@ -36,10 +36,8 @@ export const AnimatedAvatar = ({ open }: { open: boolean }) => {
           y2='0'
           gradientUnits='userSpaceOnUse'
         >
-          <stop stopColor='#a78bfa' />
-          <stop offset='1' stopColor='#8b5cf6' />
-          <stop offset='1' stopColor='#a78bfa' />
-          <stop offset='1' stopColor='#8b5cf6' />
+          <stop stopColor='#c8740e' />
+          <stop offset='1' stopColor='#b8620a' />
         </linearGradient>
       </defs>
       <circle cx='24' cy='24' r='20' fill={`url(#${gradientId})`} />

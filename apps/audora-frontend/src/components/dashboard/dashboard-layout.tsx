@@ -14,9 +14,9 @@ export default function DashboardLayout({
 }: DashboardLayoutProps) {
   return (
     <StudioSettingsProvider studio={studio}>
-      <div className='bg-dashboard-bg flex h-full w-screen overflow-hidden'>
+      <div className='flex h-screen w-screen overflow-hidden' style={{ background: '#d8d2c8' }}>
         <DashboardSidebar />
-        <div className='m-1.5 flex-1 lg:m-3'>
+        <div className='m-1.5 flex flex-1 flex-col overflow-hidden lg:m-3'>
           <DashboardContainer>{children}</DashboardContainer>
         </div>
       </div>

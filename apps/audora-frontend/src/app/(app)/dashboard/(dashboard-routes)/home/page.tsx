@@ -4,196 +4,131 @@ import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import { getStudio } from '@/actions/studio';
 import Image from 'next/image';
-import { FiVideo, FiSettings, FiFolder, FiPlay } from 'react-icons/fi';
+import { FiVideo, FiSettings, FiFolder, FiPlay, FiChevronRight, FiRadio } from 'react-icons/fi';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import DashboardSkeleton from '@/components/loaders/dashboard-skeleton';
 
-export const metadata = getPageMetadata({
-  title: 'Dashboard',
-});
+export const metadata = getPageMetadata({ title: 'Dashboard' });
+
+const WAVE_BARS = [22, 48, 72, 96, 60, 88, 40, 64, 30, 76, 44, 82, 36, 56, 24, 68, 92, 50, 28, 62, 46, 84, 38, 70, 18];
 
 const HomePageContent = async () => {
   const session = await getServerSession(authOptions);
-
-  if (!session) {
-    redirect('/login');
-  }
+  if (!session) redirect('/login');
 
   const studio = await getStudio(session?.user?.accessToken as string);
+  if (!studio) redirect('/dashboard/studios/create');
 
-  if (!studio) {
-    redirect('/dashboard/studios/create');
-  }
-
-  const studioUrl = `/studio/${studio.studioSlug}`;
+  const studioUrl   = `/studio/${studio.studioSlug}`;
   const projectsUrl = `${studioUrl}/projects`;
   const settingsUrl = '/dashboard/account/studio-settings';
 
   return (
-    <div className='h-full overflow-hidden'>
-      <div
-        className='mx-auto h-full max-w-5xl overflow-y-auto'
-        style={{ scrollbarWidth: 'none' }}
-      >
-        <div className='space-y-8 p-4 lg:space-y-10'>
+    <div className='mx-auto max-w-4xl'>
+      <div className='flex flex-col gap-4 pb-8'>
 
-          {/* ── Hero ─────────────────────────────────────────────── */}
-          <div className='flex flex-col gap-6 lg:flex-row lg:items-center lg:gap-10'>
-            {/* Studio image */}
-            <div className='mx-auto flex-shrink-0 lg:mx-0'>
-              <div className='relative h-40 w-40 sm:h-48 sm:w-48 lg:h-56 lg:w-56 xl:h-64 xl:w-64'>
-                {/* Amber glow ring */}
-                <div className='absolute inset-0 rounded-2xl bg-[#b8620a]/10 blur-xl' aria-hidden />
-                <Image
-                  src='/images/studio/create-studio.png'
-                  alt={`${studio.studioName} Studio`}
-                  width={256}
-                  height={256}
-                  className='relative rounded-2xl object-cover shadow-[0_8px_32px_rgba(0,0,0,0.4)]'
-                  style={{ objectFit: 'cover' }}
-                  priority
-                />
-              </div>
+        {/* ── HERO IDENTITY BLOCK ─────────────────────────── */}
+        <div className='overflow-hidden rounded-2xl border border-[#e4dfd6] bg-white shadow-sm shadow-[#c8a882]/10'>
+
+          {/* Top meta strip */}
+          <div className='flex items-center justify-between border-b border-[#ede8e0] bg-[#faf8f5] px-5 py-2.5'>
+            <div className='flex items-center gap-2'>
+              <FiRadio className='h-3 w-3 text-[#b8620a]' />
+              <span className='font-mono text-[9px] uppercase tracking-[0.28em] text-[#b4a89e]'>
+                Studio Dashboard
+              </span>
             </div>
-
-            {/* Hero text + CTAs */}
-            <div className='flex flex-1 flex-col items-center gap-5 text-center lg:items-start lg:text-left'>
-              <div>
-                <p className='mb-2 font-mono text-[10px] uppercase tracking-[0.22em] text-[#b8620a]'>
-                  ✦ Your studio is ready
-                </p>
-                <h1 className='font-syne text-2xl font-extrabold leading-tight tracking-[-0.03em] text-white sm:text-3xl lg:text-4xl'>
-                  Welcome to your studio
-                </h1>
-                <p className='mt-2 text-[13px] leading-[1.7] text-[#5a4e44] sm:text-sm'>
-                  Your professional recording studio is ready. Start creating
-                  amazing content today.
-                </p>
-              </div>
-
-              {/* Quick action buttons */}
-              <div className='flex w-full flex-col items-center gap-2.5 lg:flex-row lg:items-center lg:gap-3'>
-                <a
-                  href={studioUrl}
-                  className='group flex items-center justify-center gap-2 rounded-xl bg-[#b8620a] px-5 py-2.5 text-white transition-all duration-200 hover:bg-[#9a5008] active:scale-95 sm:px-6 sm:py-3'
-                >
-                  <FiPlay className='h-4 w-4 sm:h-[18px] sm:w-[18px]' />
-                  <span className='font-syne text-[13px] font-bold tracking-[-0.01em] sm:text-sm'>
-                    Start Meeting
-                  </span>
-                </a>
-
-                <Link
-                  href={projectsUrl}
-                  className='flex items-center justify-center gap-2 rounded-xl border border-[#2a2520] bg-[#1a1714] px-5 py-2.5 text-[#9a8878] transition-all duration-200 hover:border-[#b8620a]/30 hover:bg-[#221e1a] hover:text-white active:scale-95 sm:px-6 sm:py-3'
-                >
-                  <FiFolder className='h-4 w-4 sm:h-[18px] sm:w-[18px]' />
-                  <span className='font-syne text-[13px] font-bold tracking-[-0.01em] sm:text-sm'>
-                    View Projects
-                  </span>
-                </Link>
-              </div>
+            <div className='flex items-center gap-1.5'>
+              <span className='relative flex h-1.5 w-1.5 shrink-0'>
+                <span className='absolute inset-0 animate-ping rounded-full bg-emerald-500 opacity-50' />
+                <span className='relative h-1.5 w-1.5 rounded-full bg-emerald-500' />
+              </span>
+              <span className='font-mono text-[9px] uppercase tracking-[0.18em] text-[#c4bbb4]'>
+                Online
+              </span>
             </div>
           </div>
 
-          {/* ── Quick Access ─────────────────────────────────────── */}
-          <div className='space-y-5'>
-            <div className='flex items-center gap-2.5'>
-              <span className='h-px w-4 bg-[#b8620a]/60' />
-              <h2 className='font-mono text-[10px] uppercase tracking-[0.22em] text-[#5a4e44]'>
-                Quick Access
-              </h2>
-            </div>
+          <div className='p-6 lg:p-8'>
+            <div className='flex flex-col gap-6 lg:flex-row lg:items-end lg:gap-10'>
 
-            <div className='grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-2'>
+              {/* Left: studio name + controls */}
+              <div className='flex flex-1 flex-col gap-5'>
 
-              {/* Open Studio */}
-              <a
-                href={studioUrl}
-                className='group rounded-2xl border border-[#2a2520] bg-[#141210] p-4 shadow-sm transition-all duration-200 hover:border-[#b8620a]/25 hover:bg-[#1a1714] sm:p-5'
-              >
-                <div className='flex flex-col items-center gap-3 md:flex-row md:gap-4'>
-                  <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#b8620a]/20 bg-[#b8620a]/10 transition-colors duration-200 group-hover:border-[#b8620a]/30 group-hover:bg-[#b8620a]/15 sm:h-14 sm:w-14'>
-                    <FiVideo className='h-5 w-5 text-[#b8620a] sm:h-6 sm:w-6' />
-                  </div>
-                  <div className='flex-1 text-center md:text-left'>
-                    <h3 className='font-syne text-[15px] font-extrabold tracking-[-0.02em] text-white transition-colors duration-200 group-hover:text-[#c8a070] sm:text-base'>
-                      Open Studio
-                    </h3>
-                    <p className='mt-1 text-[12px] leading-[1.6] text-[#5a4e44] sm:text-[13px]'>
-                      Launch your recording studio and start creating content
-                      immediately.
-                    </p>
-                  </div>
+                {/* Studio name */}
+                <div>
+                  <p className='mb-1 font-mono text-[9px] uppercase tracking-[0.28em] text-[#c4b9b0]'>
+                    Active studio
+                  </p>
+                  <h1
+                    className='font-syne font-extrabold leading-[0.88] tracking-[-0.05em] text-[#1c1410]'
+                    style={{ fontSize: 'clamp(2.2rem, 5vw, 3.5rem)' }}
+                  >
+                    {studio.studioName}
+                  </h1>
                 </div>
-              </a>
 
-              {/* Your Recordings */}
-              <Link
-                href={projectsUrl}
-                className='group rounded-2xl border border-[#2a2520] bg-[#141210] p-4 shadow-sm transition-all duration-200 hover:border-[#b8620a]/25 hover:bg-[#1a1714] sm:p-5'
-              >
-                <div className='flex flex-col items-center gap-3 md:flex-row md:gap-4'>
-                  <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#b8620a]/20 bg-[#b8620a]/10 transition-colors duration-200 group-hover:border-[#b8620a]/30 group-hover:bg-[#b8620a]/15 sm:h-14 sm:w-14'>
-                    <FiFolder className='h-5 w-5 text-[#b8620a] sm:h-6 sm:w-6' />
-                  </div>
-                  <div className='flex-1 text-center md:text-left'>
-                    <h3 className='font-syne text-[15px] font-extrabold tracking-[-0.02em] text-white transition-colors duration-200 group-hover:text-[#c8a070] sm:text-base'>
-                      Your Recordings
-                    </h3>
-                    <p className='mt-1 text-[12px] leading-[1.6] text-[#5a4e44] sm:text-[13px]'>
-                      Browse and manage your past recordings and projects.
-                    </p>
-                  </div>
+                {/* Waveform visualizer */}
+                <div className='flex h-7 items-end gap-[2px]' aria-hidden>
+                  {WAVE_BARS.map((h, i) => (
+                    <div
+                      key={i}
+                      className='w-[3px] origin-bottom animate-waveBar rounded-full bg-[#b8620a]'
+                      style={{
+                        height: `${h}%`,
+                        opacity: 0.15 + (h / 100) * 0.5,
+                        animationDelay: `${i * 0.07}s`,
+                      }}
+                    />
+                  ))}
                 </div>
-              </Link>
 
-              {/* Studio Settings */}
-              <Link
-                href={settingsUrl}
-                className='group rounded-2xl border border-[#2a2520] bg-[#141210] p-4 shadow-sm transition-all duration-200 hover:border-[#b8620a]/25 hover:bg-[#1a1714] sm:p-5'
-              >
-                <div className='flex flex-col items-center gap-3 md:flex-row md:gap-4'>
-                  <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#b8620a]/20 bg-[#b8620a]/10 transition-colors duration-200 group-hover:border-[#b8620a]/30 group-hover:bg-[#b8620a]/15 sm:h-14 sm:w-14'>
-                    <FiSettings className='h-5 w-5 text-[#b8620a] sm:h-6 sm:w-6' />
-                  </div>
-                  <div className='flex-1 text-center md:text-left'>
-                    <h3 className='font-syne text-[15px] font-extrabold tracking-[-0.02em] text-white transition-colors duration-200 group-hover:text-[#c8a070] sm:text-base'>
-                      Studio Settings
-                    </h3>
-                    <p className='mt-1 text-[12px] leading-[1.6] text-[#5a4e44] sm:text-[13px]'>
-                      Customize your recording environment and preferences.
-                    </p>
-                  </div>
+                {/* CTA row */}
+                <div className='flex flex-wrap items-center gap-3'>
+                  <a
+                    href={studioUrl}
+                    className='inline-flex items-center gap-2.5 rounded-xl bg-[#b8620a] px-5 py-2.5 transition-all duration-200 hover:bg-[#9a5008] active:scale-[0.98]'
+                  >
+                    <FiPlay className='h-3.5 w-3.5 text-white' />
+                    <span className='font-syne text-[12px] font-bold tracking-[-0.01em] text-white'>
+                      Start Meeting
+                    </span>
+                  </a>
+                  <Link
+                    href={projectsUrl}
+                    className='group inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-[#a89a90] transition-colors hover:text-[#6b5240]'
+                  >
+                    View Projects
+                    <FiChevronRight className='h-3 w-3 transition-transform group-hover:translate-x-0.5' />
+                  </Link>
                 </div>
-              </Link>
+              </div>
 
-              {/* Studio Features */}
-              <div className='rounded-2xl border border-[#b8620a]/20 bg-[#141210] p-4 shadow-sm sm:p-5'>
-                <div className='flex flex-col items-center gap-3 md:flex-row md:gap-4'>
-                  <div className='flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#b8620a]/20 bg-[#b8620a]/10 sm:h-14 sm:w-14'>
-                    <FiVideo className='h-5 w-5 text-[#b8620a] sm:h-6 sm:w-6' />
-                  </div>
-                  <div className='flex-1 text-center md:text-left'>
-                    <h3 className='font-syne text-[15px] font-extrabold tracking-[-0.02em] text-white sm:text-base'>
-                      Studio Features
-                    </h3>
-                    <p className='mt-1 text-[12px] leading-[1.6] text-[#5a4e44] sm:text-[13px]'>
-                      High-quality recording, real-time collaboration, and
-                      professional tools.
-                    </p>
-                    <div className='mt-3 flex flex-wrap justify-center gap-1.5 md:justify-start'>
-                      <span className='inline-flex items-center rounded-full border border-[#b8620a]/20 bg-[#b8620a]/10 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.1em] text-[#b8620a]'>
-                        HD Recording
-                      </span>
-                      <span className='inline-flex items-center rounded-full border border-[#b8620a]/15 bg-[#b8620a]/08 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.1em] text-[#9a6030]'>
-                        Real-time
-                      </span>
-                      <span className='inline-flex items-center rounded-full border border-[#b8620a]/15 bg-[#b8620a]/08 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.1em] text-[#9a6030]'>
-                        Collaboration
-                      </span>
-                    </div>
+              {/* Right: studio image */}
+              <div className='shrink-0 self-end'>
+                <div className='relative'>
+                  {/* Corner crosshairs */}
+                  <span className='absolute -left-1.5 -top-1.5 h-3 w-3 border-l border-t border-[#d4cec8]' aria-hidden />
+                  <span className='absolute -right-1.5 -top-1.5 h-3 w-3 border-r border-t border-[#d4cec8]' aria-hidden />
+                  <span className='absolute -bottom-1.5 -left-1.5 h-3 w-3 border-b border-l border-[#d4cec8]' aria-hidden />
+                  <span className='absolute -bottom-1.5 -right-1.5 h-3 w-3 border-b border-r border-[#d4cec8]' aria-hidden />
+
+                  <Image
+                    src='/images/studio/create-studio.png'
+                    alt={studio.studioName}
+                    width={180}
+                    height={180}
+                    className='h-36 w-36 rounded-xl object-cover sm:h-44 sm:w-44'
+                    style={{ objectFit: 'cover' }}
+                    priority
+                  />
+
+                  {/* Live badge */}
+                  <div className='absolute -bottom-3 left-1/2 flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-full border border-[#e4dfd6] bg-white px-2.5 py-[3px] shadow-sm'>
+                    <span className='font-mono text-[9px] uppercase tracking-[0.16em] text-[#a89a90]'>
+                      Live ready
+                    </span>
                   </div>
                 </div>
               </div>
@@ -201,17 +136,94 @@ const HomePageContent = async () => {
             </div>
           </div>
         </div>
+
+        {/* ── ACTION GRID ────────────────────────────────── */}
+        <div className='grid grid-cols-1 gap-3 sm:grid-cols-3'>
+
+          <a
+            href={studioUrl}
+            className='group relative flex flex-col justify-between gap-8 overflow-hidden rounded-xl border border-[#e4dfd6] bg-white p-5 shadow-sm transition-all duration-200 hover:border-[#c8a882] hover:shadow-md hover:shadow-[#c8a882]/10'
+          >
+            <div className='flex items-center justify-between'>
+              <span className='font-mono text-[10px] text-[#d4cbc4]'>01</span>
+              <div className='flex h-7 w-7 items-center justify-center rounded-lg border border-[#ede8e0] bg-[#faf8f5]'>
+                <FiVideo className='h-3.5 w-3.5 text-[#b8620a]' />
+              </div>
+            </div>
+            <div>
+              <p className='font-syne text-[13px] font-bold tracking-[-0.02em] text-[#1c1410]'>
+                Open Studio
+              </p>
+              <p className='mt-0.5 text-[11px] text-[#a89a90]'>Launch recording</p>
+            </div>
+            <FiChevronRight className='absolute bottom-5 right-5 h-3.5 w-3.5 text-[#d4cbc4] transition-all group-hover:translate-x-0.5 group-hover:text-[#b8620a]' />
+          </a>
+
+          <Link
+            href={projectsUrl}
+            className='group relative flex flex-col justify-between gap-8 overflow-hidden rounded-xl border border-[#e4dfd6] bg-white p-5 shadow-sm transition-all duration-200 hover:border-[#c8a882] hover:shadow-md hover:shadow-[#c8a882]/10'
+          >
+            <div className='flex items-center justify-between'>
+              <span className='font-mono text-[10px] text-[#d4cbc4]'>02</span>
+              <div className='flex h-7 w-7 items-center justify-center rounded-lg border border-[#ede8e0] bg-[#faf8f5]'>
+                <FiFolder className='h-3.5 w-3.5 text-[#b8620a]' />
+              </div>
+            </div>
+            <div>
+              <p className='font-syne text-[13px] font-bold tracking-[-0.02em] text-[#1c1410]'>
+                Recordings
+              </p>
+              <p className='mt-0.5 text-[11px] text-[#a89a90]'>Browse projects</p>
+            </div>
+            <FiChevronRight className='absolute bottom-5 right-5 h-3.5 w-3.5 text-[#d4cbc4] transition-all group-hover:translate-x-0.5 group-hover:text-[#b8620a]' />
+          </Link>
+
+          <Link
+            href={settingsUrl}
+            className='group relative flex flex-col justify-between gap-8 overflow-hidden rounded-xl border border-[#e4dfd6] bg-white p-5 shadow-sm transition-all duration-200 hover:border-[#c8a882] hover:shadow-md hover:shadow-[#c8a882]/10'
+          >
+            <div className='flex items-center justify-between'>
+              <span className='font-mono text-[10px] text-[#d4cbc4]'>03</span>
+              <div className='flex h-7 w-7 items-center justify-center rounded-lg border border-[#ede8e0] bg-[#faf8f5]'>
+                <FiSettings className='h-3.5 w-3.5 text-[#b8620a]' />
+              </div>
+            </div>
+            <div>
+              <p className='font-syne text-[13px] font-bold tracking-[-0.02em] text-[#1c1410]'>
+                Settings
+              </p>
+              <p className='mt-0.5 text-[11px] text-[#a89a90]'>Customize studio</p>
+            </div>
+            <FiChevronRight className='absolute bottom-5 right-5 h-3.5 w-3.5 text-[#d4cbc4] transition-all group-hover:translate-x-0.5 group-hover:text-[#b8620a]' />
+          </Link>
+
+        </div>
+
+        {/* ── STATUS BAR ─────────────────────────────────── */}
+        <div className='flex flex-wrap items-center gap-x-5 gap-y-2 rounded-xl border border-[#e4dfd6] bg-white/60 px-5 py-3'>
+          <div className='flex items-center gap-2'>
+            <span className='h-px w-4 bg-[#e0d8d0]' aria-hidden />
+            <span className='font-mono text-[9px] uppercase tracking-[0.26em] text-[#c4b9b0]'>
+              Studio Features
+            </span>
+          </div>
+          {['HD Recording', 'Real-time', 'Collaboration'].map((f, i) => (
+            <span key={f} className='flex items-center gap-2'>
+              {i > 0 && <span className='h-1 w-1 rounded-full bg-[#e0d8d0]' aria-hidden />}
+              <span className='font-mono text-[10px] text-[#a89a90]'>{f}</span>
+            </span>
+          ))}
+        </div>
+
       </div>
     </div>
   );
 };
 
-const HomePage = () => {
-  return (
-    <Suspense fallback={<DashboardSkeleton />}>
-      <HomePageContent />
-    </Suspense>
-  );
-};
+const HomePage = () => (
+  <Suspense fallback={<DashboardSkeleton />}>
+    <HomePageContent />
+  </Suspense>
+);
 
 export default HomePage;

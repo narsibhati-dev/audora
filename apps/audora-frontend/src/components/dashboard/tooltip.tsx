@@ -56,6 +56,7 @@ const Tooltip = ({
   }, [position]);
 
   const handleMouseEnter = () => {
+    if (!tooltip) return; // don't show empty tooltip boxes
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
