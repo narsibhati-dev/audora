@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { productItems } from '@/data';
 import ProductItem from './product-item';
 import siteMetadata from '@/lib/seo/siteMetadata';
+import GithubStar from '@/components/github-star';
 
 const Navbar = () => {
   return (
@@ -68,6 +69,7 @@ const Navbar = () => {
 
       {/* Right: auth actions */}
       <div className='flex items-center gap-3'>
+        <GithubStar />
         <div className='h-4 w-px bg-[#ddd6cc]' />
 
         <Link

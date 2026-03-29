@@ -45,19 +45,17 @@ export default function GithubStar({
       href={repoUrl}
       target='_blank'
       rel='noopener noreferrer'
-      className={`group inline-flex items-center gap-2 rounded-lg border border-gray-600/50 bg-gray-800/90 px-3 py-2.5 text-sm font-medium text-white backdrop-blur-sm transition-all duration-200 ease-out hover:border-gray-500/70 hover:bg-gray-700/90 hover:shadow-md hover:shadow-gray-900/20 ${className} `}
+      className={`group inline-flex items-center gap-2 rounded-lg border border-[#ddd6cc] bg-white px-3 py-1.5 text-sm font-medium text-[#5a4e44] transition-all duration-200 hover:border-[#c8b9a8] hover:bg-[#f0ece5] hover:text-[#1a1714] hover:shadow-sm active:scale-[0.98] ${className}`}
     >
-      <Github className='h-4 w-4 transition-transform duration-200 group-hover:scale-110' />
+      <Github className='h-3.5 w-3.5 transition-transform duration-200 group-hover:scale-110' />
       <span>Star</span>
 
       {loading ? (
-        <div className='h-3 w-3 animate-spin rounded-full border border-gray-400 border-t-white' />
-      ) : error ? (
-        <span className='text-xs font-medium text-red-400'>Error</span>
-      ) : stars !== null ? (
-        <div className='flex items-center gap-1 rounded-md bg-yellow-500/20 px-1.5 py-0.5'>
-          <Star className='h-3 w-3 fill-yellow-400 text-yellow-400' />
-          <span className='text-xs font-semibold text-yellow-100'>
+        <div className='h-3 w-3 animate-spin rounded-full border border-[#c8b9a8] border-t-[#5a4e44]' />
+      ) : error ? null : stars !== null ? (
+        <div className='flex items-center gap-1 rounded-md bg-[#f0ece5] px-1.5 py-0.5'>
+          <Star className='h-3 w-3 fill-[#b8620a] text-[#b8620a]' />
+          <span className='text-xs font-semibold text-[#5a4e44]'>
             {stars.toLocaleString()}
           </span>
         </div>

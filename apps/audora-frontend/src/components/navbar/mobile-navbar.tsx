@@ -7,6 +7,7 @@ import { productItems } from '@/data';
 import Logo from '../logo';
 import MobileDropdownSection from './mobile-dropdown-section';
 import siteMetadata from '@/lib/seo/siteMetadata';
+import GithubStar from '@/components/github-star';
 
 const menuSections = [
   { label: 'Product', key: 'product1', items: productItems },
@@ -99,6 +100,7 @@ const MobileNavbar = () => {
 
             {/* CTA buttons */}
             <div className='flex flex-col gap-3 pb-2'>
+              <GithubStar className='w-full justify-center' />
               <Link
                 href={siteMetadata.dashboard}
                 className='block w-full rounded-xl bg-[#1a1714] py-3.5 text-center text-sm font-semibold text-[#f7f5f1] transition-all hover:bg-[#2e2a25] active:scale-[0.98]'
