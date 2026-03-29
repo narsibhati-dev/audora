@@ -73,7 +73,7 @@ function VideoCard({
           <>
             <Image
               src={`https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`}
-              alt={`${video.names} — ${video.label}`}
+              alt={`${video.names} - ${video.label}`}
               width={640}
               height={360}
               className='h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]'

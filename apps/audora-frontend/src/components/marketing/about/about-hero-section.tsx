@@ -23,7 +23,7 @@ const AboutHeroSection = () => {
             </h1>
             <div className='mb-2 text-lg font-semibold text-gray-300 md:text-xl'>
               Record studio-quality audio and video straight from your
-              browser—with no compromise.
+              browser, with no compromise.
             </div>
             <p className='mx-auto max-w-2xl text-base leading-relaxed text-gray-400 md:text-lg'>
               {`Whether you're podcasting, hosting interviews, or creating

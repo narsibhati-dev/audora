@@ -9,7 +9,7 @@ import siteMetadata from '@/lib/seo/siteMetadata';
 const FEATURES = [
   {
     label: 'Edit by text, not clips',
-    desc: 'AI transcribes every word. Delete a sentence — the clip disappears.',
+    desc: 'AI transcribes every word. Delete a sentence, the clip disappears.',
   },
   {
     label: 'Cloud-native',
@@ -81,7 +81,7 @@ const EditSection = () => {
             <m.div variants={fadeUp} className='mb-6 flex items-center gap-2.5'>
               <span className='h-px w-6 bg-[#b8620a]/60' />
               <span className='font-mono text-[11px] uppercase tracking-[0.24em] text-[#b8620a]'>
-                02 — Edit
+                02 - Edit
               </span>
             </m.div>
 

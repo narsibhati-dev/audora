@@ -233,9 +233,7 @@ const PageNotFound = () => {
           variants={fadeUp}
           className='mt-12 font-mono text-[10px] uppercase tracking-[0.2em] text-[#2e2a25]'
         >
-          CH&nbsp;404&nbsp;·&nbsp;
-          {dateStr}&nbsp;·&nbsp;
-          NO CARRIER
+          CH 404 - {dateStr} - NO CARRIER
         </m.p>
 
       </m.div>

@@ -16,7 +16,7 @@ export const aboutValues: AboutValue[] = [
   {
     title: 'Accessibility',
     description:
-      'Professional-grade recording tools for podcasts, meetings, and more—available to everyone, no matter their experience level.',
+      'Professional-grade recording tools for podcasts, meetings, and more, available to everyone, no matter their experience level.',
     iconKey: 'AccessibilityIcon',
   },
   {

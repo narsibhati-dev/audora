@@ -136,7 +136,7 @@ const HeroSection = () => {
 
           {/* Trust note */}
           <m.p variants={fadeUp} className='mb-9 font-mono text-[10px] tracking-[0.14em] text-[#b0a394]'>
-            No credit card required &nbsp;·&nbsp; Free forever plan
+            No credit card required - Free forever plan
           </m.p>
 
           {/* Stats */}

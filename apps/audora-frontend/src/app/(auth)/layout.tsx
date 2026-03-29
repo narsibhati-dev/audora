@@ -18,7 +18,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
         <div className='absolute left-1/2 -translate-x-1/2 flex items-center gap-2'>
           <span className='h-1.5 w-1.5 rounded-full bg-[#b8620a]' />
           <p className='font-mono text-[10px] uppercase tracking-[0.2em] text-[#9a8878]'>
-            Early access &nbsp;·&nbsp; Some features are still rolling out
+            Early access - Some features are still rolling out
           </p>
         </div>
 

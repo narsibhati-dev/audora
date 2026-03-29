@@ -41,7 +41,7 @@ export default function RegisterPageWrapper() {
           <div className='relative z-10 flex flex-1 flex-col justify-center px-14 lg:px-20'>
 
             <p className='mb-5 font-mono text-[10px] uppercase tracking-[0.24em] text-[#b8620a]'>
-              ✦ &nbsp;Audora Studio
+              ✦ Audora Studio
             </p>
 
             <h2 className='font-syne mb-10 text-[clamp(2rem,3.2vw,3rem)] font-extrabold leading-[1.05] tracking-[-0.045em] text-white'>

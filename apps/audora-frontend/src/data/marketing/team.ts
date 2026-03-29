@@ -7,6 +7,7 @@ export interface TeamMember {
   bio: string;
   linkedin: string;
   twitter: string;
+  github: string;
 }
 
 export const teamMembers: TeamMember[] = [
@@ -17,5 +18,6 @@ export const teamMembers: TeamMember[] = [
     bio: 'Experienced in real-time media, distributed systems, and the development of robust, user-centered applications. Responsible for leading product and technology at Audora.',
     linkedin: siteMetadata.linkedIn,
     twitter: siteMetadata.twitter,
+    github: 'https://github.com/narsibhati-dev',
   },
 ];

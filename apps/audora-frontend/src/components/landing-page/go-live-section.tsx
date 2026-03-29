@@ -12,7 +12,7 @@ const allPlatforms = [...goLiveLeftPlatforms, ...goLiveRightPlatforms];
 const FEATURES = [
   {
     label: 'Simulcast everywhere',
-    desc: '7+ platforms, one click. YouTube, Twitch, LinkedIn, X — all at once.',
+    desc: '7+ platforms, one click. YouTube, Twitch, LinkedIn, X - all at once.',
   },
   {
     label: 'Branded studio overlays',
@@ -101,7 +101,7 @@ const GoLiveSection = () => {
             <m.div variants={fadeUp} className='mb-6 flex items-center gap-2.5'>
               <span className='h-px w-6 bg-[#b8620a]/60' />
               <span className='font-mono text-[11px] uppercase tracking-[0.24em] text-[#b8620a]'>
-                03 — Go Live
+                03 - Go Live
               </span>
             </m.div>
 

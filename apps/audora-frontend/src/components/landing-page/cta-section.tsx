@@ -34,7 +34,7 @@ const CtaSection = () => {
             <div className='mb-3 flex items-center gap-2'>
               <span className='h-px w-5 bg-[#b8620a]/60' />
               <span className='font-mono text-[10px] uppercase tracking-[0.22em] text-[#b8620a]'>
-                Start today — free
+                Start today - free
               </span>
             </div>
             <h2 className='font-syne text-[clamp(1.6rem,3.5vw,2.6rem)] font-extrabold leading-[1.1] tracking-[-0.04em] text-[#1a1714]'>

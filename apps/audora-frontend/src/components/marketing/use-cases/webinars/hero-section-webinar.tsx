@@ -15,7 +15,7 @@ const HeroSectionWebinar = () => {
           </h1>
           <p className='mb-8 text-lg text-gray-300 sm:text-xl'>
             Engage your audience with high-quality, interactive webinars. No
-            downloads, no hassle—just seamless live experiences.
+            downloads, no hassle, just seamless live experiences.
           </p>
           <div className='mb-10 flex flex-col justify-center gap-4 sm:flex-row'>
             <Link

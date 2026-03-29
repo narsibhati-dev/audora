@@ -20,7 +20,7 @@ const TRUST_ITEMS = [
 const FAQS = [
   {
     q: 'Can I upgrade or downgrade my plan?',
-    a: 'Yes — you can switch between plans at any time. Changes take effect immediately and billing is prorated.',
+    a: 'Yes, you can switch between plans at any time. Changes take effect immediately and billing is prorated.',
   },
   {
     q: 'What happens when I hit my recording limit?',
@@ -32,7 +32,7 @@ const FAQS = [
   },
   {
     q: 'Is there a long-term contract for Custom plans?',
-    a: 'No. Custom plans are negotiated month-to-month or annually — whatever works best for your team.',
+    a: 'No. Custom plans are negotiated month-to-month or annually, whatever works best for your team.',
   },
 ];
 
@@ -284,7 +284,7 @@ const PricingPage = () => {
           <div className='flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between'>
             <div>
               <p className='mb-3 font-mono text-[11px] uppercase tracking-[0.22em] text-[#b8620a]'>
-                ✦ &nbsp;Start today — free
+                ✦ Start today - free
               </p>
               <h2 className='font-syne text-[clamp(2rem,5vw,4rem)] font-extrabold leading-[1.05] tracking-[-0.035em] text-white'>
                 Ready to create your
