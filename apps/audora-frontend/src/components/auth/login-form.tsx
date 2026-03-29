@@ -68,50 +68,56 @@ const LoginForm = () => {
   return (
     <form onSubmit={handleSubmit} className='w-full space-y-3'>
       <div>
+        <label htmlFor='email' className='sr-only'>Email address</label>
         <input
+          id='email'
           type='email'
           name='email'
           required
+          autoComplete='email'
           value={formData.email}
           onChange={handleChange}
           placeholder='Email address'
           disabled={isLoading}
-          className={`w-full rounded-lg border px-4 py-3 text-[14px] text-[#1a1714] placeholder-[#b0a394] outline-none transition-colors ${
+          className={`w-full rounded-lg border px-4 py-3 text-[14px] text-[#1a1714] placeholder-[#c8b9a8] outline-none transition-all ${
             errors.email
-              ? 'border-red-400 bg-red-50'
-              : 'border-[#ddd6cc] bg-white focus:border-[#9a8878]'
+              ? 'border-red-400 bg-red-50 focus:ring-2 focus:ring-red-200'
+              : 'border-[#ddd6cc] bg-white focus:border-[#b8620a] focus:ring-2 focus:ring-[#b8620a]/10'
           }`}
         />
         {errors.email && (
-          <p className='mt-1.5 text-[12px] text-red-500'>{errors.email}</p>
+          <p className='mt-1.5 text-[12px] text-red-500' role='alert'>{errors.email}</p>
         )}
       </div>
 
       <div className='relative'>
+        <label htmlFor='password' className='sr-only'>Password</label>
         <input
+          id='password'
           type={showPassword ? 'text' : 'password'}
           name='password'
           required
+          autoComplete='current-password'
           value={formData.password}
           onChange={handleChange}
           placeholder='Password'
           disabled={isLoading}
-          className={`w-full rounded-lg border px-4 py-3 pr-16 text-[14px] text-[#1a1714] placeholder-[#b0a394] outline-none transition-colors ${
+          className={`w-full rounded-lg border px-4 py-3 pr-16 text-[14px] text-[#1a1714] placeholder-[#c8b9a8] outline-none transition-all ${
             errors.password
-              ? 'border-red-400 bg-red-50'
-              : 'border-[#ddd6cc] bg-white focus:border-[#9a8878]'
+              ? 'border-red-400 bg-red-50 focus:ring-2 focus:ring-red-200'
+              : 'border-[#ddd6cc] bg-white focus:border-[#b8620a] focus:ring-2 focus:ring-[#b8620a]/10'
           }`}
         />
         <button
           type='button'
-          className='absolute top-1/2 right-4 -translate-y-1/2 font-mono text-[11px] uppercase tracking-[0.12em] text-[#9a8878] transition-colors hover:text-[#1a1714]'
+          aria-label={showPassword ? 'Hide password' : 'Show password'}
+          className='absolute top-1/2 right-0 -translate-y-1/2 flex h-[44px] w-[52px] items-center justify-center font-mono text-[11px] uppercase tracking-[0.12em] text-[#9a8878] transition-colors hover:text-[#1a1714]'
           onClick={() => setShowPassword(v => !v)}
-          tabIndex={-1}
         >
           {showPassword ? 'Hide' : 'Show'}
         </button>
         {errors.password && (
-          <p className='mt-1.5 text-[12px] text-red-500'>{errors.password}</p>
+          <p className='mt-1.5 text-[12px] text-red-500' role='alert'>{errors.password}</p>
         )}
       </div>
 

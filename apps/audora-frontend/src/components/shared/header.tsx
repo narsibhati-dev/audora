@@ -28,7 +28,7 @@ const Header = ({ isMarketing = false }: { isMarketing?: boolean }) => {
       }`}
     >
       <div className='mx-auto flex max-w-10xl items-center justify-between px-8 py-3.5 sm:px-12 lg:px-16 xl:px-24'>
-        <Logo scrolled={true} />
+        <Logo scrolled={scrolled} />
         {isDesktop ? <Navbar /> : <MobileNavbar />}
       </div>
     </header>

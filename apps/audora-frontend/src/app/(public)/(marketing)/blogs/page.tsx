@@ -3,6 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 import getPageMetadata from '@/lib/seo/getPageMetadata';
 import { blogCategories, blogPosts } from '@/data';
+import NewsletterForm from '@/components/marketing/NewsletterForm';
 
 export const metadata = getPageMetadata({
   title: 'Audora Blog',
@@ -72,25 +73,32 @@ export default async function BlogsPage({
       {/* ── CATEGORY FILTERS ────────────────────────────────────── */}
       <div className='border-b border-[#e4dfd6] bg-[#f7f5f1]'>
         <div className='mx-auto max-w-10xl px-8 sm:px-12 lg:px-16 xl:px-24'>
-          <div className='flex items-center gap-2 overflow-x-auto py-4 scrollbar-none'>
-            {blogCategories.map(category => {
-              const isActive = selectedCategory === category;
-              return (
-                <Link
-                  key={category}
-                  href={
-                    category === 'All' ? '/blogs' : `/blogs?category=${category}`
-                  }
-                  className={`shrink-0 rounded-lg border px-4 py-2 font-mono text-[11px] uppercase tracking-[0.16em] transition-all duration-200 ${
-                    isActive
-                      ? 'border-[#1a1714] bg-[#1a1714] text-[#f7f5f1]'
-                      : 'border-[#ddd6cc] bg-transparent text-[#7a6f65] hover:border-[#b0a394] hover:text-[#1a1714]'
-                  }`}
-                >
-                  {category}
-                </Link>
-              );
-            })}
+          <div className='relative'>
+            {/* Right fade — scroll affordance on mobile */}
+            <div
+              aria-hidden
+              className='pointer-events-none absolute top-0 right-0 z-10 h-full w-12 bg-gradient-to-l from-[#f7f5f1] to-transparent lg:hidden'
+            />
+            <div className='flex items-center gap-2 overflow-x-auto py-4 scrollbar-none'>
+              {blogCategories.map(category => {
+                const isActive = selectedCategory === category;
+                return (
+                  <Link
+                    key={category}
+                    href={
+                      category === 'All' ? '/blogs' : `/blogs?category=${category}`
+                    }
+                    className={`shrink-0 rounded-lg border px-4 py-2 font-mono text-[11px] uppercase tracking-[0.16em] transition-all duration-200 ${
+                      isActive
+                        ? 'border-[#1a1714] bg-[#1a1714] text-[#f7f5f1]'
+                        : 'border-[#ddd6cc] bg-transparent text-[#7a6f65] hover:border-[#b0a394] hover:text-[#1a1714]'
+                    }`}
+                  >
+                    {category}
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
@@ -246,16 +254,7 @@ export default async function BlogsPage({
               </h2>
             </div>
 
-            <div className='flex w-full max-w-md flex-col gap-3 sm:flex-row'>
-              <input
-                type='email'
-                placeholder='your@email.com'
-                className='flex-1 rounded-lg border border-[#ddd6cc] bg-white px-4 py-3 text-[14px] text-[#1a1714] placeholder-[#b0a394] outline-none transition-colors focus:border-[#9a8878]'
-              />
-              <button className='shrink-0 rounded-lg bg-[#1a1714] px-6 py-3 font-mono text-[12px] uppercase tracking-[0.16em] text-[#f7f5f1] transition-colors duration-200 hover:bg-[#2e2a25] active:scale-[0.98]'>
-                Subscribe
-              </button>
-            </div>
+            <NewsletterForm />
           </div>
         </div>
       </section>

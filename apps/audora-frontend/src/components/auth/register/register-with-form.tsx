@@ -92,10 +92,10 @@ const RegisterWithForm = ({ onBack }: { onBack?: () => void }) => {
           placeholder='Full name'
           value={formData.name}
           onChange={handleChange}
-          className={`w-full rounded-lg border px-4 py-3 text-[14px] text-[#1a1714] placeholder-[#b0a394] outline-none transition-colors ${
+          className={`w-full rounded-lg border px-4 py-3 text-[14px] text-[#1a1714] placeholder-[#c8b9a8] outline-none transition-all ${
             nameError
-              ? 'border-red-400 bg-red-50'
-              : 'border-[#ddd6cc] bg-white focus:border-[#9a8878]'
+              ? 'border-red-400 bg-red-50 focus:ring-2 focus:ring-red-200'
+              : 'border-[#ddd6cc] bg-white focus:border-[#b8620a] focus:ring-2 focus:ring-[#b8620a]/10'
           }`}
           required
         />
@@ -105,66 +105,66 @@ const RegisterWithForm = ({ onBack }: { onBack?: () => void }) => {
           placeholder='Email address'
           value={formData.email}
           onChange={handleChange}
-          className={`w-full rounded-lg border px-4 py-3 text-[14px] text-[#1a1714] placeholder-[#b0a394] outline-none transition-colors ${
+          className={`w-full rounded-lg border px-4 py-3 text-[14px] text-[#1a1714] placeholder-[#c8b9a8] outline-none transition-all ${
             emailError
-              ? 'border-red-400 bg-red-50'
-              : 'border-[#ddd6cc] bg-white focus:border-[#9a8878]'
+              ? 'border-red-400 bg-red-50 focus:ring-2 focus:ring-red-200'
+              : 'border-[#ddd6cc] bg-white focus:border-[#b8620a] focus:ring-2 focus:ring-[#b8620a]/10'
           }`}
           required
         />
 
-        <div className='relative'>
-          <input
-            type={showPassword ? 'text' : 'password'}
-            name='password'
-            placeholder='Password'
-            value={formData.password}
-            onChange={handleChange}
-            className={`w-full rounded-lg border px-4 py-3 pr-16 text-[14px] text-[#1a1714] placeholder-[#b0a394] outline-none transition-colors ${
-              passwordError
-                ? 'border-red-400 bg-red-50'
-                : 'border-[#ddd6cc] bg-white focus:border-[#9a8878]'
-            }`}
-            required
-            onFocus={() => setPasswordFocused(true)}
-            onBlur={() => setPasswordFocused(false)}
-          />
-          <button
-            type='button'
-            className='absolute top-1/2 right-4 -translate-y-1/2 font-mono text-[11px] uppercase tracking-[0.12em] text-[#9a8878] transition-colors hover:text-[#1a1714]'
-            onClick={() => setShowPassword(v => !v)}
-            tabIndex={-1}
-          >
-            {showPassword ? 'Hide' : 'Show'}
-          </button>
+        <div>
+          <div className='relative'>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              name='password'
+              placeholder='Password'
+              value={formData.password}
+              onChange={handleChange}
+              className={`w-full rounded-lg border px-4 py-3 pr-16 text-[14px] text-[#1a1714] placeholder-[#c8b9a8] outline-none transition-all ${
+                passwordError
+                  ? 'border-red-400 bg-red-50 focus:ring-2 focus:ring-red-200'
+                  : 'border-[#ddd6cc] bg-white focus:border-[#b8620a] focus:ring-2 focus:ring-[#b8620a]/10'
+              }`}
+              required
+              onFocus={() => setPasswordFocused(true)}
+              onBlur={() => setPasswordFocused(false)}
+            />
+            <button
+              type='button'
+              className='absolute top-1/2 right-0 -translate-y-1/2 flex h-[44px] w-[52px] items-center justify-center font-mono text-[11px] uppercase tracking-[0.12em] text-[#b0a394] transition-colors hover:text-[#1a1714]'
+              onClick={() => setShowPassword(v => !v)}
+            >
+              {showPassword ? 'Hide' : 'Show'}
+            </button>
+          </div>
 
-          {/* Password requirements — warm dark tooltip */}
-          {passwordFocused && (
-            <div className='absolute top-0 left-full z-20 ml-4 w-64 rounded-xl border border-[#2e2a25] bg-[#1a1714] p-4 shadow-[0_8px_32px_rgba(0,0,0,0.2)]'>
-              <p className='mb-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[#b8620a]'>
-                Requirements
-              </p>
-              <ul className='space-y-2'>
+          {/* Inline password strength — shows when user has started typing */}
+          {formData.password.length > 0 && (
+            <div className='mt-2.5'>
+              {/* Strength bar */}
+              <div className='flex gap-1'>
+                {passwordChecks.map((req, idx) => (
+                  <div
+                    key={idx}
+                    className={`h-1 flex-1 rounded-full transition-all duration-300 ${
+                      req.test(formData.password) ? 'bg-[#b8620a]' : 'bg-[#e4dfd6]'
+                    }`}
+                  />
+                ))}
+              </div>
+              {/* Inline check list */}
+              <div className='mt-2 flex flex-wrap gap-x-4 gap-y-1'>
                 {passwordChecks.map((req, idx) => {
                   const passing = req.test(formData.password);
                   return (
-                    <li key={idx} className='flex items-center gap-2'>
-                      <span
-                        className={`h-1.5 w-1.5 shrink-0 rounded-full transition-colors ${
-                          passing ? 'bg-emerald-400' : 'bg-[#3a3330]'
-                        }`}
-                      />
-                      <span
-                        className={`text-[12px] transition-colors ${
-                          passing ? 'text-[#9a8878]' : 'text-[#4a4440]'
-                        }`}
-                      >
-                        {req.label}
-                      </span>
-                    </li>
+                    <span key={idx} className={`flex items-center gap-1 font-mono text-[10px] transition-colors ${passing ? 'text-[#b8620a]' : 'text-[#c8b9a8]'}`}>
+                      <span>{passing ? '✓' : '○'}</span>
+                      {req.label}
+                    </span>
                   );
                 })}
-              </ul>
+              </div>
             </div>
           )}
         </div>

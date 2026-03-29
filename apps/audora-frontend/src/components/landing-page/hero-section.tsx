@@ -71,7 +71,7 @@ const HeroSection = () => {
       />
 
       {/* ── GRID ─────────────────────────────────────────────── */}
-      <div className='relative mx-auto grid min-h-screen w-full max-w-10xl grid-cols-1 px-8 sm:px-12 lg:grid-cols-[1fr_500px] lg:px-16 xl:grid-cols-[1fr_540px] xl:px-24'>
+      <div className='relative mx-auto grid min-h-screen w-full max-w-10xl grid-cols-1 px-8 sm:px-12 lg:grid-cols-[1fr_600px] lg:px-16 xl:grid-cols-[1fr_660px] xl:px-24'>
 
         {/* ── LEFT: Copy ───────────────────────────────────────── */}
         <m.div
@@ -126,12 +126,12 @@ const HeroSection = () => {
               Start for free
               <span className='transition-transform duration-200 group-hover:translate-x-0.5'>→</span>
             </Link>
-            <a
+            <Link
               href='/recording'
               className='inline-flex items-center gap-1.5 text-[13px] text-[#7a6f65] underline underline-offset-4 decoration-[#c8b9a8]/60 transition-colors hover:text-[#1a1714]'
             >
               See how it works
-            </a>
+            </Link>
           </m.div>
 
           {/* Trust note */}
@@ -166,24 +166,30 @@ const HeroSection = () => {
           className='relative hidden lg:flex lg:flex-col lg:justify-center'
         >
           {/* Padded wrapper so floating cards don't clip */}
-          <div className='relative px-8 py-16 xl:px-10'>
+          <div className='relative px-5 py-14 xl:px-6'>
 
             {/* ── Studio card ── */}
-            <div className='overflow-hidden rounded-2xl border border-[#e4dfd6] bg-white shadow-[0_8px_40px_rgba(0,0,0,0.08),0_1px_3px_rgba(0,0,0,0.04)]'>
+            <div className='overflow-hidden rounded-2xl border border-[#e4dfd6] bg-white shadow-[0_20px_60px_rgba(0,0,0,0.1),0_1px_3px_rgba(0,0,0,0.05)]'>
 
               {/* Window chrome */}
               <div className='flex items-center gap-2 border-b border-[#ede8e1] bg-[#f5f2ed] px-4 py-3'>
-                <span className='h-3 w-3 rounded-full bg-[#e8d5c4]' />
-                <span className='h-3 w-3 rounded-full bg-[#e8d5c4]' />
-                <span className='h-3 w-3 rounded-full bg-[#e8d5c4]' />
-                <div className='mx-auto flex items-center gap-1.5 rounded-md bg-[#ede8e1] px-3 py-1'>
-                  <span className='h-1.5 w-1.5 rounded-full bg-[#c4700a]' />
-                  <span className='font-mono text-[9px] text-[#9a8878]'>studio.audora.fm</span>
+                <span className='h-2.5 w-2.5 rounded-full bg-[#e8d5c4]' />
+                <span className='h-2.5 w-2.5 rounded-full bg-[#e8d5c4]' />
+                <span className='h-2.5 w-2.5 rounded-full bg-[#e8d5c4]' />
+                <div className='mx-auto flex items-center gap-1.5 rounded-md border border-[#e4dfd6] bg-white/60 px-3 py-1'>
+                  <span className='relative flex h-1.5 w-1.5 shrink-0'>
+                    <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-[#c4700a] opacity-50' />
+                    <span className='relative inline-flex h-1.5 w-1.5 rounded-full bg-[#c4700a]' />
+                  </span>
+                  <span className='font-mono text-[10px] text-[#9a8878]'>studio.audora.fm</span>
+                </div>
+                <div className='flex items-center gap-1.5'>
+                  <span className='font-mono text-[9px] uppercase tracking-wider text-[#b0a394]'>HD</span>
                 </div>
               </div>
 
               {/* Recording viewport */}
-              <div className='relative bg-[#f2ede6]' style={{ aspectRatio: '16/10' }}>
+              <div className='relative bg-[#1a1714]' style={{ aspectRatio: '16/9' }}>
                 <video
                   autoPlay
                   loop
@@ -195,49 +201,57 @@ const HeroSection = () => {
                   <source src='/videos/audora-hero.mp4' type='video/mp4' />
                 </video>
 
-                {/* Subtle vignette */}
+                {/* Vignette */}
                 <div
                   aria-hidden
                   className='pointer-events-none absolute inset-0'
-                  style={{ boxShadow: 'inset 0 0 40px rgba(0,0,0,0.12)' }}
+                  style={{ boxShadow: 'inset 0 0 60px rgba(0,0,0,0.18)' }}
                 />
 
+                {/* Bottom gradient for waveform */}
+                <div className='pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#1a1714]/50 to-transparent' />
+
                 {/* REC badge — top left */}
-                <div className='absolute top-3 left-3 flex items-center gap-1.5 rounded-md bg-white/80 px-2.5 py-1 backdrop-blur-sm'>
-                  <span className='h-1.5 w-1.5 rounded-full bg-red-400' />
-                  <span className='font-mono text-[9px] font-medium uppercase tracking-wider text-[#5a4e44]'>
-                    Rec
+                <div className='absolute top-3.5 left-3.5 flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1.5 shadow-sm backdrop-blur-sm'>
+                  <span className='relative flex h-1.5 w-1.5 shrink-0'>
+                    <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-60' />
+                    <span className='relative inline-flex h-1.5 w-1.5 rounded-full bg-red-500' />
+                  </span>
+                  <span className='font-mono text-[10px] font-bold uppercase tracking-wider text-[#3a3330]'>
+                    REC
                   </span>
                 </div>
 
                 {/* Timecode — top right */}
-                <div className='absolute top-3 right-3 rounded-md bg-white/80 px-2.5 py-1 backdrop-blur-sm'>
-                  <span className='font-mono text-[9px] tabular-nums text-[#7a6f65]'>
+                <div className='absolute top-3.5 right-3.5 rounded-full bg-black/40 px-3 py-1.5 backdrop-blur-sm'>
+                  <span className='font-mono text-[10px] tabular-nums text-white/80'>
                     00:14:32
                   </span>
                 </div>
 
-                {/* Audio visualizer — bottom */}
-                <div className='absolute right-0 bottom-0 left-0 flex items-end gap-[2px] bg-gradient-to-t from-[#1a1714]/20 to-transparent px-4 pb-2 pt-8'>
+                {/* Audio waveform — bottom */}
+                <div className='absolute inset-x-0 bottom-0 z-10 flex items-end gap-[2.5px] px-4 pb-3 pt-8'>
                   {AUDIO_BARS.map((h, i) => (
                     <div
                       key={i}
                       aria-hidden
                       className='w-[2.5px] shrink-0 rounded-full bg-white'
-                      style={{ height: `${h * 0.18}px`, opacity: 0.25 + (i % 4) * 0.1 }}
+                      style={{ height: `${h * 0.22}px`, opacity: 0.3 + (i % 4) * 0.12 }}
                     />
                   ))}
                 </div>
               </div>
 
-              {/* Participant strip */}
-              <div className='flex items-center gap-3 border-t border-[#ede8e1] bg-[#faf8f5] px-4 py-3'>
-                <div className='flex items-center gap-1.5'>
-                  {PARTICIPANTS.map(p => (
+              {/* Participant + status strip */}
+              <div className='flex items-center gap-3 border-t border-[#ede8e1] bg-[#faf8f5] px-5 py-3.5'>
+                {/* Participant avatars */}
+                <div className='flex items-center'>
+                  {PARTICIPANTS.map((p, i) => (
                     <div
                       key={p.initials}
                       title={p.label}
-                      className='flex h-7 w-7 items-center justify-center rounded-full bg-[#ede8e1] text-[9px] font-semibold text-[#5a4e44]'
+                      className='flex h-7 w-7 items-center justify-center rounded-full border-2 border-[#faf8f5] bg-[#ede8e1] text-[9px] font-bold text-[#5a4e44]'
+                      style={{ marginLeft: i > 0 ? '-6px' : 0 }}
                     >
                       {p.initials}
                     </div>
@@ -246,9 +260,24 @@ const HeroSection = () => {
                 <span className='font-mono text-[10px] text-[#b0a394]'>
                   {PARTICIPANTS.length} participants
                 </span>
-                <div className='ml-auto flex items-center gap-1.5 rounded-full bg-[#f0ebe3] px-2.5 py-1'>
-                  <span className='h-1.5 w-1.5 rounded-full bg-[#c4700a]' />
-                  <span className='font-mono text-[9px] text-[#c4700a]'>Live</span>
+
+                {/* Waveform mini */}
+                <div className='flex items-center gap-[2px]' aria-hidden>
+                  {[5, 10, 7, 14, 6, 11, 8].map((h, i) => (
+                    <div
+                      key={i}
+                      className='w-[2px] rounded-full bg-[#b8620a]'
+                      style={{ height: h, opacity: 0.4 + (i % 3) * 0.15 }}
+                    />
+                  ))}
+                </div>
+
+                <div className='ml-auto flex items-center gap-1.5 rounded-full bg-[#fff3e8] px-3 py-1.5 border border-[#f0dcc8]'>
+                  <span className='relative flex h-1.5 w-1.5 shrink-0'>
+                    <span className='absolute inline-flex h-full w-full animate-ping rounded-full bg-[#c4700a] opacity-50' />
+                    <span className='relative inline-flex h-1.5 w-1.5 rounded-full bg-[#c4700a]' />
+                  </span>
+                  <span className='font-mono text-[10px] font-medium text-[#c4700a]'>Live</span>
                 </div>
               </div>
             </div>
@@ -258,7 +287,7 @@ const HeroSection = () => {
               initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.0, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className='absolute bottom-4 left-4 flex items-center gap-3 rounded-xl border border-[#e4dfd6] bg-white px-4 py-3 shadow-[0_4px_20px_rgba(0,0,0,0.07)]'
+              className='absolute -bottom-4 -left-3 flex items-center gap-3 rounded-xl border border-[#e4dfd6] bg-white px-4 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.1)]'
             >
               <div className='flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#f5f0e8]'>
                 <svg width='14' height='14' viewBox='0 0 24 24' fill='none' aria-hidden>
@@ -278,7 +307,7 @@ const HeroSection = () => {
               initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.15, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className='absolute top-4 right-4 flex items-center gap-3 rounded-xl border border-[#e4dfd6] bg-white px-4 py-3 shadow-[0_4px_20px_rgba(0,0,0,0.07)]'
+              className='absolute -top-4 -right-3 flex items-center gap-3 rounded-xl border border-[#e4dfd6] bg-white px-4 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.1)]'
             >
               <div className='flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#f5f0e8]'>
                 <svg width='14' height='14' viewBox='0 0 24 24' fill='none' aria-hidden>

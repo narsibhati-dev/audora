@@ -11,28 +11,24 @@ interface LogoParams {
   page?: string;
 }
 
-const Logo = ({ scrolled, page, href = '/' }: LogoParams) => {
+const Logo = ({ scrolled: _scrolled, page, href = '/' }: LogoParams) => {
   return (
-    <Link href={href} className='flex items-center justify-center gap-1'>
+    <Link href={href} className='flex items-center gap-2'>
       <Image
-        src={
-          scrolled
-            ? '/images/audora-logo-black.webp'
-            : '/images/audora-logo-white.webp'
-        }
+        src='/images/audora-logo-black.webp'
         alt='Audora Logo'
         width={20}
         height={20}
         className='rounded-sm object-cover'
       />
-      <div
-        className={`text-lg font-semibold ${scrolled ? 'text-black' : 'text-zinc-200'}`}
-      >
-        {siteMetadata.header}{' '}
-        <span className='text-sm font-semibold text-zinc-300'>
-          {page && '| ' + `${page}`}
-        </span>
-      </div>
+      <span className='font-syne text-[18px] font-extrabold tracking-[-0.04em] text-[#1a1714]'>
+        {siteMetadata.header}
+        {page && (
+          <span className='ml-1.5 font-mono text-[11px] font-normal tracking-[0.1em] text-[#b0a394]'>
+            / {page}
+          </span>
+        )}
+      </span>
     </Link>
   );
 };

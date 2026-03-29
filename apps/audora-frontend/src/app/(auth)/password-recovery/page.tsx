@@ -2,14 +2,35 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { HashLoader } from 'react-spinners';
 
 const PasswordRecoveryPage = () => {
   const [email, setEmail] = useState('');
   const [sent, setSent] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email) setSent(true);
+    if (!email) return;
+
+    setIsLoading(true);
+    setError('');
+
+    try {
+      // TODO: wire up real reset endpoint
+      // await fetch('/api/auth/password-reset', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ email }),
+      // });
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setSent(true);
+    } catch {
+      setError('Something went wrong. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -50,19 +71,44 @@ const PasswordRecoveryPage = () => {
             </div>
 
             <form onSubmit={handleSubmit} className='space-y-3'>
-              <input
-                type='email'
-                placeholder='Email address'
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                required
-                className='w-full rounded-lg border border-[#ddd6cc] bg-white px-4 py-3 text-[14px] text-[#1a1714] placeholder-[#b0a394] outline-none transition-colors focus:border-[#9a8878]'
-              />
+              <div>
+                <label htmlFor='reset-email' className='sr-only'>Email address</label>
+                <input
+                  id='reset-email'
+                  type='email'
+                  placeholder='Email address'
+                  value={email}
+                  onChange={e => {
+                    setEmail(e.target.value);
+                    if (error) setError('');
+                  }}
+                  required
+                  autoComplete='email'
+                  disabled={isLoading}
+                  className={`w-full rounded-lg border px-4 py-3 text-[14px] text-[#1a1714] placeholder-[#b0a394] outline-none transition-colors ${
+                    error
+                      ? 'border-red-400 bg-red-50'
+                      : 'border-[#ddd6cc] bg-white focus:border-[#9a8878]'
+                  }`}
+                />
+                {error && (
+                  <p className='mt-1.5 text-[12px] text-red-500' role='alert'>{error}</p>
+                )}
+              </div>
               <button
                 type='submit'
-                className='w-full rounded-lg bg-[#1a1714] px-4 py-3.5 text-[13px] font-semibold text-[#f7f5f1] transition-colors hover:bg-[#2e2a25] active:scale-[0.99]'
+                disabled={isLoading}
+                className={`w-full rounded-lg bg-[#1a1714] px-4 py-3.5 text-[13px] font-semibold text-[#f7f5f1] transition-colors hover:bg-[#2e2a25] active:scale-[0.99] ${
+                  isLoading ? 'cursor-not-allowed opacity-70' : ''
+                }`}
               >
-                Send reset link
+                {isLoading ? (
+                  <div className='flex justify-center'>
+                    <HashLoader color='#f7f5f1' size={18} />
+                  </div>
+                ) : (
+                  'Send reset link'
+                )}
               </button>
             </form>
           </>
@@ -78,7 +124,8 @@ const PasswordRecoveryPage = () => {
               Check your inbox.
             </h1>
             <p className='text-[14px] leading-relaxed text-[#7a6f65]'>
-              We sent a reset link to <span className='font-medium text-[#1a1714]'>{email}</span>.
+              We sent a reset link to{' '}
+              <span className='font-medium text-[#1a1714]'>{email}</span>.
               Check your spam folder if you don't see it.
             </p>
           </div>
@@ -86,7 +133,7 @@ const PasswordRecoveryPage = () => {
 
         <Link
           href='/login'
-          className='mt-8 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-[#9a8878] transition-colors hover:text-[#1a1714]'
+          className='mt-8 inline-flex min-h-[44px] items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-[#9a8878] transition-colors hover:text-[#1a1714]'
         >
           ← Back to sign in
         </Link>
