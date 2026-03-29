@@ -3,6 +3,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-instrument-sans: 'Instrument Sans', sans-serif;
 }
 
 @theme {
@@ -38,6 +39,7 @@ html,
 body {
   overflow-x: hidden;
   max-width: 100vw;
+  letter-spacing: -0.011em;
 }
 
 html {

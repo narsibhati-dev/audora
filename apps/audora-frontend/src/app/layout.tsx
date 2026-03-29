@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Open_Sans, Syne } from 'next/font/google';
+import { Instrument_Sans, Syne } from 'next/font/google';
 import '@/styles/globals.css';
 import siteMetadata from '@/lib/seo/siteMetadata';
 import { Toaster } from 'react-hot-toast';
@@ -9,10 +9,11 @@ import { FramerMotionProvider } from '@/components/providers/framer-motion-provi
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { MEASUREMENT_ID } from '@/config';
 
-const open_sans = Open_Sans({
-  variable: '--font-open-sans',
+const instrument_sans = Instrument_Sans({
+  variable: '--font-instrument-sans',
   subsets: ['latin'],
   display: 'swap',
+  weight: ['400', '500', '600', '700'],
 });
 
 const syne = Syne({
@@ -84,7 +85,7 @@ export default function RootLayout({
       <link rel='manifest' href='/favicons/site.webmanifest' />
       <GoogleAnalytics gaId={MEASUREMENT_ID as string} />
       <body
-        className={`${open_sans.className} ${syne.variable} scroll-pt-17 scroll-smooth bg-black antialiased`}
+        className={`${instrument_sans.className} ${syne.variable} scroll-pt-17 scroll-smooth bg-black antialiased`}
       >
         <ReactQueryProvider>
           <FramerMotionProvider>
