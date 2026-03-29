@@ -2,21 +2,15 @@ import React from 'react';
 
 const DotLoader = () => {
   return (
-    <>
-      {/* Animated Dots */}
-      <div className='flex items-center gap-2'>
-        {[...Array(3)].map((_, i) => (
-          <div
-            key={i}
-            className='bg-primary-500 h-2 w-2 rounded-full'
-            style={{
-              animation: `bounce 1s infinite ${i * 0.2}s`,
-              transform: `scale(${1 - i * 0.1})`,
-            }}
-          />
-        ))}
-      </div>
-    </>
+    <div className='flex items-center gap-1.5'>
+      {[0, 0.18, 0.36].map((delay, i) => (
+        <div
+          key={i}
+          className='h-[5px] w-[5px] animate-bounce rounded-full bg-[#b8620a]'
+          style={{ animationDelay: `${delay}s`, opacity: 0.5 + i * 0.2 }}
+        />
+      ))}
+    </div>
   );
 };
 

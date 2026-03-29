@@ -39,9 +39,9 @@ const HeaderLoader = ({ isLoading = false }: HeaderLoaderProps) => {
   if (!isLoading && progress === 0) return null;
 
   return (
-    <div className='fixed top-0 left-0 z-50 w-full'>
+    <div className='fixed left-0 top-0 z-50 w-full'>
       <div
-        className='from-primary-500 h-1 bg-gradient-to-r to-purple-500 transition-all duration-300 ease-out'
+        className='h-[2px] bg-gradient-to-r from-[#b8620a] via-[#d4751a] to-[#b8620a]/60 transition-all duration-300 ease-out'
         style={{
           width: `${progress}%`,
           opacity: progress > 0 ? 1 : 0,

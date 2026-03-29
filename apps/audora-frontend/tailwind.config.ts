@@ -13,9 +13,14 @@ const config: Config = {
           '0%': { transform: 'translateY(10px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
+        waveBar: {
+          '0%, 100%': { transform: 'scaleY(0.25)' },
+          '50%': { transform: 'scaleY(1)' },
+        },
       },
       animation: {
         slideUp: 'slideUp 0.2s ease-out',
+        waveBar: 'waveBar 0.8s ease-in-out infinite',
       },
     },
   },

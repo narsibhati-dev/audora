@@ -1,36 +1,23 @@
 import React from 'react';
 
+// Heights as % of container — center bar tallest, outer bars shorter
+const BAR_SCALES = [0.3, 0.55, 0.8, 1, 0.8, 0.55, 0.3];
+
 const Spinner = () => {
   return (
-    <>
-      {/* Main Spinner Container */}
-      <div className='relative'>
-        {/* Glowing Background */}
-        <div className='absolute -inset-8 animate-pulse rounded-full bg-gradient-to-r from-[#a78bfa]/20 via-[#8b5cf6]/20 to-[#a78bfa]/20 blur-xl'></div>
-
-        {/* Orbital Rings */}
-        <div className='relative'>
-          {/* Outer Orbit */}
-          <div className='absolute -inset-6 animate-[spin_8s_linear_infinite]'>
-            <div className='bg-primary-500 h-3 w-3 rounded-full'></div>
-          </div>
-          {/* Middle Orbit */}
-          <div className='absolute -inset-4 animate-[spin_6s_linear_infinite_reverse]'>
-            <div className='bg-primary-500 h-2.5 w-2.5 rounded-full'></div>
-          </div>
-          {/* Inner Orbit */}
-          <div className='absolute -inset-2 animate-[spin_4s_linear_infinite]'>
-            <div className='bg-primary-500 h-2 w-2 rounded-full'></div>
-          </div>
-        </div>
-
-        {/* Central Spinner */}
-        <div className='relative h-20 w-20'>
-          <div className='border-primary-500 absolute inset-0 animate-[spin_2s_linear_infinite] rounded-full border-4 border-t-transparent'></div>
-          <div className='border-primary-500 absolute inset-0 animate-[spin_2s_linear_infinite_reverse] rounded-full border-4 border-b-transparent'></div>
-        </div>
-      </div>
-    </>
+    <div className='flex h-12 items-end gap-[3.5px]'>
+      {BAR_SCALES.map((scale, i) => (
+        <div
+          key={i}
+          className='w-[3px] origin-bottom animate-waveBar rounded-full bg-[#b8620a]'
+          style={{
+            height: `${scale * 100}%`,
+            animationDelay: `${i * 0.09}s`,
+            opacity: 0.5 + scale * 0.5,
+          }}
+        />
+      ))}
+    </div>
   );
 };
 
