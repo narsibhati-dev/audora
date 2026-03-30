@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
 import siteMetadata from '@/lib/seo/siteMetadata';
 import Link from 'next/link';
 
@@ -13,14 +12,16 @@ interface LogoParams {
 
 const Logo = ({ scrolled: _scrolled, page, href = '/' }: LogoParams) => {
   return (
-    <Link href={href} className='flex items-center gap-2'>
-      <Image
-        src='/images/audora-logo-black.webp'
-        alt='Audora Logo'
-        width={20}
-        height={20}
-        className='rounded-sm object-cover'
-      />
+    <Link href={href} className='group flex items-center gap-2.5'>
+      {/* Icon mark — stylised waveform bars */}
+      <div className='flex h-[22px] w-[22px] items-end justify-center gap-[2.5px] rounded-[5px] bg-[#1a1714] px-[4px] pb-[4px] pt-[5px]'>
+        <span className='w-[2.5px] rounded-full bg-[#f7f5f1]/50' style={{ height: '6px' }} />
+        <span className='w-[2.5px] rounded-full bg-[#f7f5f1]' style={{ height: '11px' }} />
+        <span className='w-[2.5px] rounded-full bg-[#f7f5f1]/70' style={{ height: '8px' }} />
+        <span className='w-[2.5px] rounded-full bg-[#f7f5f1]/40' style={{ height: '5px' }} />
+      </div>
+
+      {/* Wordmark */}
       <span className='font-syne text-[18px] font-extrabold tracking-[-0.04em] text-[#1a1714]'>
         {siteMetadata.header}
         {page && (

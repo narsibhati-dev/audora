@@ -1,7 +1,7 @@
 'use client';
 
 import { X } from 'lucide-react';
-import { m, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { m, AnimatePresence, useReducedMotion } from 'motion/react';
 import React, { useRef } from 'react';
 
 type PopupWrapperProps = {

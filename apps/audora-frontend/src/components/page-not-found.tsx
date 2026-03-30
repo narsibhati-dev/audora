@@ -1,7 +1,6 @@
 'use client';
 
-import { m, useReducedMotion } from 'framer-motion';
-import Link from 'next/link';
+import { m, useReducedMotion, type Variants } from 'motion/react';
 import { useEffect, useState } from 'react';
 
 const SIGNAL_BARS = [
@@ -9,27 +8,27 @@ const SIGNAL_BARS = [
   28, 50, 16, 42, 24, 56, 20, 48, 18, 44, 12, 38,
 ];
 
-const stagger = {
+const stagger: Variants = {
   hidden: {},
   show: { transition: { staggerChildren: 0.07, delayChildren: 0.12 } },
 };
 
-const fromTop = {
+const fromTop: Variants = {
   hidden: { opacity: 0, y: -14 },
   show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
 };
 
-const scaleIn = {
+const scaleIn: Variants = {
   hidden: { opacity: 0, scale: 0.92, y: 12 },
   show: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.95, ease: [0.22, 1, 0.36, 1] } },
 };
 
-const fadeIn = {
+const fadeIn: Variants = {
   hidden: { opacity: 0 },
   show: { opacity: 1, transition: { duration: 0.7, ease: 'easeOut' } },
 };
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 16 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 };
@@ -89,12 +88,12 @@ const PageNotFound = () => {
         animate='show'
         className='flex h-[52px] shrink-0 items-center justify-between border-b border-[#1e1a17] px-8 sm:px-12 lg:px-16 xl:px-24'
       >
-        <Link
+        <a
           href='/'
           className='font-syne text-[16px] font-extrabold tracking-[-0.04em] text-[#f0ece5] transition-opacity hover:opacity-70'
         >
           AUDORA
-        </Link>
+        </a>
         <div className='flex items-center gap-2'>
           <span className='relative flex h-1.5 w-1.5'>
             <span className='absolute inset-0 animate-ping rounded-full bg-red-500 opacity-60' />
@@ -176,9 +175,9 @@ const PageNotFound = () => {
                 prefersReducedMotion
                   ? {}
                   : {
-                      scaleY: [1, 0.08 + (i % 4) * 0.12, 0.04, 0.08 + (i % 4) * 0.12, 1],
-                      opacity: [0.55, 0.15, 0.06, 0.15, 0.55],
-                    }
+                    scaleY: [1, 0.08 + (i % 4) * 0.12, 0.04, 0.08 + (i % 4) * 0.12, 1],
+                    opacity: [0.55, 0.15, 0.06, 0.15, 0.55],
+                  }
               }
               transition={{
                 duration: 3.8 + (i % 6) * 0.4,
@@ -213,19 +212,19 @@ const PageNotFound = () => {
           variants={fadeUp}
           className='flex flex-wrap items-center justify-center gap-4'
         >
-          <Link
+          <a
             href='/'
             className='group inline-flex items-center gap-2 rounded-lg bg-[#b8620a] px-7 py-3.5 text-sm font-semibold text-[#f7f5f1] transition-all duration-200 hover:bg-[#a35508] active:scale-[0.98]'
           >
             Return to studio
             <span className='transition-transform duration-200 group-hover:translate-x-0.5'>→</span>
-          </Link>
-          <Link
+          </a>
+          <a
             href='/contact'
             className='inline-flex min-h-[44px] items-center text-sm text-[#5a4e44] underline underline-offset-4 decoration-[#3a3330] transition-colors hover:text-[#9a8878]'
           >
             Report an issue
-          </Link>
+          </a>
         </m.div>
 
         {/* Broadcast metadata row */}
@@ -244,12 +243,12 @@ const PageNotFound = () => {
           <span className='font-mono text-[10px] text-[#3a3330]'>
             © {year} Audora Labs
           </span>
-          <Link
+          <a
             href='/'
             className='font-mono text-[10px] uppercase tracking-[0.16em] text-[#4a4440] transition-colors hover:text-[#9a8878]'
           >
             ← Return home
-          </Link>
+          </a>
         </div>
       </div>
 

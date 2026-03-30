@@ -74,7 +74,7 @@ const Navbar = () => {
 
         <Link
           href={siteMetadata.dashboard}
-          className='text-sm font-medium text-[#7a6f65] transition-colors duration-200 hover:text-[#1a1714]'
+          className='inline-flex items-center rounded-lg border border-[#ddd6cc] bg-white px-4 py-1.5 text-sm font-medium text-[#5a4e44] transition-all duration-200 hover:border-[#c8b9a8] hover:bg-[#f0ece5] hover:text-[#1a1714] active:scale-[0.98]'
         >
           Login
         </Link>

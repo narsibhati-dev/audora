@@ -32,32 +32,37 @@ const TableOfContents = ({ sections }: { sections: Section[] }) => {
   }, [sections]);
 
   return (
-    <nav aria-label='Table of contents' className='sticky top-28'>
-      <div className='mb-5 flex items-center gap-2.5'>
+    <nav
+      aria-label='Table of contents'
+      className='sticky top-28 max-h-[calc(100vh-8rem)] overflow-y-auto scrollbar-none'
+    >
+      {/* Header */}
+      <div className='mb-4 flex items-center gap-2.5'>
         <span className='h-px w-4 bg-[#b8620a]/60' />
         <span className='font-mono text-[10px] uppercase tracking-[0.22em] text-[#b8620a]'>
           Contents
         </span>
       </div>
 
-      <ul>
+      {/* TOC list */}
+      <ul className='border-l-2 border-[#e4dfd6]'>
         {sections.map((section, i) => {
           const isActive = activeId === section.id;
           return (
             <li key={section.id}>
               <Link
                 href={`#${section.id}`}
-                className={`group flex items-start gap-3 border-l-2 py-2.5 pl-3.5 transition-all duration-200 ${
+                className={`group flex items-start gap-3 py-2.5 pl-4 pr-2 transition-all duration-200 ${
                   isActive
-                    ? 'border-[#b8620a]'
-                    : 'border-[#e4dfd6] hover:border-[#b8620a]/40'
+                    ? '-ml-[2px] border-l-2 border-[#b8620a] pl-4'
+                    : 'hover:-ml-[2px] hover:border-l-2 hover:border-[#b8620a]/40 hover:pl-4'
                 }`}
               >
                 <span
                   className={`mt-px shrink-0 font-mono text-[10px] tracking-[0.1em] transition-colors duration-200 ${
                     isActive
                       ? 'text-[#b8620a]'
-                      : 'text-[#c8b9a8] group-hover:text-[#b8620a]'
+                      : 'text-[#c8b9a8] group-hover:text-[#b0a394]'
                   }`}
                 >
                   {String(i + 1).padStart(2, '0')}
@@ -76,6 +81,14 @@ const TableOfContents = ({ sections }: { sections: Section[] }) => {
           );
         })}
       </ul>
+
+      {/* Progress hint */}
+      <div className='mt-6 flex items-center gap-2'>
+        <span className='h-px flex-1 bg-[#e4dfd6]' />
+        <span className='font-mono text-[9px] uppercase tracking-[0.18em] text-[#c8b9a8]'>
+          {sections.findIndex(s => s.id === activeId) + 1} / {sections.length}
+        </span>
+      </div>
     </nav>
   );
 };

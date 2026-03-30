@@ -2,10 +2,10 @@
 
 import React, { useRef } from 'react';
 import Link from 'next/link';
-import { m, useInView, useReducedMotion } from 'framer-motion';
+import { m, useInView, useReducedMotion, type Variants } from 'motion/react';
 import siteMetadata from '@/lib/seo/siteMetadata';
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 12 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 };

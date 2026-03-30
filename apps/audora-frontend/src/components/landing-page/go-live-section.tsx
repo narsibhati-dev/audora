@@ -3,7 +3,7 @@
 import React, { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { m, useInView, useReducedMotion } from 'framer-motion';
+import { m, useInView, useReducedMotion, type Variants } from 'motion/react';
 import siteMetadata from '@/lib/seo/siteMetadata';
 import { getIcon, goLiveLeftPlatforms, goLiveRightPlatforms } from '@/data';
 
@@ -34,22 +34,22 @@ const LIVE_STATS = [
 // Broadcast signal bar heights
 const SIGNAL_BARS = [10, 20, 14, 32, 10, 26, 18, 38, 12, 30, 22, 44, 10, 28, 16, 36, 12, 24, 18, 34];
 
-const stagger = {
+const stagger: Variants = {
   hidden: {},
   show: { transition: { staggerChildren: 0.08, delayChildren: 0.04 } },
 };
 
-const fromLeft = {
+const fromLeft: Variants = {
   hidden: { opacity: 0, x: -26 },
   show: { opacity: 1, x: 0, transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] } },
 };
 
-const fromRight = {
+const fromRight: Variants = {
   hidden: { opacity: 0, x: 28, scale: 0.98 },
   show: { opacity: 1, x: 0, scale: 1, transition: { duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] } },
 };
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 16 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 };

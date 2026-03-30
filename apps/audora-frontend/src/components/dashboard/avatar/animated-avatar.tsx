@@ -1,7 +1,7 @@
 'use client';
 
 import { useId } from 'react';
-import { m, useReducedMotion } from 'framer-motion';
+import { m, useReducedMotion } from 'motion/react';
 
 export const AnimatedAvatar = ({ open }: { open: boolean }) => {
   const gradientId = useId();

@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import {
   footerBottomLinks,
   footerNavSections,
@@ -25,13 +24,13 @@ const Footer = () => {
 
             {/* Logo */}
             <Link href='/' className='mb-5 flex w-fit items-center gap-2.5'>
-              <Image
-                src='/images/audora-logo-black.webp'
-                alt='Audora'
-                width={20}
-                height={20}
-                className='rounded-sm object-cover invert brightness-200'
-              />
+              {/* Icon mark — waveform bars (light on dark) */}
+              <div className='flex h-[22px] w-[22px] items-end justify-center gap-[2.5px] rounded-[5px] bg-[#f7f5f1]/10 px-[4px] pb-[4px] pt-[5px]'>
+                <span className='w-[2.5px] rounded-full bg-[#f7f5f1]/40' style={{ height: '6px' }} />
+                <span className='w-[2.5px] rounded-full bg-[#f7f5f1]' style={{ height: '11px' }} />
+                <span className='w-[2.5px] rounded-full bg-[#f7f5f1]/70' style={{ height: '8px' }} />
+                <span className='w-[2.5px] rounded-full bg-[#f7f5f1]/40' style={{ height: '5px' }} />
+              </div>
               <span className='font-syne text-[18px] font-extrabold tracking-[-0.04em] text-white'>
                 {siteMetadata.header}
               </span>

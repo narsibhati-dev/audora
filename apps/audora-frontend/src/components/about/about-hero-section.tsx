@@ -1,20 +1,20 @@
 'use client';
 
-import { m, useReducedMotion } from 'framer-motion';
+import { m, useReducedMotion, type Variants } from 'motion/react';
 import Link from 'next/link';
 import siteMetadata from '@/lib/seo/siteMetadata';
 
-const stagger = {
+const stagger: Variants = {
   hidden: {},
   show: { transition: { staggerChildren: 0.08, delayChildren: 0.06 } },
 };
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 18 },
   show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
 };
 
-const fromLeft = {
+const fromLeft: Variants = {
   hidden: { opacity: 0, x: -24 },
   show: { opacity: 1, x: 0, transition: { duration: 0.85, ease: [0.22, 1, 0.36, 1] } },
 };

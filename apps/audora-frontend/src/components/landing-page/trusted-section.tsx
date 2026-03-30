@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from 'react';
 import Image from 'next/image';
-import { m, useInView, useReducedMotion } from 'framer-motion';
+import { m, useInView, useReducedMotion, type Variants } from 'motion/react';
 
 const videos = [
   {
@@ -29,10 +29,12 @@ const stagger = {
   show: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } },
 };
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 16 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+  show: { opacity: 1, y: 0 },
 };
+
+const fadeTransition = { duration: 0.6, ease: 'easeOut' as const };
 
 function VideoCard({
   video,
@@ -137,43 +139,51 @@ const TrustedSection = () => {
       >
 
         {/* Section header */}
-        <m.div variants={fadeUp} className='mb-8 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between'>
-          <div>
-            <div className='mb-4 flex items-center gap-2.5'>
-              <span className='h-px w-6 bg-[#b8620a]/60' />
-              <span className='font-mono text-[11px] uppercase tracking-[0.24em] text-[#b8620a]'>
-                Made with Audora
+        <m.div variants={fadeUp} transition={fadeTransition} className='mb-10 flex flex-col gap-3'>
+          <div className='flex items-center gap-2.5'>
+            <span className='h-px w-6 bg-[#b8620a]/60' />
+            <span className='font-mono text-[11px] uppercase tracking-[0.24em] text-[#b8620a]'>
+              Made with Audora
+            </span>
+          </div>
+          <h2
+            id='trusted-heading'
+            className='font-syne text-[clamp(2rem,4vw,3.2rem)] font-extrabold leading-none tracking-[-0.04em] text-[#1a1714]'
+          >
+            Real creators,{' '}
+            <span className='text-[#9a8878]'>real results.</span>
+          </h2>
+        </m.div>
+
+        {/* Stats band */}
+        <m.div
+          variants={fadeUp}
+          transition={fadeTransition}
+          className='mb-10 grid grid-cols-2 overflow-hidden rounded-2xl border border-[#e4dfd6] bg-white shadow-[0_2px_16px_rgba(0,0,0,0.05)] sm:grid-cols-4'
+        >
+          {PLATFORM_STATS.map(({ value, label }, i) => (
+            <div
+              key={label}
+              className={`flex flex-col items-center justify-center gap-1.5 px-6 py-8 ${i !== PLATFORM_STATS.length - 1
+                  ? 'border-r border-b border-[#e4dfd6] sm:border-b-0'
+                  : 'border-b border-[#e4dfd6] sm:border-b-0'
+                }`}
+            >
+              <span className='font-syne text-[clamp(2rem,3.5vw,3rem)] font-extrabold leading-none tracking-[-0.04em] text-[#1a1714]'>
+                {value}
+              </span>
+              <span className='font-mono text-[10px] uppercase tracking-[0.18em] text-[#b0a394]'>
+                {label}
               </span>
             </div>
-            <h2
-              id='trusted-heading'
-              className='font-syne text-[clamp(2rem,4vw,3.2rem)] font-extrabold leading-none tracking-[-0.04em] text-[#1a1714]'
-            >
-              Real creators,{' '}
-              <span className='text-[#9a8878]'>real results.</span>
-            </h2>
-          </div>
-
-          {/* Inline stats */}
-          <div className='flex items-center gap-8 lg:gap-10'>
-            {PLATFORM_STATS.map(({ value, label }) => (
-              <div key={label} className='text-center lg:text-right'>
-                <p className='font-syne text-[1.4rem] font-extrabold leading-none tracking-[-0.03em] text-[#1a1714]'>
-                  {value}
-                </p>
-                <p className='mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-[#b0a394]'>
-                  {label}
-                </p>
-              </div>
-            ))}
-          </div>
+          ))}
         </m.div>
 
         {/* Divider */}
-        <m.div variants={fadeUp} className='mb-7 h-px bg-[#e4dfd6]' />
+        <m.div variants={fadeUp} transition={fadeTransition} className='mb-7 h-px bg-[#e4dfd6]' />
 
         {/* Videos in a row */}
-        <m.div variants={fadeUp} className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
+        <m.div variants={fadeUp} transition={fadeTransition} className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
           {videos.map((video, i) => (
             <VideoCard
               key={i}
@@ -187,6 +197,7 @@ const TrustedSection = () => {
         {/* Testimonial strip */}
         <m.div
           variants={fadeUp}
+          transition={fadeTransition}
           className='mt-4 flex flex-col items-start justify-between gap-4 rounded-xl border border-[#e4dfd6] bg-white px-6 py-4 shadow-[0_2px_12px_rgba(0,0,0,0.04)] sm:flex-row sm:items-center'
         >
           <div className='flex items-start gap-4'>

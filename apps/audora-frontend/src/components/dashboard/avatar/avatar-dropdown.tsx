@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { m, useReducedMotion } from 'framer-motion';
+import { m, useReducedMotion } from 'motion/react';
 import { FiLogOut, FiUser, FiZap } from 'react-icons/fi';
 import { MdOutlinePlayCircle } from 'react-icons/md';
 import Link from 'next/link';

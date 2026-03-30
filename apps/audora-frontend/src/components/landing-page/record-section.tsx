@@ -3,7 +3,7 @@
 import React, { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { m, useInView, useReducedMotion } from 'framer-motion';
+import { m, useInView, useReducedMotion, type Variants } from 'motion/react';
 import siteMetadata from '@/lib/seo/siteMetadata';
 
 interface Participant {
@@ -61,22 +61,22 @@ const TECH_SPECS = ['48 kHz', 'Lossless WAV', '4K UHD', '60fps'];
 // Bar heights for decorative waveform
 const WAVE_BARS = [18, 32, 22, 44, 16, 38, 28, 50, 20, 42, 34, 54, 18, 40, 26, 48, 22, 36, 30, 52];
 
-const stagger = {
+const stagger: Variants = {
   hidden: {},
   show: { transition: { staggerChildren: 0.08, delayChildren: 0.04 } },
 };
 
-const fromLeft = {
+const fromLeft: Variants = {
   hidden: { opacity: 0, x: -26 },
   show: { opacity: 1, x: 0, transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] } },
 };
 
-const fromRight = {
+const fromRight: Variants = {
   hidden: { opacity: 0, x: 24 },
   show: { opacity: 1, x: 0, transition: { duration: 0.75, delay: 0.12, ease: [0.22, 1, 0.36, 1] } },
 };
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 16 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 };

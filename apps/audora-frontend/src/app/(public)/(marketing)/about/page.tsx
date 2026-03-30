@@ -2,23 +2,23 @@
 
 import React, { useRef } from 'react';
 import Link from 'next/link';
-import { m, useInView, useReducedMotion } from 'framer-motion';
+import { m, useInView, useReducedMotion, type Variants } from 'motion/react';
 import { teamMembers, aboutValues, getIcon } from '@/data';
 import TeamMemberCard from '@/components/about/team-member-card';
 import AboutHeroSection from '@/components/about/about-hero-section';
 import { FaXTwitter, FaLinkedin } from 'react-icons/fa6';
 
-const stagger = {
+const stagger: Variants = {
   hidden: {},
   show: { transition: { staggerChildren: 0.08, delayChildren: 0.04 } },
 };
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 16 },
   show: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } },
 };
 
-const fromLeft = {
+const fromLeft: Variants = {
   hidden: { opacity: 0, x: -24 },
   show: { opacity: 1, x: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
 };

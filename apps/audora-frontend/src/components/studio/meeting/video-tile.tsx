@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { useLayoutStore } from '@/store/layout-store';
 import { CameraOffIcon, MicrophoneOffIcon } from '@/data';
-import { m, useReducedMotion } from 'framer-motion';
+import { m, useReducedMotion } from 'motion/react';
 
 type Props = {
   label: string;

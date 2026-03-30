@@ -3,7 +3,7 @@
 import React, { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { m, useInView, useReducedMotion } from 'framer-motion';
+import { m, useInView, useReducedMotion, type Variants } from 'motion/react';
 import siteMetadata from '@/lib/seo/siteMetadata';
 
 const FEATURES = [
@@ -26,22 +26,22 @@ const TECH_SPECS = ['AI Transcript', 'Multi-track', 'Cloud', 'Non-destructive'];
 // Decorative editing-cursor bars
 const CURSOR_BARS = [12, 28, 18, 36, 14, 30, 22, 40, 16, 34, 24, 44, 12, 32, 20, 38, 14, 28, 18, 36];
 
-const stagger = {
+const stagger: Variants = {
   hidden: {},
   show: { transition: { staggerChildren: 0.08, delayChildren: 0.04 } },
 };
 
-const fromLeft = {
+const fromLeft: Variants = {
   hidden: { opacity: 0, x: -26 },
   show: { opacity: 1, x: 0, transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] } },
 };
 
-const fromRight = {
+const fromRight: Variants = {
   hidden: { opacity: 0, x: 28, scale: 0.98 },
   show: { opacity: 1, x: 0, scale: 1, transition: { duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] } },
 };
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 16 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 };

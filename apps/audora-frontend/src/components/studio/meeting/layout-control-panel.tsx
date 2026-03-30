@@ -9,7 +9,7 @@ import {
   SpeakerSplitIcon,
 } from '@/data';
 import { useLayoutStore } from '@/store/layout-store';
-import { m, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { m, AnimatePresence, useReducedMotion } from 'motion/react';
 
 type PanelState = { isOpen: boolean };
 type PanelAction = { type: 'OPEN' } | { type: 'CLOSE' } | { type: 'TOGGLE' };
